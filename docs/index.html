@@ -3,437 +3,537 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TranslaStars Industry News — Daily Edition</title>
-<meta name="description" content="Daily curated news for language and localization professionals.">
+<title>TranslaStars Industry News</title>
+<meta name="description" content="Daily curated news for language, localization, and AI professionals.">
 <meta property="og:title" content="TranslaStars Industry News">
-<meta property="og:description" content="Daily curated news for localization & AI professionals.">
+<meta property="og:description" content="Curated daily for localization & AI professionals.">
 <meta property="og:url" content="https://translastars.github.io/industry-news/">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📰%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&amp;family=Inter:wght@300;400;500;600;700;800&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📰%3C/text%3E%3C/svg%3E">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&amp;family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{font-size:16px}
-body{font-family:'Inter',-apple-system,sans-serif;background:#f4f2ed;color:#111;line-height:1.6;-webkit-font-smoothing:antialiased}
-.masthead{background:#fff;border-bottom:3px solid #522D6D;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
-.masthead-inner{max-width:1200px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between}
-.masthead .logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:900;color:#522D6D;text-decoration:none;letter-spacing:-.5px}
-.masthead .logo span{color:#FF6B00}
-.masthead .nav{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-.masthead .nav a{font-size:11px;font-weight:600;color:#666;text-decoration:none;text-transform:uppercase;letter-spacing:1px;transition:color .2s}
-.masthead .nav a:hover{color:#522D6D}
-.masthead .issue-badge{background:#522D6D;color:#fff;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;letter-spacing:1px}
-@media(max-width:640px){.masthead-inner{flex-direction:column;gap:8px;padding:10px 16px}.masthead .nav{gap:10px;justify-content:center}}
-.hero{background:linear-gradient(135deg,#522D6D 0%,#7B3FAF 50%,#FF6B00 100%);color:#fff;padding:48px 24px 36px;text-align:center;position:relative}
-.hero h1{font-family:'Playfair Display',serif;font-size:48px;font-weight:900;letter-spacing:-1.5px;margin-bottom:8px;line-height:1.1}
-.hero .tagline{font-size:16px;opacity:.85;font-weight:300;max-width:560px;margin:0 auto}
-.hero .meta{display:flex;justify-content:center;gap:28px;margin-top:20px;font-size:13px;opacity:.7;border-top:1px solid rgba(255,255,255,0.15);padding-top:16px;flex-wrap:wrap}
-@media(max-width:640px){.hero h1{font-size:30px}.hero{padding:32px 16px 24px}.hero .meta{gap:12px;font-size:12px}}
-.container{max-width:1200px;margin:0 auto;padding:32px 24px}
-@media(max-width:640px){.container{padding:20px 16px}}
-.source-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px;padding:12px 18px;background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.04);align-items:center}
-.source-bar .label{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:1px;margin-right:8px}
-.source-bar .src-pill{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:500;color:#555;padding:2px 8px;border-radius:4px;background:#f5f5f5}
-.source-bar .src-pill .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
-.source-bar .count{font-size:11px;color:#999;margin-left:auto}
-.featured{display:grid;grid-template-columns:1.2fr 1fr;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 24px rgba(0,0,0,.06);margin-bottom:32px;min-height:400px}
-.featured .feat-img{background-size:cover;background-position:center;min-height:400px;position:relative}
-.featured .feat-img .overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(135deg,rgba(82,45,109,0.35),transparent 60%)}
-.featured .feat-body{padding:40px;display:flex;flex-direction:column;justify-content:center}
-.featured .feat-source{display:inline-block;background:#f0ecf5;color:#522D6D;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:14px;align-self:flex-start}
-.featured h2{font-family:'Playfair Display',serif;font-size:28px;font-weight:700;line-height:1.3;margin-bottom:14px;color:#111}
-.featured .feat-excerpt{font-size:15px;color:#555;line-height:1.7;margin-bottom:16px}
-.featured .feat-meta{font-size:12px;color:#999;margin-bottom:18px}
-.featured .feat-cta{display:inline-flex;align-items:center;gap:8px;background:#522D6D;color:#fff;text-decoration:none;padding:11px 26px;border-radius:8px;font-weight:600;font-size:14px;transition:all .2s;align-self:flex-start}
-.featured .feat-cta:hover{background:#7B3FAF;transform:translateY(-1px);box-shadow:0 4px 12px rgba(82,45,109,0.3)}
+body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;line-height:1.6;-webkit-font-smoothing:antialiased}
+.masthead{background:#fff;border-bottom:3px solid #522D6D;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
+.mh{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
+.mh .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.mh .logo svg{width:32px;height:32px}
+.mh .logo-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#522D6D;letter-spacing:-.3px}
+.mh .logo-text span{color:#FF6B00}
+.mh nav{display:flex;gap:14px;flex-wrap:wrap}
+.mh nav a{font-size:11px;font-weight:600;color:#555;text-decoration:none;text-transform:uppercase;letter-spacing:1px;transition:color .2s}
+.mh nav a:hover{color:#522D6D}
+@media(max-width:640px){.mh{flex-direction:column;gap:6px;padding:10px 16px}.mh nav{gap:8px;justify-content:center}}
+.hero{background:linear-gradient(135deg,#522D6D 0%,#7B3FAF 50%,#9b5de5 100%);color:#fff;padding:44px 24px 32px;text-align:center}
+.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;letter-spacing:-1.5px;margin-bottom:6px;line-height:1.1}
+.hero .tag{font-size:15px;opacity:.8;font-weight:300;max-width:480px;margin:0 auto}
+.hero .meta{display:flex;justify-content:center;gap:22px;margin-top:16px;font-size:12px;opacity:.65;border-top:1px solid rgba(255,255,255,.12);padding-top:14px;flex-wrap:wrap}
+@media(max-width:640px){.hero h1{font-size:28px}.hero{padding:30px 16px 20px}.hero .meta{gap:10px;font-size:11px}}
+.container{max-width:1200px;margin:0 auto;padding:28px 24px}
+@media(max-width:640px){.container{padding:16px}}
+.sbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:24px;padding:10px 16px;background:#fff;border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,.04);align-items:center}
+.sbar .lb{font-size:10px;font-weight:700;color:#999;text-transform:uppercase;letter-spacing:1px;margin-right:6px}
+.sbar .pill{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:500;color:#555;padding:2px 8px;border-radius:4px;background:#f5f5f5}
+.sbar .pill .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+.sbar .cnt{font-size:10px;color:#999;margin-left:auto}
+/* Featured */
+.feat{display:grid;grid-template-columns:1.2fr 1fr;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.05);margin-bottom:28px;min-height:380px}
+.feat .fi{background-size:cover;background-position:center;min-height:380px;position:relative}
+.feat .fi .o{position:absolute;inset:0;background:linear-gradient(135deg,rgba(82,45,109,.35),transparent 60%)}
+.feat .fb{padding:36px;display:flex;flex-direction:column;justify-content:center}
+.feat .fs{display:inline-block;background:#f0ecf5;color:#522D6D;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:12px;align-self:flex-start}
+.feat h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.3;margin-bottom:12px}
+.feat .fe{font-size:14px;color:#555;line-height:1.7;margin-bottom:14px}
+.feat .fm{font-size:12px;color:#999;margin-bottom:14px}
+.feat .fcta{display:inline-flex;align-items:center;gap:6px;background:#522D6D;color:#fff;text-decoration:none;padding:10px 22px;border-radius:8px;font-weight:600;font-size:13px;transition:all .2s;align-self:flex-start}
+.feat .fcta:hover{background:#7B3FAF;transform:translateY(-1px);box-shadow:0 4px 12px rgba(82,45,109,.3)}
 @media(max-width:768px){
-  .featured{grid-template-columns:1fr}
-  .featured .feat-img{min-height:200px}
-  .featured .feat-img .overlay{background:linear-gradient(0deg,rgba(82,45,109,0.3),transparent 50%)}
-  .featured .feat-body{padding:24px}
-  .featured h2{font-size:22px}
+  .feat{grid-template-columns:1fr}
+  .feat .fi{min-height:200px}
+  .feat .fi .o{background:linear-gradient(0deg,rgba(82,45,109,.3),transparent 50%)}
+  .feat .fb{padding:24px}
+  .feat h2{font-size:22px}
 }
-.section-head{display:flex;align-items:center;margin-bottom:20px;padding-bottom:10px;border-bottom:3px solid #522D6D}
-.section-head h3{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:#522D6D}
-.section-head .scount{font-size:12px;color:#999;margin-left:10px;font-weight:400;font-family:'Inter',sans-serif}
-.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:20px;margin-bottom:36px}
-@media(max-width:640px){.news-grid{grid-template-columns:1fr}}
-.card{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 8px rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
-.card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1)}
-.card .card-img{height:170px;background-size:cover;background-position:center;background-color:#f0ecf5;position:relative}
-.card .card-img .card-tag{position:absolute;top:10px;left:10px;background:rgba(82,45,109,0.85);color:#fff;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:4px}
-.card .card-body{padding:18px;flex:1;display:flex;flex-direction:column}
-.card .card-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.card .card-source{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#522D6D}
-.card .card-date{font-size:11px;color:#999}
-.card h4{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;line-height:1.35;margin-bottom:8px;color:#111}
-.card .card-text{font-size:13px;color:#666;line-height:1.6;flex:1;margin-bottom:10px}
-.card .card-link{color:#522D6D;text-decoration:none;font-weight:600;font-size:12px;transition:color .2s}
-.card .card-link:hover{color:#7B3FAF;text-decoration:underline}
-.empty-state{background:#fff;border-radius:12px;padding:48px;text-align:center;color:#999;grid-column:1/-1}
-.footer{background:#1a1a2e;color:#999;padding:36px 24px;text-align:center;margin-top:20px}
-.footer .inner{max-width:600px;margin:0 auto}
-.footer a{color:#7B3FAF;text-decoration:none}
-.footer a:hover{text-decoration:underline}
-.footer p{font-size:12px;line-height:1.8}
-.footer .powered{margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,0.1);font-size:11px;opacity:.6}
+.sh{display:flex;align-items:center;margin-bottom:16px;padding-bottom:8px;border-bottom:3px solid #522D6D;flex-wrap:wrap}
+.sh h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#522D6D}
+.sh .sc{font-size:12px;color:#999;margin-left:8px;font-weight:400}
+.sh .tag{font-size:10px;margin-left:12px;padding:2px 10px;border-radius:10px;background:#f0ecf5;color:#522D6D;font-weight:600}
+.gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-bottom:30px}
+@media(max-width:640px){.gr{grid-template-columns:1fr}}
+.cd{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
+.cd:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.cd .ci{height:160px;background-size:cover;background-position:center;background-color:#f0ecf5;position:relative}
+.cd .ci .ct{position:absolute;top:8px;left:8px;background:rgba(82,45,109,.85);color:#fff;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:4px}
+.cd .cb{padding:16px;flex:1;display:flex;flex-direction:column}
+.cd .ctop{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.cd .cs{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#522D6D}
+.cd .cda{font-size:11px;color:#999}
+.cd h4{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;line-height:1.35;margin-bottom:6px}
+.cd .ctxt{font-size:13px;color:#666;line-height:1.6;flex:1;margin-bottom:8px}
+.cd .cl{color:#522D6D;text-decoration:none;font-weight:600;font-size:12px;display:inline-flex;align-items:center;gap:3px}
+.cd .cl:hover{color:#7B3FAF;text-decoration:underline}
+.emp{background:#fff;border-radius:12px;padding:40px;text-align:center;color:#999;grid-column:1/-1}
+.ft{background:#1a1a2e;color:#999;padding:32px 24px;text-align:center;margin-top:16px}
+.ft .in{max-width:600px;margin:0 auto}
+.ft a{color:#7B3FAF;text-decoration:none}
+.ft a:hover{text-decoration:underline}
+.ft p{font-size:12px;line-height:1.8}
+.ft .pw{margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,.08);font-size:11px;opacity:.5}
 </style>
 </head>
 <body>
 <header class="masthead">
-  <div class="masthead-inner">
-    <a href="https://translastars.github.io/industry-news/" class="logo">TranslaStars <span>News</span></a>
-    <nav class="nav">
-      <a href="#Industry">Industry</a>
-      <a href="#World-News">World</a>
-      <a href="#Policy">Policy</a>
-      <span class="issue-badge">#188</span>
+  <div class="mh">
+    <a href="https://translastars.github.io/industry-news/" class="logo">
+      <svg viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#522D6D"/><text x="16" y="22" text-anchor="middle" fill="white" font-family="Arial" font-weight="bold" font-size="16">TS</text></svg>
+      <span class="logo-text">TranslaStars <span>News</span></span>
+    </a>
+    <nav>
+      <a href="#Localization-Industry">Industry</a>
+      <a href="#AI--Technology">AI &amp; Tech</a>
+      <a href="#Tools--Platforms">Tools</a>
+      <a href="#Global--Policy">Global</a>
+      <a href="https://www.translastars.com" target="_blank" style="color:#FF6B00">TranslaStars →</a>
     </nav>
   </div>
 </header>
 <section class="hero">
   <h1>Industry News</h1>
-  <p class="tagline">Curated daily for language, localization &amp; AI professionals — by TranslaStars</p>
+  <p class="tag">Curated daily for language, localization &amp; AI professionals</p>
   <div class="meta">
     <span>Tuesday, July 7, 2026</span>
-    <span>167 articles</span>
-    <span>8 sources</span>
+    <span>239 articles</span>
+    <span>17 sources</span>
   </div>
 </section>
 <div class="container">
-<div class="source-bar">
-  <span class="label">Sources</span>
-  <span class="src-pill"><span class="dot" style="background:#1a73e8"></span>Slator</span>
-  <span class="src-pill"><span class="dot" style="background:#e63946"></span>Nimdzi</span>
-  <span class="src-pill"><span class="dot" style="background:#0a9e01"></span>TechCrunch</span>
-  <span class="src-pill"><span class="dot" style="background:#005da3"></span>CNBC Tech</span>
-  <span class="src-pill"><span class="dot" style="background:#052962"></span>The Guardian</span>
-  <span class="src-pill"><span class="dot" style="background:#bb1919"></span>BBC Technology</span>
-  <span class="src-pill"><span class="dot" style="background:#000"></span>Wired</span>
-  <span class="src-pill"><span class="dot" style="background:#003399"></span>EU Commission</span>
-  <span class="count">Updated daily</span>
+<div class="sbar">
+  <span class="lb">Sources</span>
+  <span class="pill"><span class="dot" style="background:#1a73e8"></span>Slator</span><span class="pill"><span class="dot" style="background:#e63946"></span>Nimdzi</span><span class="pill"><span class="dot" style="background:#2a9d8f"></span>ELIA</span><span class="pill"><span class="dot" style="background:#8b5cf6"></span>IAPTI</span><span class="pill"><span class="dot" style="background:#6b7280"></span>EST</span><span class="pill"><span class="dot" style="background:#0a9e01"></span>TechCrunch</span><span class="pill"><span class="dot" style="background:#005da3"></span>CNBC Tech</span><span class="pill"><span class="dot" style="background:#000"></span>Wired</span><span class="pill"><span class="dot" style="background:#052962"></span>The Guardian</span><span class="pill"><span class="dot" style="background:#bb1919"></span>BBC Technology</span><span class="pill"><span class="dot" style="background:#00a3ff"></span>Unbabel</span><span class="pill"><span class="dot" style="background:#ff6b35"></span>OneSky</span><span class="pill"><span class="dot" style="background:#512da8"></span>POEditor</span><span class="pill"><span class="dot" style="background:#0077b6"></span>Welocalize</span><span class="pill"><span class="dot" style="background:#003399"></span>EU Commission</span><span class="pill"><span class="dot" style="background:#e76f51"></span>Translators w/o Borders</span><span class="pill"><span class="dot" style="background:#264653"></span>Translation Commons</span>
+  <span class="cnt">Daily</span>
 </div>
 
-
-<article class="featured">
-  <div class="feat-img" style="background-image:url('https://i.guim.co.uk/img/media/a873423527e0a1a4bde5e05f0361df22ab3d934c/440_0_3261_2609/master/3261.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=0de9eb2b0d66dd96919a6acabeaa5bca')"><div class="overlay"></div></div>
-  <div class="feat-body">
-    <span class="feat-source" style="color:#052962">The Guardian</span>
-    <h2>AI models already ‘doing things their creators never intended’, Australia’s assistant technology minister warns</h2>
-    <p class="feat-excerpt">&lt;p&gt;Andrew Charlton says artificial intelligence ‘cheating, deceiving, going their own way’ – and time to get ahead of it is during testing &lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;p&gt;&lt;a href="https://www.theguardian.…</p>
-    <div class="feat-meta">Today</div>
-    <a href="https://www.theguardian.com/technology/2026/jul/07/ai-models-doing-things-their-creators-never-intended" target="_blank" rel="noopener" class="feat-cta">Read full article →</a>
+<article class="feat">
+  <div class="fi" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ExAI%20Releases%20No-Code%20Voice%20Agent%20Builder%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')"><div class="o"></div></div>
+  <div class="fb">
+    <span class="fs" style="color:#1a73e8">Slator</span>
+    <h2>xAI Releases No-Code Voice Agent Builder</h2>
+    <p class="fe">xAI releases Grok Voice Agent Builder, a no-code platform for designing, deploying, and managing production AI voice agents.
+The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
+    <div class="fm">Today</div>
+    <a href="https://slator.com/xai-releases-no-code-voice-agent-builder/" target="_blank" rel="noopener" class="fcta">Read full article →</a>
   </div>
 </article>
 
 
-<section id="Industry">
-  <div class="section-head">
-    <h3>Industry</h3>
-    <span class="scount">(64 articles)</span>
+<section id="Localization-Industry">
+  <div class="sh">
+    <h3>Localization Industry</h3>
+    <span class="sc">(35 articles)</span>
   </div>
-  <div class="news-grid">
+  <div class="gr">
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">Slator</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ExAI%20Releases%20No-Code%20Voice%20Agent%20Builder%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">Slator</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">Slator</span>
-          <span class="card-date">Today</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Slator</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>xAI Releases No-Code Voice Agent Builder</h4>
+        <p class="ctxt">xAI releases Grok Voice Agent Builder, a no-code platform for designing, deploying, and managing production AI…</p>
+        <a href="https://slator.com/xai-releases-no-code-voice-agent-builder/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ENetgem%20CEO%20Discusses%20Acquisition%20of%20AI%20Subtitling%20...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">Slator</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Slator</span>
+          <span class="cda">Today</span>
         </div>
         <h4>Netgem CEO Discusses Acquisition of AI Subtitling Startup</h4>
-        <p class="card-text">Netgem CEO Mathias Hautefort discusses the acquisition of AI startup Bary, which brings automated subtitling technology …</p>
-        <a href="https://slator.com/netgem-acquisition-ai-subtitling-startup/" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <p class="ctxt">Netgem CEO Mathias Hautefort discusses the acquisition of AI startup Bary, which brings automated subtitling t…</p>
+        <a href="https://slator.com/netgem-acquisition-ai-subtitling-startup/" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">TechCrunch</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ERevpanda%20Co-Founder%20on%20All-in%20Global%20Acquisition%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">Slator</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">TechCrunch</span>
-          <span class="card-date">Today</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Slator</span>
+          <span class="cda">Today</span>
         </div>
-        <h4>The first American autonomous ground vehicles are fighting in Ukraine</h4>
-        <p class="card-text">Forterra has deployed more than 100</p>
-        <a href="https://techcrunch.com/2026/07/07/the-first-american-autonomous-ground-vehicles-are-fighting-in-ukraine/" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <h4>Revpanda Co-Founder on All-in Global Acquisition</h4>
+        <p class="ctxt">Online gambling marketing company Revpanda acquired game localization company All-in Global. Revpanda will mai…</p>
+        <a href="https://slator.com/revpanda-co-founder-on-all-in-global-acquisition/" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">TechCrunch</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ELessons%20in%20Localization%3A%20WEEX%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">Nimdzi</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">TechCrunch</span>
-          <span class="card-date">Today</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Nimdzi</span>
+          <span class="cda">Today</span>
         </div>
-        <h4>Netflix invented binge-watching. Now it may have outgrown it.</h4>
-        <p class="card-text">A new report suggests Netflix viewers aren’t sticking around for Season 2. The bigger issue may be that binge-watching i…</p>
-        <a href="https://techcrunch.com/2026/07/06/netflix-invented-binge-watching-now-it-may-have-outgrown-it/" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <h4>Lessons in Localization: WEEX</h4>
+        <p class="ctxt">In an increasingly globalized world, effective localization is essential for businesses aiming to connect with…</p>
+        <a href="https://www.nimdzi.com/lessons-in-localization-weex/?utm_source=rss&#038;utm_medium=rss&#038;utm_campaign=lessons-in-localization-weex" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">TechCrunch</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EAI%20Language%20Learning%20Startup%20Lucida%20Raises%20GBP%205.3...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">Slator</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">TechCrunch</span>
-          <span class="card-date">Today</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Slator</span>
+          <span class="cda">Yesterday</span>
         </div>
-        <h4>The  first  AI-run ransomware attack still needed a human</h4>
-        <p class="card-text">An AI agent carried out the technical execution of a real-world ransomware attack for the first known time, but new deta…</p>
-        <a href="https://techcrunch.com/2026/07/06/the-first-ai-run-ransomware-attack-still-needed-a-human/" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <h4>AI Language Learning Startup Lucida Raises GBP 5.3M Seed Round</h4>
+        <p class="ctxt">Focusing on conversational fluency for intermediate speakers, AI language coaching startup Lucida AI raises a …</p>
+        <a href="https://slator.com/ai-language-learning-startup-lucida-5m-seed-round/" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">TechCrunch</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ECALL%20FOR%20CONTRIBUTIONS%20TO%20THE%20EST%20NEWSLETTER%E2%80%99S%20EME...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">EST</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">TechCrunch</span>
-          <span class="card-date">Today</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">EST</span>
+          <span class="cda">6d ago</span>
         </div>
-        <h4>US investors will soon get access to SK Hynix, another memory maker riding the AI boom</h4>
-        <p class="card-text">SK Hynix is experiencing a boom credited to AI. It will ride that to a multibillion-dollar U.S. IPO, expected to take pl…</p>
-        <a href="https://techcrunch.com/2026/07/06/us-investors-will-soon-get-access-to-sk-hynix-another-memory-maker-riding-the-ai-boom/" target="_blank" rel="noopener" class="card-link">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">CNBC Tech</span>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">CNBC Tech</span>
-          <span class="card-date">Today</span>
-        </div>
-        <h4>Toyota to invest $3.6 billion to move Tacoma pickup truck production from Mexico to Texas</h4>
-        <p class="card-text">Toyota said it is investing $3.6 billion to move production of the Tacoma midsize pickup truck from Mexico to its San An…</p>
-        <a href="https://www.cnbc.com/2026/07/06/toyota-tacoma-truck-san-antonio-plant.html" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <h4>CALL FOR CONTRIBUTIONS TO THE EST NEWSLETTER’S EMERGING VOICES COLUMN</h4>
+        <p class="ctxt">The Editors of the EST Newsletter would like to invite PhD students and recent PhD graduates to contribute to …</p>
+        <a href="https://est-translationstudies.org/2026/call-for-contributions-to-the-est-newsletters-emerging-voices-column/" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
   </div>
 </section>
 
 
-<section id="World-News">
-  <div class="section-head">
-    <h3>World News</h3>
-    <span class="scount">(93 articles)</span>
+<section id="AI-Technology">
+  <div class="sh">
+    <h3>AI & Technology</h3>
+    <span class="sc">(143 articles)</span>
   </div>
-  <div class="news-grid">
+  <div class="gr">
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('https://i.guim.co.uk/img/media/a873423527e0a1a4bde5e05f0361df22ab3d934c/440_0_3261_2609/master/3261.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=0de9eb2b0d66dd96919a6acabeaa5bca')">
-        <span class="card-tag">The Guardian</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('https://media.wired.com/photos/6a4c392002bd100f6dc9d608/master/pass/pete_holmes_final_social.jpg')">
+        <span class="ct">Wired</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">The Guardian</span>
-          <span class="card-date">Today</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Wired</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>Pete Holmes Is Not Reading Your Email</h4>
+        <p class="ctxt">“You can make a living, you can have a life, and leave 55,000 emails unread with a big fuck off.”</p>
+        <a href="https://www.wired.com/story/pete-holmes-user-behavior/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('https://media.wired.com/photos/6a4c65ccbde112482e13fc49/master/pass/Erling-Haaland_Culture_World-Cup.jpg')">
+        <span class="ct">Wired</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Wired</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>Erling Haaland Is Everywhere at the World Cup. Most of It Is AI</h4>
+        <p class="ctxt">Norwegian striker Erling Haaland isn’t just a footballer anymore. He’s become an internet character perpetuate…</p>
+        <a href="https://www.wired.com/story/erling-haaland-is-everywhere-at-the-world-cup-most-of-it-is-ai/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('https://media.wired.com/photos/6a441cbc08adce464121affa/master/pass/BookExceprt_People%20Used%20to%20Control%20Machines%20They%20Don%E2%80%99t%20Anymore_v2.jpg')">
+        <span class="ct">Wired</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Wired</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>People Used to Control Machines. They Don’t Anymore</h4>
+        <p class="ctxt">In a world regulated by devices, humanity has become disconnected from the physical world—from stick-shift car…</p>
+        <a href="https://www.wired.com/story/loss-of-physical-world-book-excerpt-the-small-stuff-ian-bogost/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('https://media.wired.com/photos/6a4bec4884127a1d3953c8af/master/pass/Precision_assembly%20(credit_%20Tumbleweed%20Microgravity).png')">
+        <span class="ct">Wired</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Wired</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>British Space Startup Launches Longevity Lab Into Orbit</h4>
+        <p class="ctxt">The lab will beam back data to train AI models to predict how proteins behind age-related diseases like Alzhei…</p>
+        <a href="https://www.wired.com/story/british-space-startup-launches-longevity-lab-into-orbit/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('https://i.guim.co.uk/img/media/a873423527e0a1a4bde5e05f0361df22ab3d934c/440_0_3261_2609/master/3261.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=0de9eb2b0d66dd96919a6acabeaa5bca')">
+        <span class="ct">The Guardian</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">The Guardian</span>
+          <span class="cda">Today</span>
         </div>
         <h4>AI models already ‘doing things their creators never intended’, Australia’s assistant technology minister warns</h4>
-        <p class="card-text">&lt;p&gt;Andrew Charlton says artificial intelligence ‘cheating, deceiving, going their own way’ – and time to get ahead…</p>
-        <a href="https://www.theguardian.com/technology/2026/jul/07/ai-models-doing-things-their-creators-never-intended" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <p class="ctxt">&lt;p&gt;Andrew Charlton says artificial intelligence ‘cheating, deceiving, going their own way’ – and time to…</p>
+        <a href="https://www.theguardian.com/technology/2026/jul/07/ai-models-doing-things-their-creators-never-intended" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('https://i.guim.co.uk/img/media/241e4a11362afbfc953fd4377e3bfe72127bd272/540_0_8486_6789/master/8486.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=f40ceeec18b2fceb05a6021d0a940a45')">
-        <span class="card-tag">The Guardian</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('https://i.guim.co.uk/img/media/241e4a11362afbfc953fd4377e3bfe72127bd272/540_0_8486_6789/master/8486.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=f40ceeec18b2fceb05a6021d0a940a45')">
+        <span class="ct">The Guardian</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">The Guardian</span>
-          <span class="card-date">Today</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">The Guardian</span>
+          <span class="cda">Today</span>
         </div>
         <h4>‘You never truly quit’: how RuneScape survived to 25 – and beyond</h4>
-        <p class="card-text">&lt;p&gt;The massively multiplayer online role-playing game has grown into a virtual social space and part of daily life…</p>
-        <a href="https://www.theguardian.com/games/2026/jul/07/how-runescape-survived-to-25" target="_blank" rel="noopener" class="card-link">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="card">
-      <div class="card-img" style="background-image:url('https://i.guim.co.uk/img/media/6454f44555fa48a5f38d1d066c370cb6e7376a80/1365_0_6827_5464/master/6827.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=4574be2a396d4146200225ec610951f7')">
-        <span class="card-tag">The Guardian</span>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">The Guardian</span>
-          <span class="card-date">Today</span>
-        </div>
-        <h4>Stymied datacentre projects threaten global AI revolution</h4>
-        <p class="card-text">&lt;p&gt;Large-scale datacentre projects around the world are being challenged or cancelled, as infrastructure’s energy …</p>
-        <a href="https://www.theguardian.com/technology/2026/jul/07/stymied-datacentre-projects-threaten-global-ai-revolution" target="_blank" rel="noopener" class="card-link">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="card">
-      <div class="card-img" style="background-image:url('https://i.guim.co.uk/img/media/e4a7e2bab51dbf2aec0129287646c0f580bb6feb/128_0_1920_1536/master/1920.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=7fff93992f58c3fbb04c868a30478dc1')">
-        <span class="card-tag">The Guardian</span>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">The Guardian</span>
-          <span class="card-date">Today</span>
-        </div>
-        <h4>Shark ChillPill 3-in-1 fan review: the handheld fan I’d pack for every trip – at a price that’ll make you sweat</h4>
-        <p class="card-text">&lt;p&gt;With three ways to cool down and a cold plate that can lower skin temperature by up to 9C, Shark’s latest fan i…</p>
-        <a href="https://www.theguardian.com/thefilter/2026/jul/07/shark-chillpill-3-in-1-fan-review" target="_blank" rel="noopener" class="card-link">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="card">
-      <div class="card-img" style="background-image:url('https://media.wired.com/photos/67b63b9079f27a355461c964/master/pass/WIRED-Coupons-R2_2.png')">
-        <span class="card-tag">Wired</span>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">Wired</span>
-          <span class="card-date">Today</span>
-        </div>
-        <h4>Instacart Promo Code: $15 Off | July 2026</h4>
-        <p class="card-text">Find the best Instacart promo code for massive savings in July 2026.</p>
-        <a href="https://www.wired.com/story/instacart-promo/code/" target="_blank" rel="noopener" class="card-link">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="card">
-      <div class="card-img" style="background-image:url('https://media.wired.com/photos/66ea077039cb65abef27cd6f/master/pass/WIRED-Coupons-9.jpg')">
-        <span class="card-tag">Wired</span>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">Wired</span>
-          <span class="card-date">Today</span>
-        </div>
-        <h4>Office Depot Coupons: Save With Promo Codes in July 2026</h4>
-        <p class="card-text">From furniture and ink to professional printing services, use an Office Depot discount code to maximize your savings on …</p>
-        <a href="https://www.wired.com/story/office-depot-promo-codes/" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <p class="ctxt">&lt;p&gt;The massively multiplayer online role-playing game has grown into a virtual social space and part of …</p>
+        <a href="https://www.theguardian.com/games/2026/jul/07/how-runescape-survived-to-25" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
   </div>
 </section>
 
 
-<section id="Policy">
-  <div class="section-head">
-    <h3>Policy</h3>
-    <span class="scount">(10 articles)</span>
+<section id="Tools-Platforms">
+  <div class="sh">
+    <h3>Tools & Platforms</h3>
+    <span class="sc">(39 articles)</span>
   </div>
-  <div class="news-grid">
+  <div class="gr">
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">EU Commission</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EAbout%20the%20language%20quality%20manager%20role%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">POEditor</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">EU Commission</span>
-          <span class="card-date">Today</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">POEditor</span>
+          <span class="cda">Yesterday</span>
+        </div>
+        <h4>About the language quality manager role</h4>
+        <p class="ctxt">A language quality manager is one of the many localization professionals that make sure only the highest quali…</p>
+        <a href="https://poeditor.com/blog/language-quality-manager-role/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ELocalization%20governance%20models%20explained%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">POEditor</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">POEditor</span>
+          <span class="cda">5d ago</span>
+        </div>
+        <h4>Localization governance models explained</h4>
+        <p class="ctxt">Who gets to make decisions in a localization project? Who decides which languages to support? Who owns transla…</p>
+        <a href="https://poeditor.com/blog/localization-governance-models/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EThree%20Assumptions%20About%20AI%20in%20Localization%20That%20Pr...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">Welocalize</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Welocalize</span>
+          <span class="cda">6d ago</span>
+        </div>
+        <h4>Three Assumptions About AI in Localization That Production Experience Challenges</h4>
+        <p class="ctxt">Assumptions harden fast in a fast-moving market.
+The post Three Assumptions About AI in Localization That Prod…</p>
+        <a href="https://www.welocalize.com/insights/three-assumptions-about-ai-in-localization-that-production-experience-challenges/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EBrand%20localization%20software%20vs%20manual%20approach%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">POEditor</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">POEditor</span>
+          <span class="cda">1w ago</span>
+        </div>
+        <h4>Brand localization software vs manual approach</h4>
+        <p class="ctxt">When you re doing brand localization, you have to pay attention to your messaging, tone, visuals, and all othe…</p>
+        <a href="https://poeditor.com/blog/brand-localization-software-vs-manual-approach/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EWhat%20is%20multilingual%20asset%20management%3F%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">POEditor</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">POEditor</span>
+          <span class="cda">1w ago</span>
+        </div>
+        <h4>What is multilingual asset management?</h4>
+        <p class="ctxt">Content management gets a lot more complicated when you re going beyond your boarders. You’re managing words, …</p>
+        <a href="https://poeditor.com/blog/what-is-multilingual-asset-management/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EUnderstanding%20machine%20translation%20pre-editing%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">POEditor</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">POEditor</span>
+          <span class="cda">2w ago</span>
+        </div>
+        <h4>Understanding machine translation pre-editing</h4>
+        <p class="ctxt">Everyone s talking about machine translation post-editing, but just as important is machine translation pre-ed…</p>
+        <a href="https://poeditor.com/blog/machine-translation-pre-editing/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+
+<section id="Global-Policy">
+  <div class="sh">
+    <h3>Global & Policy</h3>
+    <span class="sc">(22 articles)</span>
+  </div>
+  <div class="gr">
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EOpening%20statement%20by%20Commissioner%20Dombrovskis%20at%20t...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">EU Commission</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">EU Commission</span>
+          <span class="cda">Today</span>
         </div>
         <h4>Opening statement by Commissioner Dombrovskis at the European Parliament plenary debate on the EIB's activities in 2025</h4>
-        <p class="card-text">European Commission Statement Strasbourg, 06 Jul 2026 Honourable Chair, honourable Vice-President de Groot, honourable M…</p>
-        <a href="https://ec.europa.eu/commission/presscorner/detail/en/statement_26_1538" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <p class="ctxt">European Commission Statement Strasbourg, 06 Jul 2026 Honourable Chair, honourable Vice-President de Groot, ho…</p>
+        <a href="https://ec.europa.eu/commission/presscorner/detail/en/statement_26_1538" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">EU Commission</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ESpeech%20by%20Commissioner%20%C5%A0uica%20at%20the%20Dubrovnik%20Foru...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">EU Commission</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">EU Commission</span>
-          <span class="card-date">Today</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">EU Commission</span>
+          <span class="cda">Today</span>
         </div>
         <h4>Speech by Commissioner Šuica at the Dubrovnik Forum 2026 - The Age of Multipolarity: Many Directions, One Future</h4>
-        <p class="card-text">European Commission Speech Dubrovnik, 06 Jul 2026 Ladies and gentlemen,Ministers, Excellencies, dear friends,
-It is a p…</p>
-        <a href="https://ec.europa.eu/commission/presscorner/detail/en/speech_26_1537" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <p class="ctxt">European Commission Speech Dubrovnik, 06 Jul 2026 Ladies and gentlemen,Ministers, Excellencies, dear friends,…</p>
+        <a href="https://ec.europa.eu/commission/presscorner/detail/en/speech_26_1537" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">EU Commission</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EDaily%20News%2006%20%2F%2007%20%2F%202026%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">EU Commission</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">EU Commission</span>
-          <span class="card-date">Today</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">EU Commission</span>
+          <span class="cda">Yesterday</span>
         </div>
         <h4>Daily News 06 / 07 / 2026</h4>
-        <p class="card-text">European Commission Daily news Brussels, 06 Jul 2026 EU deploys wildfire support to face multiple fires across Portugal …</p>
-        <a href="https://ec.europa.eu/commission/presscorner/detail/en/mex_26_1521" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <p class="ctxt">European Commission Daily news Brussels, 06 Jul 2026 EU deploys wildfire support to face multiple fires across…</p>
+        <a href="https://ec.europa.eu/commission/presscorner/detail/en/mex_26_1521" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">EU Commission</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ESpeech%20by%20Commissioner%20%C5%A0uica%20at%20the%20Anna%20Lindh%20Fou...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">EU Commission</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">EU Commission</span>
-          <span class="card-date">3 days ago</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">EU Commission</span>
+          <span class="cda">2d ago</span>
+        </div>
+        <h4>Speech by Commissioner Šuica at the Anna Lindh Foundation Youth Conference – Mediterranean Youth in Action</h4>
+        <p class="ctxt">European Commission Speech Cairo, 07 Jul 2026 Dear Mohamed Abou El-Enein, President, Parliamentary Assembly of…</p>
+        <a href="https://ec.europa.eu/commission/presscorner/detail/en/speech_26_1545" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ESpeech%20by%20Commissioner%20%C5%A0uica%20at%20the%20Parliamentary%20...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">EU Commission</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">EU Commission</span>
+          <span class="cda">3d ago</span>
         </div>
         <h4>Speech by Commissioner Šuica at the Parliamentary Assembly of the Union for the Mediterranean</h4>
-        <p class="card-text">European Commission Speech Cairo, 06 Jul 2026 Honourable members,
+        <p class="ctxt">European Commission Speech Cairo, 06 Jul 2026 Honourable members,
 Ladies and gentlemen,
-Let me start by thanking the E…</p>
-        <a href="https://ec.europa.eu/commission/presscorner/detail/en/speech_26_1539" target="_blank" rel="noopener" class="card-link">Read more →</a>
+Let me start by than…</p>
+        <a href="https://ec.europa.eu/commission/presscorner/detail/en/speech_26_1539" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">EU Commission</span>
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EStatement%20by%20President%20von%20der%20Leyen%20with%20Taoiseac...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+        <span class="ct">EU Commission</span>
       </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">EU Commission</span>
-          <span class="card-date">3 days ago</span>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">EU Commission</span>
+          <span class="cda">3d ago</span>
         </div>
-        <h4>Statement by President von der Leyen with Taioseach Martin on the occasion of the College visit to the Irish Presidency</h4>
-        <p class="card-text">European Commission Statement Cork, 07 Jul 2026 Thank you, dear Micheál, for welcoming us to your native Cork. Thank you…</p>
-        <a href="https://ec.europa.eu/commission/presscorner/detail/en/statement_26_1519" target="_blank" rel="noopener" class="card-link">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="card">
-      <div class="card-img" style="background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22600%22 height=%22400%22%3E%3Crect fill=%22%23522D6D%22 width=%22600%22 height=%22400%22/%3E%3Ctext fill=%22white%22 font-family=%22Arial%22 font-size=%2224%22 x=%2240%22 y=%22200%22%3ETranslaStars%20News%3C/text%3E%3C/svg%3E')">
-        <span class="card-tag">EU Commission</span>
-      </div>
-      <div class="card-body">
-        <div class="card-top">
-          <span class="card-source">EU Commission</span>
-          <span class="card-date">3 days ago</span>
-        </div>
-        <h4>Commission proposes five joint defence projects to strengthen Europe's industrial capabilities</h4>
-        <p class="card-text">European Commission Press release Brussels, 03 Jul 2026 Today, the European Commission proposed five new large-scale pro…</p>
-        <a href="https://ec.europa.eu/commission/presscorner/detail/en/ip_26_1516" target="_blank" rel="noopener" class="card-link">Read more →</a>
+        <h4>Statement by President von der Leyen with Taoiseach Martin on the occasion of the College visit to the Irish Presidency</h4>
+        <p class="ctxt">European Commission Statement Cork, 07 Jul 2026 Thank you, dear Micheál, for welcoming us to your native Cork.…</p>
+        <a href="https://ec.europa.eu/commission/presscorner/detail/en/statement_26_1519" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
   </div>
 </section>
 
 </div>
-<footer class="footer">
-  <div class="inner">
-    <p><strong style="color:#fff">TranslaStars Industry News</strong> — Daily curated news for localization professionals</p>
-    <p style="margin-top:6px"><a href="https://www.translastars.com" target="_blank">TranslaStars</a> · <a href="https://github.com/translastars/industry-news" target="_blank">GitHub</a> · <a href="https://translastars.github.io/industry-news/">Home</a></p>
-    <p style="margin-top:6px;font-size:12px">News automatically curated from public sources. All links open in new windows.</p>
-    <div class="powered">Generated 2026-07-07 09:43:57 · Issue #188 · Powered by TranslaStars AI ✦</div>
+<footer class="ft">
+  <div class="in">
+    <p><strong style="color:#fff">TranslaStars Industry News</strong> — Daily curated for localization professionals</p>
+    <p style="margin-top:4px"><a href="https://www.translastars.com" target="_blank">TranslaStars</a> · <a href="https://github.com/translastars/industry-news" target="_blank">GitHub</a> · <a href="https://translastars.github.io/industry-news/">Home</a></p>
+    <p style="margin-top:4px;font-size:11px">News curated automatically from public sources. All links open in new windows.</p>
+    <div class="pw">Generated 2026-07-07 10:04:58 · Powered by TranslaStars AI ✦</div>
   </div>
 </footer>
 </body>
