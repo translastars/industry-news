@@ -1,0 +1,10 @@
+{
+  "name": "translastars-industry-news",
+  "version": "1.0.0",
+  "description": "Daily curated industry news for TranslaStars — auto-generated newspaper",
+  "main": "src/generate.js",
+  "scripts": {
+    "build": "node src/generate.js",
+    "start": "node src/generate.js"
+  }
+}
