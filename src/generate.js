@@ -1,11 +1,10 @@
 /**
- * TranslaStars Industry News — Daily Generator v2.2
- * Changes from v2.1:
- *  - Montserrat font (TranslaStars brand) instead of Playfair Display + Inter
- *  - Abstract visual SVG images (icons + patterns) instead of showing title text
- *  - ALL articles shown per section (no 6-article limit)
- *  - Aggressive keyword filtering for less noise
- *  - Visual-only SVGs (abstract shapes, icons) for card images
+ * TranslaStars Industry News — Daily Generator v2.3
+ * Changes from v2.2:
+ *  - Content-aware images: icons/shapes based on article topics, not random circles
+ *  - Source branding: color palettes + logo wordmarks in card images
+ *  - Much tighter EU filtering (keep only explicit language/AI/digital mentions)
+ *  - Expanded negative keywords to block more irrelevant content
  */
 const https = require('https');
 const http = require('http');
@@ -16,9 +15,8 @@ const OUT = path.join(__dirname, '..', 'docs');
 const DROPBOX = path.join('C:\\Users\\barto\\Dropbox', 'OpenClaw Proyectos', 'Industry News');
 const SITE = 'https://translastars.github.io/industry-news/';
 
-// ── Industry relevance keywords (v2.2 — more aggressive) ──
+// ── Industry relevance keywords ──
 const KEYWORDS = [
-  // Core language/localization
   'translat', 'localization', 'localisation', 'localizing', 'localising',
   'interpret', 'languag', 'linguist', 'multilingual', 'subtitle',
   'caption', 'terminolog', 'transcreation', 'globalization', 'globalisation',
@@ -26,80 +24,109 @@ const KEYWORDS = [
   'machine translation', 'nmt', 'llm translat',
   'trados', 'memoq', 'crowdin', 'smartcat', 'phrase ', 'matecat',
   'wordfast', 'déjà vu',
-  // AI for language
   'natural language', 'nlp ', 'nlp,', 'speech', 'voice ',
   'text-to-speech', 'speech-to-text', 'whisper', 'transcri',
   'ai voice', 'ai agent', 'conversation', 'chatbot',
   'language model', 'large language', 'llm',
-  // Industry
   'slator', 'nimdzi', 'elia ', 'gala ', 'taus ',
   'language industry', 'translation industry',
-  // Content & global
   'ecommerce', 'e-commerce', 'cross-border', 'internationaliz',
-  // Training
   'training', 'course', 'learning', 'education', 'student',
   'university', 'certification',
-  // Key AI vendors
   'openai ', 'anthropic ', 'deepseek', 'claude ', 'gemini ',
   'copilot', 'chatgpt',
-  // Translation specific
   'translator', 'translating', 'translate',
-  // European
-  'europ', 'commission',
+  'european commission', 'digital ', 'content moderation',
+  'ai act', 'copyright', 'data act',
+  // More specific for EU and general sources
+  'digital single market', 'digital service', 'digital market',
+  'ai regulation', 'artificial intelligence act',
+  'media freedom', 'language technology',
+  'computational linguistics',
 ];
 
-// Negative keywords — articles about these topics get excluded (v2.2 — expanded)
+// Negative keywords — expanded aggressively
 const NEGATIVE = [
-  'sport', 'football', 'soccer', 'nfl', 'nba', 'nhl', 'mlb',
+  'sport', 'football', 'soccer', 'nfl', 'nba', 'nhl', 'mlb', 'olymp',
   'gaming', 'video game', 'console', 'playstation', 'xbox', 'nintendo',
-  'movie', 'film ', 'hollywood', 'celebrity', 'actor ',
+  'movie', 'film ', 'hollywood', 'celebrity', 'actor ', 'actress',
   'space ', 'rocket', 'mars ', 'nasa ', 'astronaut', 'spacex ', 'starship',
   'investing', 'stock ', 'crypto', 'bitcoin', 'nft ',
-  'kitchen', 'recipe', 'food ', 'diet ', 'fitness',
-  'weather', 'hurricane', 'earthquake', 'tornado',
+  'kitchen', 'recipe', 'food ', 'diet ', 'fitness', 'nutrition',
+  'weather', 'hurricane', 'earthquake', 'tornado', 'wildfire', 'flood',
   'police', 'crime ', 'murder', 'shooting', 'protest', 'military',
-  'music ', 'album', 'concert', 'song ',
+  'music ', 'album', 'concert', 'song ', 'band ',
   'car ', 'vehicle', 'driverless car', 'autonomous vehicle', 'tesla ',
   'beauty', 'fashion', 'makeup',
-  'real estate', 'housing', 'mortgage',
+  'real estate', 'housing market', 'mortgage',
   'pet ', 'dog ', 'cat ', 'veterinary',
-  'gun ', 'weapon', 'shooting',
+  'gun ', 'weapon',
   'nuclear', 'missile',
   'cooking', 'travel ', 'tourism',
   'garden', 'plant ',
   'chronicle', 'obituary',
   'samsung', 'apple ', 'iphone', 'ipad', 'macbook', 'google pixel',
-  'smartphone', 'tablet ',
+  'smartphone', 'tablet ', 'smartwatch',
   'battery', 'charging',
-  'cyber monday', 'black friday', 'shopping',
+  'cyber monday', 'black friday',
   'quantum', 'cryptograph',
   '5g ', '6g ',
-  'usb-c',
+  'usb-c', 'hdmi',
   'netflix ', 'streaming',
   'instagram', 'tiktok', 'youtube ',
   'wine ', 'beer ', 'cocktail',
   'prison', 'court ',
   'pandemic', 'virus ', 'covid',
+  'agriculture', 'fisheries', 'fishery',
+  'energy ', 'renewable', 'solar ', 'wind farm', 'fossil fuel',
+  'transport', 'railway', 'high-speed rail', 'aviation',
+  'environment', 'climate ', 'emission', 'carbon',
+  'health', 'medical', 'hospital', 'vaccine', 'disease',
+  'food safety', 'food supplement', 'dietary supplement',
+  'eurozone', 'inflation', 'interest rate', 'monetary policy',
+  'defence', 'defense', 'army', 'naval',
+  'migration', 'asylum', 'refugee', 'border control',
+  'construction', 'infrastructure',
+  'election', 'vot ', 'parliament', 'president',
+  'sanction', 'tariff', 'trade war',
+  'mortgage', 'loan', 'banking',
+  'phone ', 'smartphone', 'android', 'ios',
+  'chrome ', 'firefox', 'browser',
 ];
 
 function matches(str, patterns) {
   if (!str) return false;
   const s = str.toLowerCase();
   return patterns.some(p => {
-    if (p.endsWith(' ')) {
-      // Whole-word match: word followed by space, comma, period, etc.
-      const re = new RegExp('\\b' + p.toLowerCase().trim() + '[\\s\\.,;:!\\?\\]\\)]', 'i');
-      return re.test(s);
-    }
     const regex = new RegExp(p.toLowerCase().replace(/\?/g, '.'), 'i');
     return regex.test(s);
   });
 }
 
 // ── HTTP fetch ──
-async function fetch(url, retries = 2) {
+function fetch(url, retries = 2) {
+  return new Promise((resolve, reject) => {
+    const mod = url.startsWith('https') ? https : http;
+    let cancelled = false;
+    const req = mod.get(url, { timeout: 12000, headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
+    }}, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        res.resume();
+        return _fetch_simple(new URL(res.headers.location, url).href).then(resolve).catch(reject);
+      }
+      if (res.statusCode !== 200) { res.resume(); return reject(new Error(`HTTP ${res.statusCode}`)); }
+      const chunks = [];
+      res.on('data', c => { if (!cancelled) chunks.push(c); });
+      res.on('end', () => { if (!cancelled) resolve(Buffer.concat(chunks).toString()); });
+    });
+    req.on('error', reject);
+    req.on('timeout', () => { cancelled = true; req.destroy(); reject(new Error('Timeout')); });
+  });
+}
+function _fetch_simple(url, retries = 2) {
   for (let i = 0; i <= retries; i++) {
-    try { return await _fetch(url); }
+    try { return _fetch(url); }
     catch (e) { if (i === retries) throw e; }
   }
 }
@@ -108,7 +135,7 @@ function _fetch(url) {
     const mod = url.startsWith('https') ? https : http;
     let cancelled = false;
     const req = mod.get(url, { timeout: 12000, headers: {
-      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36'
+      'User-Agent': 'Mozilla/5.0'
     }}, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         res.resume();
@@ -163,70 +190,231 @@ function relDate(d) {
 }
 function fmtDate(d) { return d.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); }
 
-// ── Abstract visual SVGs (v2.2 — no text, just abstract patterns/icons) ──
-function genImg(title, section) {
-  // Generate a deterministic color based on title
-  let hash = 0;
-  for (let i = 0; i < title.length; i++) hash = ((hash << 5) - hash) + title.charCodeAt(i);
-  const hue1 = Math.abs(hash % 360);
-  const hue2 = (hue1 + 40 + Math.abs(hash * 7 % 80)) % 360;
-  
-  // Section-based base colors
-  const palettes = {
-    'Localization Industry': ['#522D6D', '#7B3FAF', '#9b5de5'],
-    'AI & Technology':       ['#0a3d6b', '#1a6baa', '#2d8fd5'],
-    'Tools & Platforms':     ['#1b5e20', '#388e3c', '#66bb6a'],
-    'Global & Policy':       ['#b8860b', '#daa520', '#f0c040'],
-  };
-  const pal = palettes[section] || ['#522D6D', '#7B3FAF', '#9b5de5'];
-  const c1 = pal[Math.abs(hash) % pal.length];
-  const c2 = pal[Math.abs(hash * 3) % pal.length];
-  
-  // Abstract pattern — circles, lines, blobs based on title hash
-  const r1 = 20 + Math.abs(hash % 60);
-  const r2 = 10 + Math.abs(hash * 7 % 40);
-  const cx1 = 100 + Math.abs(hash % 400);
-  const cy1 = 60 + Math.abs(hash * 3 % 200);
-  const cx2 = 300 + Math.abs(hash * 13 % 250);
-  const cy2 = 180 + Math.abs(hash * 5 % 100);
-  const lineX1 = Math.abs(hash % 500);
-  const lineY1 = Math.abs(hash * 11 % 300);
-  const lineX2 = Math.abs(hash * 17 % 500) + 50;
-  const lineY2 = Math.abs(hash * 19 % 300) + 20;
-  const opacity1 = (0.15 + Math.abs(hash % 5) * 0.03).toFixed(2);
-  const opacity2 = (0.10 + Math.abs(hash * 7 % 4) * 0.04).toFixed(2);
-  
-  // Section icon
-  let icon = '';
-  if (section === 'Localization Industry') {
-    icon = `<g transform="translate(300,160)"><circle cx="0" cy="0" r="40" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/><circle cx="-12" cy="0" r="8" fill="rgba(255,255,255,0.2)"/><circle cx="12" cy="0" r="8" fill="rgba(255,255,255,0.2)"/><path d="M-8,12 Q0,28 8,12" stroke="rgba(255,255,255,0.2)" fill="none" stroke-width="2"/></g>`;
-  } else if (section === 'AI & Technology') {
-    icon = `<g transform="translate(300,160)"><circle cx="-15" cy="-15" r="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/><circle cx="15" cy="-15" r="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/><line x1="-8" y1="18" x2="8" y2="18" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round"/></g>`;
-  } else if (section === 'Tools & Platforms') {
-    icon = `<g transform="translate(300,160)"><rect x="-28" y="-20" width="56" height="40" rx="4" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/><circle cx="0" cy="0" r="8" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/><line x1="0" y1="-12" x2="0" y2="-24" stroke="rgba(255,255,255,0.15)" stroke-width="2"/><line x1="-20" y1="24" x2="20" y2="24" stroke="rgba(255,255,255,0.15)" stroke-width="2"/></g>`;
-  } else {
-    icon = `<g transform="translate(300,160)"><circle cx="0" cy="-12" r="16" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/><path d="M-20,20 Q-10,30 0,20 Q10,30 20,20" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/></g>`;
+// ── Source brand configs (v2.3) ──
+const BRANDS = {
+  'Slator':                { bg1: '#1a73e8', bg2: '#0d47a1', logo: 'SL', logoColor: '#fff', shape: 'bar' },
+  'Nimdzi':                { bg1: '#e63946', bg2: '#9b2226', logo: 'ND', logoColor: '#fff', shape: 'pie' },
+  'ELIA':                  { bg1: '#2a9d8f', bg2: '#1b6d63', logo: 'EL', logoColor: '#fff', shape: 'net' },
+  'IAPTI':                 { bg1: '#8b5cf6', bg2: '#6d28d9', logo: 'IA', logoColor: '#fff', shape: 'doc' },
+  'EST':                   { bg1: '#6b7280', bg2: '#374151', logo: 'ES', logoColor: '#fff', shape: 'book' },
+  'TechCrunch':            { bg1: '#0a9e01', bg2: '#0d7300', logo: 'TC', logoColor: '#fff', shape: 'circuit' },
+  'CNBC Tech':             { bg1: '#005da3', bg2: '#003b6f', logo: 'CN', logoColor: '#fff', shape: 'bar' },
+  'Wired':                 { bg1: '#000000', bg2: '#1a1a1a', logo: 'WI', logoColor: '#ff3c00', shape: 'wave' },
+  'The Guardian':          { bg1: '#052962', bg2: '#031b3d', logo: 'Gd', logoColor: '#fff', shape: 'doc' },
+  'BBC Technology':        { bg1: '#bb1919', bg2: '#7a0f0f', logo: 'BB', logoColor: '#fff', shape: 'globe' },
+  'Unbabel':               { bg1: '#00a3ff', bg2: '#0077b6', logo: 'Un', logoColor: '#fff', shape: 'net' },
+  'OneSky':                { bg1: '#ff6b35', bg2: '#cc4400', logo: 'OS', logoColor: '#fff', shape: 'globe' },
+  'POEditor':              { bg1: '#512da8', bg2: '#311b92', logo: 'PO', logoColor: '#fff', shape: 'doc' },
+  'Welocalize':            { bg1: '#0077b6', bg2: '#004e7c', logo: 'WL', logoColor: '#fff', shape: 'globe' },
+  'EU Commission':         { bg1: '#003399', bg2: '#001a4d', logo: 'EU', logoColor: '#feda4a', shape: 'building' },
+  'TWB':                   { bg1: '#e76f51', bg2: '#c14c33', logo: 'TW', logoColor: '#fff', shape: 'globe' },
+  'Translation Commons':   { bg1: '#264653', bg2: '#1a3333', logo: 'TC', logoColor: '#e9c46a', shape: 'net' },
+};
+
+// ── Content-aware icon SVGs (v2.3) ──
+function detectTopics(title, excerpt) {
+  const text = `${title} ${excerpt}`.toLowerCase();
+  const topics = [];
+  if (/ai |artificial intelligence|machine learning|neural|deep learn|llm |gpt|chatgpt|openai|claude |gemini|anthropic|deepseek/.test(text)) {
+    topics.push({ icon: 'brain', label: 'AI' });
   }
+  if (/translat|locali|languag|interpret|linguist|subtitle|caption|multilingual|l10n|i18n/.test(text)) {
+    topics.push({ icon: 'bubble', label: 'Language' });
+  }
+  if (/fund|invest|acquir|merger|revenue|earnings|market|growth|startup|valuation|ipo/.test(text)) {
+    topics.push({ icon: 'chart', label: 'Business' });
+  }
+  if (/regulation|policy|act |law |compliance|governance|government|eu |european/.test(text)) {
+    topics.push({ icon: 'building', label: 'Policy' });
+  }
+  if (/research|study|survey|report|findings|academic|paper |journal/.test(text)) {
+    topics.push({ icon: 'research', label: 'Research' });
+  }
+  if (/tool|software|platform|api |app |plugin|integration|feature|update|launch/.test(text)) {
+    topics.push({ icon: 'tool', label: 'Tools' });
+  }
+  if (/training|education|course|learning|student|university|certif/.test(text)) {
+    topics.push({ icon: 'edu', label: 'Education' });
+  }
+  if (/global|worldwide|internation|cross.border|globaliz/.test(text)) {
+    topics.push({ icon: 'globe', label: 'Global' });
+  }
+  if (/speech|voice |tts|stt|whisper|audio|transcri|conversation|chatbot/.test(text)) {
+    topics.push({ icon: 'wave', label: 'Speech' });
+  }
+  if (/content|media|publish|blog|article|news|journalism/.test(text)) {
+    topics.push({ icon: 'doc', label: 'Content' });
+  }
+  if (/partner|collaboration|alliance|team|acqui.hire|join|appoint/.test(text)) {
+    topics.push({ icon: 'people', label: 'People' });
+  }
+  // Default if nothing matched
+  if (topics.length === 0) topics.push({ icon: 'bubble', label: 'Language' });
+  return topics;
+}
+
+// Icon renderers — each returns SVG elements
+const ICONS = {
+  brain: `<g transform="translate(290,130)">
+    <path d="M0,-50 C30,-50 50,-30 50,0 C50,20 38,36 20,42 L20,60 L-20,60 L-20,42 C-38,36 -50,20 -50,0 C-50,-30 -30,-50 0,-50Z" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <path d="M-15,15 Q0,-20 15,15" stroke="rgba(255,255,255,0.18)" fill="none" stroke-width="2" stroke-linecap="round"/>
+    <path d="M-25,0 Q0,-30 25,0" stroke="rgba(255,255,255,0.12)" fill="none" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="-12" cy="5" r="3" fill="rgba(255,255,255,0.15)"/>
+    <circle cx="12" cy="5" r="3" fill="rgba(255,255,255,0.15)"/>
+  </g>`,
+  bubble: `<g transform="translate(290,120)">
+    <rect x="-35" y="-25" width="70" height="45" rx="10" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <path d="M6,20 L12,32 L-6,20" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
+    <circle cx="-12" cy="-5" r="2.5" fill="rgba(255,255,255,0.2)"/>
+    <circle cx="0" cy="-5" r="2.5" fill="rgba(255,255,255,0.2)"/>
+    <circle cx="12" cy="-5" r="2.5" fill="rgba(255,255,255,0.2)"/>
+    <line x1="-20" y1="6" x2="20" y2="6" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+  </g>`,
+  chart: `<g transform="translate(290,130)">
+    <rect x="-30" y="15" width="60" height="5" rx="2" fill="rgba(255,255,255,0.1)"/>
+    <rect x="-25" y="0" width="12" height="30" rx="2" fill="rgba(255,255,255,0.15)"/>
+    <rect x="-7" y="-10" width="12" height="40" rx="2" fill="rgba(255,255,255,0.2)"/>
+    <rect x="11" y="5" width="14" height="25" rx="2" fill="rgba(255,255,255,0.15)"/>
+    <path d="M-8,15 L2,-5 L12,5" stroke="rgba(255,255,255,0.25)" fill="none" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="2" cy="-5" r="3" fill="rgba(255,255,255,0.3)"/>
+  </g>`,
+  building: `<g transform="translate(290,125)">
+    <rect x="-25" y="-15" width="50" height="50" rx="3" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <rect x="-15" y="-5" width="8" height="12" rx="1" fill="rgba(255,255,255,0.15)"/>
+    <rect x="-3" y="-5" width="8" height="12" rx="1" fill="rgba(255,255,255,0.15)"/>
+    <rect x="9" y="-5" width="8" height="12" rx="1" fill="rgba(255,255,255,0.15)"/>
+    <rect x="-15" y="12" width="8" height="8" rx="1" fill="rgba(255,255,255,0.12)"/>
+    <rect x="-3" y="12" width="8" height="8" rx="1" fill="rgba(255,255,255,0.12)"/>
+    <rect x="9" y="12" width="8" height="8" rx="1" fill="rgba(255,255,255,0.12)"/>
+    <polygon points="-40,35 -15,20 15,20 40,35" fill="rgba(255,255,255,0.06)"/>
+  </g>`,
+  research: `<g transform="translate(290,125)">
+    <circle cx="-12" cy="-10" r="16" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <line x1="0" y1="4" x2="18" y2="22" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="-12" cy="-10" r="4" fill="rgba(255,255,255,0.2)"/>
+    <line x1="-22" y1="-12" x2="-2" y2="-12" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <line x1="-20" y1="-6" x2="-4" y2="-6" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+  </g>`,
+  tool: `<g transform="translate(290,125)">
+    <circle cx="-8" cy="-8" r="18" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <circle cx="12" cy="12" r="20" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <circle cx="-8" cy="-8" r="5" fill="rgba(255,255,255,0.18)"/>
+    <circle cx="12" cy="12" r="5" fill="rgba(255,255,255,0.14)"/>
+    <line x1="4" y1="-4" x2="6" y2="6" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+  </g>`,
+  edu: `<g transform="translate(290,125)">
+    <path d="M-30,0 Q0,-20 30,0 L20,25 L-20,25Z" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <rect x="-20" y="0" width="40" height="25" rx="2" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+    <line x1="-14" y1="8" x2="14" y2="8" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <line x1="-12" y1="14" x2="12" y2="14" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+    <line x1="-10" y1="20" x2="10" y2="20" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+    <circle cx="0" cy="-12" r="6" fill="rgba(255,255,255,0.12)"/>
+  </g>`,
+  globe: `<g transform="translate(290,125)">
+    <circle cx="0" cy="0" r="32" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <ellipse cx="0" cy="0" rx="18" ry="32" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <line x1="-32" y1="0" x2="32" y2="0" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+    <path d="M-25,15 Q0,22 25,15" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <path d="M-25,-15 Q0,-22 25,-15" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+  </g>`,
+  wave: `<g transform="translate(290,125)">
+    <circle cx="0" cy="-15" r="22" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <path d="M-15,-5 Q-8,-18 0,-8 Q8,-18 15,-5" stroke="rgba(255,255,255,0.2)" fill="none" stroke-width="2" stroke-linecap="round"/>
+    <path d="M-20,5 Q-10,-8 0,2 Q10,-8 20,5" stroke="rgba(255,255,255,0.12)" fill="none" stroke-width="1.5" stroke-linecap="round"/>
+    <circle cx="0" cy="-15" r="3" fill="rgba(255,255,255,0.2)"/>
+  </g>`,
+  doc: `<g transform="translate(290,120)">
+    <path d="M-25,-20 L15,-20 L25,-10 L25,25 L-25,25Z" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
+    <line x1="15" y1="-20" x2="15" y2="-10" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+    <line x1="25" y1="-10" x2="15" y2="-10" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+    <line x1="-15" y1="-5" x2="15" y2="-5" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <line x1="-15" y1="5" x2="15" y2="5" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+    <line x1="-15" y1="15" x2="10" y2="15" stroke="rgba(255,255,255,0.06)" stroke-width="1.5"/>
+  </g>`,
+  people: `<g transform="translate(290,125)">
+    <circle cx="-14" cy="-10" r="12" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <circle cx="16" cy="-10" r="12" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <ellipse cx="-14" cy="20" rx="18" ry="14" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <ellipse cx="16" cy="20" rx="18" ry="14" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <line x1="-10" y1="-10" x2="12" y2="-10" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  </g>`,
+  circuit: `<g transform="translate(290,125)">
+    <rect x="-30" y="-25" width="18" height="18" rx="3" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+    <rect x="12" y="-25" width="18" height="18" rx="3" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+    <rect x="-9" y="7" width="18" height="18" rx="3" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+    <line x1="-12" y1="-16" x2="12" y2="-16" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+    <line x1="0" y1="-7" x2="0" y2="7" stroke="rgba(255,255,255,0.08)" stroke-width="1.5"/>
+    <circle cx="-21" cy="-34" r="2" fill="rgba(255,255,255,0.12)"/>
+    <circle cx="0" cy="-34" r="2" fill="rgba(255,255,255,0.1)"/>
+    <circle cx="21" cy="-34" r="2" fill="rgba(255,255,255,0.08)"/>
+    <circle cx="-30" cy="-7" r="2" fill="rgba(255,255,255,0.1)"/>
+    <circle cx="30" cy="-7" r="2" fill="rgba(255,255,255,0.08)"/>
+  </g>`,
+  net: `<g transform="translate(290,125)">
+    <circle cx="-18" cy="-14" r="8" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <circle cx="20" cy="-14" r="8" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <circle cx="2" cy="22" r="8" fill="rgba(255,255,255,0.07)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <line x1="-12" y1="-10" x2="14" y2="-10" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <line x1="-10" y1="-8" x2="0" y2="18" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    <line x1="14" y1="-8" x2="8" y2="18" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  </g>`,
+  pie: `<g transform="translate(290,125)">
+    <circle cx="0" cy="0" r="30" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <path d="M0,0 L0,-30 A30,30 0 0,1 26,-15Z" fill="rgba(255,255,255,0.14)"/>
+    <path d="M0,0 L26,-15 A30,30 0 0,1 15,26Z" fill="rgba(255,255,255,0.1)"/>
+    <path d="M0,0 L15,26 A30,30 0 0,1 -15,26Z" fill="rgba(255,255,255,0.06)"/>
+    <path d="M0,0 L-15,26 A30,30 0 0,1 -26,-15Z" fill="rgba(255,255,255,0.04)"/>
+  </g>`,
+  book: `<g transform="translate(290,125)">
+    <rect x="-28" y="-20" width="22" height="45" rx="2" fill="rgba(255,255,255,0.06)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <rect x="-6" y="-20" width="22" height="45" rx="2" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="1.5"/>
+    <line x1="-22" y1="-10" x2="-10" y2="-10" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+    <line x1="-22" y1="-2" x2="-10" y2="-2" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    <line x1="-22" y1="6" x2="-10" y2="6" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+  </g>`,
+  bar: `<g transform="translate(290,130)">
+    <rect x="-28" y="5" width="12" height="28" rx="2" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+    <rect x="-6" y="-5" width="12" height="38" rx="2" fill="rgba(255,255,255,0.18)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+    <rect x="16" y="10" width="12" height="23" rx="2" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+    <line x1="-36" y1="0" x2="36" y2="0" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  </g>`,
+};
+
+// ── Content-aware abstract image generator (v2.3) ──
+function genImg(title, excerpt, source, section) {
+  const brand = BRANDS[source] || { bg1: '#522D6D', bg2: '#7B3FAF', logo: 'TS', logoColor: '#fff', shape: 'bubble' };
+  const topics = detectTopics(title, excerpt);
+  const primaryTopic = topics[0];
+  const iconSvg = ICONS[primaryTopic?.icon] || ICONS.bubble;
   
+  // Decorative shapes based on source brand
+  let decorative = '';
+  if (brand.shape === 'net' || brand.shape === 'circuit') {
+    decorative = `<line x1="${50+Math.abs(title.length*7%100)}" y1="${20+Math.abs(title.length*13%60)}" x2="${150+Math.abs(title.length*3%200)}" y2="${80+Math.abs(title.length*11%100)}" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
+    <circle cx="${80+Math.abs(title.length*17%250)}" cy="${100+Math.abs(title.length*5%150)}" r="${5+Math.abs(title.length%15)}" fill="rgba(255,255,255,0.04)"/>`;
+  } else {
+    decorative = `<circle cx="${100+Math.abs(title.length*7%300)}" cy="${60+Math.abs(title.length*13%200)}" r="${30+Math.abs(title.length%40)}" fill="rgba(255,255,255,0.04)"/>
+    <circle cx="${300+Math.abs(title.length*11%200)}" cy="${180+Math.abs(title.length*5%100)}" r="${20+Math.abs(title.length*3%30)}" fill="rgba(255,255,255,0.03)"/>`;
+  }
+
+  // Topic label at bottom
+  const topicLabel = topics.slice(0, 2).map(t => t.label).join(' · ');
+
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="320">
   <defs>
     <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:${c1}"/>
-      <stop offset="100%" style="stop-color:${c2}"/>
+      <stop offset="0%" style="stop-color:${brand.bg1}"/>
+      <stop offset="100%" style="stop-color:${brand.bg2}"/>
     </linearGradient>
-    <radialGradient id="g2" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" style="stop-color:rgba(255,255,255,0.08)"/>
-      <stop offset="100%" style="stop-color:rgba(255,255,255,0)"/>
-    </radialGradient>
   </defs>
   <rect width="600" height="320" fill="url(#g)"/>
-  <rect width="600" height="320" fill="url(#g2)"/>
-  <circle cx="${cx1}" cy="${cy1}" r="${r1}" fill="rgba(255,255,255,${opacity1})"/>
-  <circle cx="${cx2}" cy="${cy2}" r="${r2}" fill="rgba(255,255,255,${opacity2})"/>
-  <line x1="${lineX1}" y1="${lineY1}" x2="${lineX2}" y2="${lineY2}" stroke="rgba(255,255,255,0.08)" stroke-width="${1 + Math.abs(hash % 3)}"/>
-  <rect x="20" y="20" width="560" height="280" rx="16" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
-  ${icon}
-  <text x="300" y="300" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-family="'Courier New',monospace" font-size="9" letter-spacing="3">●●●</text>
+  ${decorative}
+  <!-- Source logo wordmark -->
+  <text x="24" y="34" fill="${brand.logoColor}" font-family="'Montserrat','Helvetica Neue',Arial,sans-serif" font-weight="800" font-size="22" letter-spacing="2" opacity="0.5">${brand.logo}</text>
+  <!-- Content-aware icon -->
+  ${iconSvg}
+  <!-- Topic label -->
+  <text x="300" y="300" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="'Montserrat','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="600" letter-spacing="2">${topicLabel}</text>
 </svg>`;
   const b64 = Buffer.from(svg, 'utf8').toString('base64');
   return `data:image/svg+xml;base64,${b64}`;
@@ -262,11 +450,11 @@ async function getSource(name, url, color, sec) {
       title: i.title, link: i.link, date: i.date, excerpt: strip(i.excerpt), image: i.image,
       source: name, sourceColor: color, section: sec, relativeDate: relDate(i.date),
     }));
-    // Filter: industry sources keep all, general sources need keyword match
+    // Industry sources keep all articles; general sources need keyword match
     if (['TechCrunch','CNBC Tech','Wired','The Guardian','BBC Technology','EU Commission'].includes(name)) {
       const before = filtered.length;
       filtered = filtered.filter(a => {
-        const text = `${a.title} ${a.excerpt}`.toLowerCase();
+        const text = `${a.title} ${a.excerpt}`;
         const pos = matches(text, KEYWORDS);
         const neg = matches(text, NEGATIVE);
         return pos && !neg;
@@ -284,7 +472,7 @@ async function getSource(name, url, color, sec) {
 
 // ── Main ──
 async function gen() {
-  console.log('📰 TranslaStars Industry News — Daily Edition\n');
+  console.log('📰 TranslaStars Industry News — Daily Edition v2.3\n');
 
   const all = [];
   for (const s of SRC) {
@@ -313,11 +501,7 @@ async function gen() {
   const secd = {};
   secs.forEach(s => secd[s] = unique.filter(a => a.section === s));
 
-  // ── HTML (v2.2 — Montserrat, visual images, all articles shown) ──
-  const ALL_META = JSON.stringify(unique.map(a => ({
-    t: a.title, s: a.source, d: a.relativeDate, l: a.link, x: trunc(a.excerpt, 150), sec: a.section
-  })));
-
+  // ── HTML (v2.3) ──
   const h = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -383,7 +567,7 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
 .cd{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
 .cd:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.08)}
 .cd .ci{height:160px;background-size:cover;background-position:center;background-color:#f0ecf5;position:relative}
-.cd .ci .ct{position:absolute;top:8px;left:8px;background:rgba(82,45,109,.85);color:#fff;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:4px}
+.cd .ci .ct{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.55);color:#fff;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:4px}
 .cd .cb{padding:16px;flex:1;display:flex;flex-direction:column}
 .cd .ctop{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .cd .cs{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#522D6D}
@@ -437,7 +621,7 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
 </div>
 
 ${top ? `<article class="feat">
-  <div class="fi" style="background-image:url('${top.image || genImg(top.title, top.section)}')"><div class="o"></div></div>
+  <div class="fi" style="background-image:url('${top.image || genImg(top.title, top.excerpt, top.source, top.section)}')"><div class="o"></div></div>
   <div class="fb">
     <span class="fs" style="color:${top.sourceColor}">${top.source}</span>
     <h2>${top.title}</h2>
@@ -451,7 +635,6 @@ ${secs.map((s, si) => {
   const a = secd[s] || [];
   if (!a.length) return '';
   const id = s.replace(/[&\s]+/g, '-').replace(/-+/g, '-');
-  // Show first 12, rest hidden behind "Show all X articles" button
   const LIMIT = 12;
   const visible = a.slice(0, LIMIT);
   const hidden = a.slice(LIMIT);
@@ -463,7 +646,7 @@ ${secs.map((s, si) => {
   </div>
   <div class="gr" id="grid-${si}">
     ${visible.map(art => {
-      const imgUrl = art.image || genImg(art.title, art.section);
+      const imgUrl = art.image || genImg(art.title, art.excerpt, art.source, art.section);
       return `
     <article class="cd">
       <div class="ci" style="background-image:url('${imgUrl}')">
@@ -481,7 +664,7 @@ ${secs.map((s, si) => {
     </article>`;
     }).join('\n    ')}
     ${hidden.length > 0 ? hidden.map(art => {
-      const imgUrl = art.image || genImg(art.title, art.section);
+      const imgUrl = art.image || genImg(art.title, art.excerpt, art.source, art.section);
       return `
     <article class="cd" style="display:none" class="hidden-${si}">
       <div class="ci" style="background-image:url('${imgUrl}')">
