@@ -1,10 +1,11 @@
 /**
- * TranslaStars Industry News — Daily Generator v2.1
- * Changes:
- *  - Base64 SVG images (reliable rendering)
- *  - Keyword filtering for industry relevance
- *  - Reduced noise: only localization/language/AI-relevant articles
- *  - 17 sources, 4 sections
+ * TranslaStars Industry News — Daily Generator v2.2
+ * Changes from v2.1:
+ *  - Montserrat font (TranslaStars brand) instead of Playfair Display + Inter
+ *  - Abstract visual SVG images (icons + patterns) instead of showing title text
+ *  - ALL articles shown per section (no 6-article limit)
+ *  - Aggressive keyword filtering for less noise
+ *  - Visual-only SVGs (abstract shapes, icons) for card images
  */
 const https = require('https');
 const http = require('http');
@@ -15,57 +16,81 @@ const OUT = path.join(__dirname, '..', 'docs');
 const DROPBOX = path.join('C:\\Users\\barto\\Dropbox', 'OpenClaw Proyectos', 'Industry News');
 const SITE = 'https://translastars.github.io/industry-news/';
 
-// ── Industry relevance keywords ──
+// ── Industry relevance keywords (v2.2 — more aggressive) ──
 const KEYWORDS = [
   // Core language/localization
-  'translat', 'locali?zation', 'locali?ing', 'interpret', 'languag',
-  'linguist', 'multilingual', 'subtitle', 'caption', 'terminolog',
-  'transcreation', 'globali?ation', 'globali?ing', 'l10n', 'i18n',
-  'machine translation', 'mt ', 'nmt', 'llm translat',
+  'translat', 'localization', 'localisation', 'localizing', 'localising',
+  'interpret', 'languag', 'linguist', 'multilingual', 'subtitle',
+  'caption', 'terminolog', 'transcreation', 'globalization', 'globalisation',
+  'l10n', 'i18n',
+  'machine translation', 'nmt', 'llm translat',
   'trados', 'memoq', 'crowdin', 'smartcat', 'phrase ', 'matecat',
+  'wordfast', 'déjà vu',
   // AI for language
-  'nlp ', 'natural language', 'speech', 'voice ', 'asr ', 'tts ',
+  'natural language', 'nlp ', 'nlp,', 'speech', 'voice ',
   'text-to-speech', 'speech-to-text', 'whisper', 'transcri',
   'ai voice', 'ai agent', 'conversation', 'chatbot',
-  // Industry players
-  'slator', 'nimdzi', 'elia', 'gala', 'taus', 'multilingual',
-  'europ', 'commission', 'language industry',
+  'language model', 'large language', 'llm',
+  // Industry
+  'slator', 'nimdzi', 'elia ', 'gala ', 'taus ',
+  'language industry', 'translation industry',
   // Content & global
-  'content ', 'publishing', 'digital', 'global market',
-  'ecommerce', 'e-commerce', 'cross-border', 'internationali?',
-  // Education & training
+  'ecommerce', 'e-commerce', 'cross-border', 'internationaliz',
+  // Training
   'training', 'course', 'learning', 'education', 'student',
   'university', 'certification',
-  // Language technology
-  'ai model', 'large language', 'llm', 'gpt', 'openai', 'anthropic',
-  'deepseek', 'claude', 'gemini', 'copilot',
+  // Key AI vendors
+  'openai ', 'anthropic ', 'deepseek', 'claude ', 'gemini ',
+  'copilot', 'chatgpt',
+  // Translation specific
+  'translator', 'translating', 'translate',
+  // European
+  'europ', 'commission',
 ];
 
-// Negative keywords — articles about these topics get excluded
+// Negative keywords — articles about these topics get excluded (v2.2 — expanded)
 const NEGATIVE = [
-  'sport', 'football', 'soccer', 'nfl', 'nba', 'game ',
-  'gaming', 'video game', 'console', 'playstation', 'xbox',
+  'sport', 'football', 'soccer', 'nfl', 'nba', 'nhl', 'mlb',
+  'gaming', 'video game', 'console', 'playstation', 'xbox', 'nintendo',
   'movie', 'film ', 'hollywood', 'celebrity', 'actor ',
-  'space ', 'rocket', 'mars ', 'nasa ', 'astronaut',
+  'space ', 'rocket', 'mars ', 'nasa ', 'astronaut', 'spacex ', 'starship',
   'investing', 'stock ', 'crypto', 'bitcoin', 'nft ',
   'kitchen', 'recipe', 'food ', 'diet ', 'fitness',
-  'weather', 'hurricane', 'earthquake',
-  'police', 'crime ', 'murder', 'shooting', 'protest',
+  'weather', 'hurricane', 'earthquake', 'tornado',
+  'police', 'crime ', 'murder', 'shooting', 'protest', 'military',
   'music ', 'album', 'concert', 'song ',
-  'car ', 'vehicle', 'driverless car', 'autonomous vehicle',
+  'car ', 'vehicle', 'driverless car', 'autonomous vehicle', 'tesla ',
   'beauty', 'fashion', 'makeup',
-  'real estate', 'housing',
+  'real estate', 'housing', 'mortgage',
   'pet ', 'dog ', 'cat ', 'veterinary',
-  'gun ', 'weapon',
+  'gun ', 'weapon', 'shooting',
+  'nuclear', 'missile',
+  'cooking', 'travel ', 'tourism',
+  'garden', 'plant ',
+  'chronicle', 'obituary',
+  'samsung', 'apple ', 'iphone', 'ipad', 'macbook', 'google pixel',
+  'smartphone', 'tablet ',
+  'battery', 'charging',
+  'cyber monday', 'black friday', 'shopping',
+  'quantum', 'cryptograph',
+  '5g ', '6g ',
+  'usb-c',
+  'netflix ', 'streaming',
+  'instagram', 'tiktok', 'youtube ',
+  'wine ', 'beer ', 'cocktail',
+  'prison', 'court ',
+  'pandemic', 'virus ', 'covid',
 ];
 
 function matches(str, patterns) {
   if (!str) return false;
   const s = str.toLowerCase();
   return patterns.some(p => {
-    // If pattern ends with space, match whole-word
-    if (p.endsWith(' ')) return s.includes(p.toLowerCase().trim() + ' ');
-    // Handle wildcard ?
+    if (p.endsWith(' ')) {
+      // Whole-word match: word followed by space, comma, period, etc.
+      const re = new RegExp('\\b' + p.toLowerCase().trim() + '[\\s\\.,;:!\\?\\]\\)]', 'i');
+      return re.test(s);
+    }
     const regex = new RegExp(p.toLowerCase().replace(/\?/g, '.'), 'i');
     return regex.test(s);
   });
@@ -138,29 +163,71 @@ function relDate(d) {
 }
 function fmtDate(d) { return d.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); }
 
-// ── Generate SVG as base64 data URI ──
+// ── Abstract visual SVGs (v2.2 — no text, just abstract patterns/icons) ──
 function genImg(title, section) {
-  const colors = {
-    'Localization Industry': { bg1: '#522D6D', bg2: '#7B3FAF' },
-    'AI & Technology':       { bg1: '#1a3a5c', bg2: '#2d6a9f' },
-    'Tools & Platforms':     { bg1: '#2d6a4f', bg2: '#40916c' },
-    'Global & Policy':       { bg1: '#b8860b', bg2: '#daa520' },
+  // Generate a deterministic color based on title
+  let hash = 0;
+  for (let i = 0; i < title.length; i++) hash = ((hash << 5) - hash) + title.charCodeAt(i);
+  const hue1 = Math.abs(hash % 360);
+  const hue2 = (hue1 + 40 + Math.abs(hash * 7 % 80)) % 360;
+  
+  // Section-based base colors
+  const palettes = {
+    'Localization Industry': ['#522D6D', '#7B3FAF', '#9b5de5'],
+    'AI & Technology':       ['#0a3d6b', '#1a6baa', '#2d8fd5'],
+    'Tools & Platforms':     ['#1b5e20', '#388e3c', '#66bb6a'],
+    'Global & Policy':       ['#b8860b', '#daa520', '#f0c040'],
   };
-  const c = colors[section] || { bg1: '#522D6D', bg2: '#7B3FAF' };
-  const clean = title.replace(/&/g, '&amp;').replace(/</g, '&lt;').substring(0, 60);
+  const pal = palettes[section] || ['#522D6D', '#7B3FAF', '#9b5de5'];
+  const c1 = pal[Math.abs(hash) % pal.length];
+  const c2 = pal[Math.abs(hash * 3) % pal.length];
+  
+  // Abstract pattern — circles, lines, blobs based on title hash
+  const r1 = 20 + Math.abs(hash % 60);
+  const r2 = 10 + Math.abs(hash * 7 % 40);
+  const cx1 = 100 + Math.abs(hash % 400);
+  const cy1 = 60 + Math.abs(hash * 3 % 200);
+  const cx2 = 300 + Math.abs(hash * 13 % 250);
+  const cy2 = 180 + Math.abs(hash * 5 % 100);
+  const lineX1 = Math.abs(hash % 500);
+  const lineY1 = Math.abs(hash * 11 % 300);
+  const lineX2 = Math.abs(hash * 17 % 500) + 50;
+  const lineY2 = Math.abs(hash * 19 % 300) + 20;
+  const opacity1 = (0.15 + Math.abs(hash % 5) * 0.03).toFixed(2);
+  const opacity2 = (0.10 + Math.abs(hash * 7 % 4) * 0.04).toFixed(2);
+  
+  // Section icon
+  let icon = '';
+  if (section === 'Localization Industry') {
+    icon = `<g transform="translate(300,160)"><circle cx="0" cy="0" r="40" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/><circle cx="-12" cy="0" r="8" fill="rgba(255,255,255,0.2)"/><circle cx="12" cy="0" r="8" fill="rgba(255,255,255,0.2)"/><path d="M-8,12 Q0,28 8,12" stroke="rgba(255,255,255,0.2)" fill="none" stroke-width="2"/></g>`;
+  } else if (section === 'AI & Technology') {
+    icon = `<g transform="translate(300,160)"><circle cx="-15" cy="-15" r="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/><circle cx="15" cy="-15" r="12" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/><line x1="-8" y1="18" x2="8" y2="18" stroke="rgba(255,255,255,0.15)" stroke-width="3" stroke-linecap="round"/></g>`;
+  } else if (section === 'Tools & Platforms') {
+    icon = `<g transform="translate(300,160)"><rect x="-28" y="-20" width="56" height="40" rx="4" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/><circle cx="0" cy="0" r="8" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/><line x1="0" y1="-12" x2="0" y2="-24" stroke="rgba(255,255,255,0.15)" stroke-width="2"/><line x1="-20" y1="24" x2="20" y2="24" stroke="rgba(255,255,255,0.15)" stroke-width="2"/></g>`;
+  } else {
+    icon = `<g transform="translate(300,160)"><circle cx="0" cy="-12" r="16" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/><path d="M-20,20 Q-10,30 0,20 Q10,30 20,20" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="2"/></g>`;
+  }
+  
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="320">
-  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-    <stop offset="0%" style="stop-color:${c.bg1}"/>
-    <stop offset="100%" style="stop-color:${c.bg2}"/>
-  </linearGradient></defs>
-  <rect width="600" height="320" fill="url(#g)" rx="12"/>
-  <rect x="40" y="40" width="520" height="240" fill="rgba(0,0,0,0.15)" rx="8"/>
-  <text x="300" y="140" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="Georgia,serif" font-size="20" font-weight="600">${clean.length > 50 ? clean.substring(0,50)+'...' : clean}</text>
-  <rect x="40" y="240" width="100" height="24" rx="12" fill="rgba(255,255,255,0.2)"/>
-  <text x="90" y="256" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial,sans-serif" font-size="10" font-weight="bold" letter-spacing="2">NEWS</text>
-  <text x="300" y="296" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Arial,sans-serif" font-size="10">TranslaStars Industry News</text>
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:${c1}"/>
+      <stop offset="100%" style="stop-color:${c2}"/>
+    </linearGradient>
+    <radialGradient id="g2" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:rgba(255,255,255,0.08)"/>
+      <stop offset="100%" style="stop-color:rgba(255,255,255,0)"/>
+    </radialGradient>
+  </defs>
+  <rect width="600" height="320" fill="url(#g)"/>
+  <rect width="600" height="320" fill="url(#g2)"/>
+  <circle cx="${cx1}" cy="${cy1}" r="${r1}" fill="rgba(255,255,255,${opacity1})"/>
+  <circle cx="${cx2}" cy="${cy2}" r="${r2}" fill="rgba(255,255,255,${opacity2})"/>
+  <line x1="${lineX1}" y1="${lineY1}" x2="${lineX2}" y2="${lineY2}" stroke="rgba(255,255,255,0.08)" stroke-width="${1 + Math.abs(hash % 3)}"/>
+  <rect x="20" y="20" width="560" height="280" rx="16" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+  ${icon}
+  <text x="300" y="300" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-family="'Courier New',monospace" font-size="9" letter-spacing="3">●●●</text>
 </svg>`;
-  // Use base64 for reliable CSS rendering
   const b64 = Buffer.from(svg, 'utf8').toString('base64');
   return `data:image/svg+xml;base64,${b64}`;
 }
@@ -202,9 +269,7 @@ async function getSource(name, url, color, sec) {
         const text = `${a.title} ${a.excerpt}`.toLowerCase();
         const pos = matches(text, KEYWORDS);
         const neg = matches(text, NEGATIVE);
-        if (pos && !neg) return true;
-        // Also check: if title mentions language/translation explicitly
-        return false;
+        return pos && !neg;
       });
       console.log(`  ✓ ${name}: ${filtered.length}/${before} relevant`);
     } else {
@@ -248,7 +313,11 @@ async function gen() {
   const secd = {};
   secs.forEach(s => secd[s] = unique.filter(a => a.section === s));
 
-  // ── HTML ──
+  // ── HTML (v2.2 — Montserrat, visual images, all articles shown) ──
+  const ALL_META = JSON.stringify(unique.map(a => ({
+    t: a.title, s: a.source, d: a.relativeDate, l: a.link, x: trunc(a.excerpt, 150), sec: a.section
+  })));
+
   const h = `<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -260,22 +329,24 @@ async function gen() {
 <meta property="og:description" content="Curated daily for localization & AI professionals.">
 <meta property="og:url" content="${SITE}">
 <link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📰%3C/text%3E%3C/svg%3E">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&amp;family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}html{font-size:16px}
-body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;line-height:1.6;-webkit-font-smoothing:antialiased}
+body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:#111;line-height:1.6;-webkit-font-smoothing:antialiased}
 .masthead{background:#fff;border-bottom:3px solid #522D6D;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,0.06)}
 .mh{max-width:1200px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
 .mh .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
 .mh .logo svg{width:32px;height:32px}
-.mh .logo-text{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#522D6D;letter-spacing:-.3px}
+.mh .logo-text{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:#522D6D;letter-spacing:-.3px}
 .mh .logo-text span{color:#FF6B00}
 .mh nav{display:flex;gap:14px;flex-wrap:wrap}
 .mh nav a{font-size:11px;font-weight:600;color:#555;text-decoration:none;text-transform:uppercase;letter-spacing:1px;transition:color .2s}
 .mh nav a:hover{color:#522D6D}
 @media(max-width:640px){.mh{flex-direction:column;gap:6px;padding:10px 16px}.mh nav{gap:8px;justify-content:center}}
 .hero{background:linear-gradient(135deg,#522D6D 0%,#7B3FAF 50%,#9b5de5 100%);color:#fff;padding:44px 24px 32px;text-align:center}
-.hero h1{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;letter-spacing:-1.5px;margin-bottom:6px;line-height:1.1}
+.hero h1{font-family:'Montserrat',sans-serif;font-size:42px;font-weight:900;letter-spacing:-1.5px;margin-bottom:6px;line-height:1.1}
 .hero .tag{font-size:15px;opacity:.8;font-weight:300;max-width:480px;margin:0 auto}
 .hero .meta{display:flex;justify-content:center;gap:22px;margin-top:16px;font-size:12px;opacity:.65;border-top:1px solid rgba(255,255,255,.12);padding-top:14px;flex-wrap:wrap}
 @media(max-width:640px){.hero h1{font-size:28px}.hero{padding:30px 16px 20px}.hero .meta{gap:10px;font-size:11px}}
@@ -291,7 +362,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;
 .feat .fi .o{position:absolute;inset:0;background:linear-gradient(135deg,rgba(82,45,109,.35),transparent 60%)}
 .feat .fb{padding:36px;display:flex;flex-direction:column;justify-content:center}
 .feat .fs{display:inline-block;background:#f0ecf5;color:#522D6D;font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:4px;margin-bottom:12px;align-self:flex-start}
-.feat h2{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;line-height:1.3;margin-bottom:12px}
+.feat h2{font-family:'Montserrat',sans-serif;font-size:26px;font-weight:700;line-height:1.3;margin-bottom:12px}
 .feat .fe{font-size:14px;color:#555;line-height:1.7;margin-bottom:14px}
 .feat .fm{font-size:12px;color:#999;margin-bottom:14px}
 .feat .fcta{display:inline-flex;align-items:center;gap:6px;background:#522D6D;color:#fff;text-decoration:none;padding:10px 22px;border-radius:8px;font-weight:600;font-size:13px;transition:all .2s;align-self:flex-start}
@@ -304,7 +375,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;
   .feat h2{font-size:22px}
 }
 .sh{display:flex;align-items:center;margin-bottom:16px;padding-bottom:8px;border-bottom:3px solid #522D6D;flex-wrap:wrap}
-.sh h3{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#522D6D}
+.sh h3{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;color:#522D6D}
 .sh .sc{font-size:12px;color:#999;margin-left:8px;font-weight:400}
 .sh .tag{font-size:10px;margin-left:12px;padding:2px 10px;border-radius:10px;background:#f0ecf5;color:#522D6D;font-weight:600}
 .gr{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px;margin-bottom:30px}
@@ -317,11 +388,14 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;
 .cd .ctop{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .cd .cs{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#522D6D}
 .cd .cda{font-size:11px;color:#999}
-.cd h4{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;line-height:1.35;margin-bottom:6px}
+.cd h4{font-family:'Montserrat',sans-serif;font-size:15px;font-weight:700;line-height:1.35;margin-bottom:6px}
 .cd .ctxt{font-size:13px;color:#666;line-height:1.6;flex:1;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .cd .cl{color:#522D6D;text-decoration:none;font-weight:600;font-size:12px;display:inline-flex;align-items:center;gap:3px}
 .cd .cl:hover{color:#7B3FAF;text-decoration:underline}
 .emp{background:#fff;border-radius:12px;padding:40px;text-align:center;color:#999;grid-column:1/-1}
+.view-all-wrap{text-align:center;margin-top:-16px;margin-bottom:24px}
+.view-all-btn{display:inline-flex;align-items:center;gap:6px;background:#f0ecf5;color:#522D6D;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;padding:8px 20px;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
+.view-all-btn:hover{background:#e0d6f0;transform:translateY(-1px)}
 .ft{background:#1a1a2e;color:#999;padding:32px 24px;text-align:center;margin-top:16px}
 .ft .in{max-width:600px;margin:0 auto}
 .ft a{color:#7B3FAF;text-decoration:none}
@@ -373,19 +447,22 @@ ${top ? `<article class="feat">
   </div>
 </article>` : ''}
 
-${secs.map(s => {
+${secs.map((s, si) => {
   const a = secd[s] || [];
   if (!a.length) return '';
-  const d = a.slice(0, 6);
   const id = s.replace(/[&\s]+/g, '-').replace(/-+/g, '-');
+  // Show first 12, rest hidden behind "Show all X articles" button
+  const LIMIT = 12;
+  const visible = a.slice(0, LIMIT);
+  const hidden = a.slice(LIMIT);
   return `
 <section id="${id}">
   <div class="sh">
     <h3>${s}</h3>
     <span class="sc">(${a.length} articles)</span>
   </div>
-  <div class="gr">
-    ${d.map(art => {
+  <div class="gr" id="grid-${si}">
+    ${visible.map(art => {
       const imgUrl = art.image || genImg(art.title, art.section);
       return `
     <article class="cd">
@@ -403,7 +480,26 @@ ${secs.map(s => {
       </div>
     </article>`;
     }).join('\n    ')}
+    ${hidden.length > 0 ? hidden.map(art => {
+      const imgUrl = art.image || genImg(art.title, art.section);
+      return `
+    <article class="cd" style="display:none" class="hidden-${si}">
+      <div class="ci" style="background-image:url('${imgUrl}')">
+        <span class="ct">${art.source}</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">${art.source}</span>
+          <span class="cda">${art.relativeDate}</span>
+        </div>
+        <h4>${art.title}</h4>
+        <p class="ctxt">${trunc(art.excerpt, 110)}</p>
+        <a href="${art.link}" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>`;
+    }).join('\n    ') : ''}
   </div>
+  ${hidden.length > 0 ? `<div class="view-all-wrap"><button class="view-all-btn" onclick="(function(){var g=document.getElementById('grid-${si}'),cards=g.querySelectorAll('.cd'),hidden=[];for(var i=0;i<cards.length;i++){if(cards[i].style.display==='none')hidden.push(cards[i]);}var show=hidden.splice(0,${LIMIT});show.forEach(function(c){c.style.display='flex'});if(hidden.length===0){this.textContent='Show all ${a.length} articles';this.disabled=true;this.style.opacity='0.4';}})()">Show all ${a.length} articles (${hidden.length} more) ↓</button></div>` : ''}
 </section>`}).join('\n\n')}
 
 </div>
