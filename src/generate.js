@@ -1,12 +1,10 @@
 /**
- * TranslaStars Industry News — Daily Generator
- * Complete rewrite with:
- *  - 17 sources (industry + tool providers + associations)
- *  - Auto-generated images for all cards
- *  - TranslaStars logo & branding
- *  - Better sections
- *  - No issue numbers
- * Outputs: docs/index.html + Dropbox copy
+ * TranslaStars Industry News — Daily Generator v2.1
+ * Changes:
+ *  - Base64 SVG images (reliable rendering)
+ *  - Keyword filtering for industry relevance
+ *  - Reduced noise: only localization/language/AI-relevant articles
+ *  - 17 sources, 4 sections
  */
 const https = require('https');
 const http = require('http');
@@ -17,14 +15,67 @@ const OUT = path.join(__dirname, '..', 'docs');
 const DROPBOX = path.join('C:\\Users\\barto\\Dropbox', 'OpenClaw Proyectos', 'Industry News');
 const SITE = 'https://translastars.github.io/industry-news/';
 
-// ── HTTP fetch with redirects ──
+// ── Industry relevance keywords ──
+const KEYWORDS = [
+  // Core language/localization
+  'translat', 'locali?zation', 'locali?ing', 'interpret', 'languag',
+  'linguist', 'multilingual', 'subtitle', 'caption', 'terminolog',
+  'transcreation', 'globali?ation', 'globali?ing', 'l10n', 'i18n',
+  'machine translation', 'mt ', 'nmt', 'llm translat',
+  'trados', 'memoq', 'crowdin', 'smartcat', 'phrase ', 'matecat',
+  // AI for language
+  'nlp ', 'natural language', 'speech', 'voice ', 'asr ', 'tts ',
+  'text-to-speech', 'speech-to-text', 'whisper', 'transcri',
+  'ai voice', 'ai agent', 'conversation', 'chatbot',
+  // Industry players
+  'slator', 'nimdzi', 'elia', 'gala', 'taus', 'multilingual',
+  'europ', 'commission', 'language industry',
+  // Content & global
+  'content ', 'publishing', 'digital', 'global market',
+  'ecommerce', 'e-commerce', 'cross-border', 'internationali?',
+  // Education & training
+  'training', 'course', 'learning', 'education', 'student',
+  'university', 'certification',
+  // Language technology
+  'ai model', 'large language', 'llm', 'gpt', 'openai', 'anthropic',
+  'deepseek', 'claude', 'gemini', 'copilot',
+];
+
+// Negative keywords — articles about these topics get excluded
+const NEGATIVE = [
+  'sport', 'football', 'soccer', 'nfl', 'nba', 'game ',
+  'gaming', 'video game', 'console', 'playstation', 'xbox',
+  'movie', 'film ', 'hollywood', 'celebrity', 'actor ',
+  'space ', 'rocket', 'mars ', 'nasa ', 'astronaut',
+  'investing', 'stock ', 'crypto', 'bitcoin', 'nft ',
+  'kitchen', 'recipe', 'food ', 'diet ', 'fitness',
+  'weather', 'hurricane', 'earthquake',
+  'police', 'crime ', 'murder', 'shooting', 'protest',
+  'music ', 'album', 'concert', 'song ',
+  'car ', 'vehicle', 'driverless car', 'autonomous vehicle',
+  'beauty', 'fashion', 'makeup',
+  'real estate', 'housing',
+  'pet ', 'dog ', 'cat ', 'veterinary',
+  'gun ', 'weapon',
+];
+
+function matches(str, patterns) {
+  if (!str) return false;
+  const s = str.toLowerCase();
+  return patterns.some(p => {
+    // If pattern ends with space, match whole-word
+    if (p.endsWith(' ')) return s.includes(p.toLowerCase().trim() + ' ');
+    // Handle wildcard ?
+    const regex = new RegExp(p.toLowerCase().replace(/\?/g, '.'), 'i');
+    return regex.test(s);
+  });
+}
+
+// ── HTTP fetch ──
 async function fetch(url, retries = 2) {
   for (let i = 0; i <= retries; i++) {
-    try {
-      return await _fetch(url);
-    } catch (e) {
-      if (i === retries) throw e;
-    }
+    try { return await _fetch(url); }
+    catch (e) { if (i === retries) throw e; }
   }
 }
 function _fetch(url) {
@@ -36,9 +87,7 @@ function _fetch(url) {
     }}, (res) => {
       if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
         res.resume();
-        const loc = res.headers.location.startsWith('http') ? res.headers.location
-          : new URL(res.headers.location, url).href;
-        return _fetch(loc).then(resolve).catch(reject);
+        return _fetch(new URL(res.headers.location, url).href).then(resolve).catch(reject);
       }
       if (res.statusCode !== 200) { res.resume(); return reject(new Error(`HTTP ${res.statusCode}`)); }
       const chunks = [];
@@ -64,22 +113,17 @@ function parseRSS(xml) {
     const title = g('title');
     const link = g('link') || g('guid');
     const date = g('pubDate');
-    const desc = g('description').replace(/<[^>]*>/g, '').substring(0, 350);
+    const desc = g('description').replace(/<[^>]*>/g, '').substring(0, 400);
     const img = (b.match(/<media:content[^>]*url="([^"]+)"/i) ||
                  b.match(/<enclosure[^>]*url="([^"]+)"/i) ||
                  b.match(/<media:thumbnail[^>]*url="([^"]+)"/i) || [])[1] || '';
     if (title && link && title.length > 5) {
-      items.push({
-        title: title.replace(/&#[0-9]+;/g, ' ').replace(/&amp;/g, '&').replace(/&[a-z]+;/g, ''),
-        link, date: date ? new Date(date).toISOString() : '',
-        excerpt: desc, image: img
-      });
+      items.push({ title: strip(title), link, date: date ? new Date(date).toISOString() : '', excerpt: desc, image: img });
     }
   }
   return items;
 }
 
-// ── Helpers ──
 function strip(s) { return s ? s.replace(/<[^>]*>/g, '').replace(/&#[0-9]+;/g, ' ').replace(/&amp;/g, '&').trim() : ''; }
 function trunc(s, max) { const c = strip(s); return c.length > max ? c.substring(0, max) + '…' : c; }
 function relDate(d) {
@@ -90,12 +134,11 @@ function relDate(d) {
   if (days === 0) return 'Today';
   if (days === 1) return 'Yesterday';
   if (days < 7) return `${days}d ago`;
-  if (days < 30) return `${Math.floor(days / 7)}w ago`;
   return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 function fmtDate(d) { return d.toLocaleDateString('en-US', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }); }
 
-// ── Auto-generate SVG placeholder image ──
+// ── Generate SVG as base64 data URI ──
 function genImg(title, section) {
   const colors = {
     'Localization Industry': { bg1: '#522D6D', bg2: '#7B3FAF' },
@@ -104,49 +147,42 @@ function genImg(title, section) {
     'Global & Policy':       { bg1: '#b8860b', bg2: '#daa520' },
   };
   const c = colors[section] || { bg1: '#522D6D', bg2: '#7B3FAF' };
-  const cleanTitle = title.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').
-    replace(/"/g, '&quot;').substring(0, 80);
+  const clean = title.replace(/&/g, '&amp;').replace(/</g, '&lt;').substring(0, 60);
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="320">
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:${c.bg1}"/>
-      <stop offset="100%" style="stop-color:${c.bg2}"/>
-    </linearGradient>
-  </defs>
+  <defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+    <stop offset="0%" style="stop-color:${c.bg1}"/>
+    <stop offset="100%" style="stop-color:${c.bg2}"/>
+  </linearGradient></defs>
   <rect width="600" height="320" fill="url(#g)" rx="12"/>
   <rect x="40" y="40" width="520" height="240" fill="rgba(0,0,0,0.15)" rx="8"/>
-  <text x="300" y="150" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="Georgia,serif" font-size="20" font-weight="600" line-spacing="1.4">
-    <tspan x="300" dy="0">${cleanTitle.length > 50 ? cleanTitle.substring(0,50) + '...' : cleanTitle}</tspan>
-  </text>
+  <text x="300" y="140" text-anchor="middle" fill="rgba(255,255,255,0.9)" font-family="Georgia,serif" font-size="20" font-weight="600">${clean.length > 50 ? clean.substring(0,50)+'...' : clean}</text>
   <rect x="40" y="240" width="100" height="24" rx="12" fill="rgba(255,255,255,0.2)"/>
   <text x="90" y="256" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="Arial,sans-serif" font-size="10" font-weight="bold" letter-spacing="2">NEWS</text>
   <text x="300" y="296" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Arial,sans-serif" font-size="10">TranslaStars Industry News</text>
 </svg>`;
-  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  // Use base64 for reliable CSS rendering
+  const b64 = Buffer.from(svg, 'utf8').toString('base64');
+  return `data:image/svg+xml;base64,${b64}`;
 }
 
 // ── Sources ──
 const SRC = [
-  // Industry & Research
   { name: 'Slator',        url: 'https://slator.com/feed/',                    color: '#1a73e8', sec: 'Localization Industry' },
   { name: 'Nimdzi',        url: 'https://www.nimdzi.com/feed/',                color: '#e63946', sec: 'Localization Industry' },
   { name: 'ELIA',          url: 'https://elia-association.org/feed/',          color: '#2a9d8f', sec: 'Localization Industry' },
   { name: 'IAPTI',         url: 'https://iapti.org/feed/',                     color: '#8b5cf6', sec: 'Localization Industry' },
   { name: 'EST',           url: 'https://est-translationstudies.org/feed/',    color: '#6b7280', sec: 'Localization Industry' },
-  // AI & Technology
   { name: 'TechCrunch',    url: 'https://techcrunch.com/feed/',                color: '#0a9e01', sec: 'AI & Technology' },
   { name: 'CNBC Tech',     url: 'https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147', color: '#005da3', sec: 'AI & Technology' },
   { name: 'Wired',         url: 'https://www.wired.com/feed/rss',              color: '#000',    sec: 'AI & Technology' },
   { name: 'The Guardian',  url: 'https://www.theguardian.com/technology/rss',  color: '#052962', sec: 'AI & Technology' },
   { name: 'BBC Technology',url: 'https://feeds.bbci.co.uk/news/technology/rss.xml', color: '#bb1919', sec: 'AI & Technology' },
-  // Tools & Platforms
   { name: 'Unbabel',       url: 'https://unbabel.com/feed/',                  color: '#00a3ff', sec: 'Tools & Platforms' },
   { name: 'OneSky',        url: 'https://www.oneskyapp.com/feed/',            color: '#ff6b35', sec: 'Tools & Platforms' },
   { name: 'POEditor',      url: 'https://poeditor.com/blog/feed/',            color: '#512da8', sec: 'Tools & Platforms' },
   { name: 'Welocalize',    url: 'https://www.welocalize.com/feed/',           color: '#0077b6', sec: 'Tools & Platforms' },
-  // Global & Policy
   { name: 'EU Commission', url: 'https://ec.europa.eu/commission/presscorner/api/rss?type=IP&language=en', color: '#003399', sec: 'Global & Policy' },
-  { name: 'Translators w/o Borders', url: 'https://translatorswithoutborders.org/feed/', color: '#e76f51', sec: 'Global & Policy' },
+  { name: 'TWB',           url: 'https://translatorswithoutborders.org/feed/', color: '#e76f51', sec: 'Global & Policy' },
   { name: 'Translation Commons', url: 'https://translationcommons.org/feed/', color: '#264653', sec: 'Global & Policy' },
 ];
 
@@ -155,14 +191,30 @@ async function getSource(name, url, color, sec) {
     const xml = await fetch(url);
     const items = parseRSS(xml);
     if (!items.length) { console.log(`  ~ ${name}: 0 items`); return []; }
-    console.log(`  ✓ ${name}: ${items.length} articles`);
-    return items.map(i => ({
-      title: i.title.replace(/&#[0-9]+;/g, ' ').replace(/&amp;/g, '&'),
-      link: i.link, date: i.date, excerpt: strip(i.excerpt), image: i.image,
-      source: name, sourceColor: color, section: sec,
-      relativeDate: relDate(i.date),
+    let filtered = items.map(i => ({
+      title: i.title, link: i.link, date: i.date, excerpt: strip(i.excerpt), image: i.image,
+      source: name, sourceColor: color, section: sec, relativeDate: relDate(i.date),
     }));
-  } catch (e) { console.log(`  ✗ ${name}: ${e.message.substring(0,50)}`); return []; }
+    // Filter: industry sources keep all, general sources need keyword match
+    if (['TechCrunch','CNBC Tech','Wired','The Guardian','BBC Technology','EU Commission'].includes(name)) {
+      const before = filtered.length;
+      filtered = filtered.filter(a => {
+        const text = `${a.title} ${a.excerpt}`.toLowerCase();
+        const pos = matches(text, KEYWORDS);
+        const neg = matches(text, NEGATIVE);
+        if (pos && !neg) return true;
+        // Also check: if title mentions language/translation explicitly
+        return false;
+      });
+      console.log(`  ✓ ${name}: ${filtered.length}/${before} relevant`);
+    } else {
+      console.log(`  ✓ ${name}: ${filtered.length} articles`);
+    }
+    return filtered;
+  } catch (e) {
+    console.log(`  ✗ ${name}: ${e.message.substring(0,50)}`);
+    return [];
+  }
 }
 
 // ── Main ──
@@ -175,7 +227,6 @@ async function gen() {
     all.push(...a);
   }
 
-  // Sort by date
   all.sort((a, b) => {
     const da = new Date(a.date), db = new Date(b.date);
     if (isNaN(da.getTime()) && isNaN(db.getTime())) return 0;
@@ -184,7 +235,8 @@ async function gen() {
   });
 
   // Dedup
-  const seen = new Set(), unique = [];
+  const seen = new Set();
+  const unique = [];
   for (const a of all) {
     const key = a.title.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 35);
     if (!seen.has(key)) { seen.add(key); unique.push(a); }
@@ -234,7 +286,6 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;
 .sbar .pill{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:500;color:#555;padding:2px 8px;border-radius:4px;background:#f5f5f5}
 .sbar .pill .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
 .sbar .cnt{font-size:10px;color:#999;margin-left:auto}
-/* Featured */
 .feat{display:grid;grid-template-columns:1.2fr 1fr;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.05);margin-bottom:28px;min-height:380px}
 .feat .fi{background-size:cover;background-position:center;min-height:380px;position:relative}
 .feat .fi .o{position:absolute;inset:0;background:linear-gradient(135deg,rgba(82,45,109,.35),transparent 60%)}
@@ -267,7 +318,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;
 .cd .cs{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#522D6D}
 .cd .cda{font-size:11px;color:#999}
 .cd h4{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;line-height:1.35;margin-bottom:6px}
-.cd .ctxt{font-size:13px;color:#666;line-height:1.6;flex:1;margin-bottom:8px}
+.cd .ctxt{font-size:13px;color:#666;line-height:1.6;flex:1;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .cd .cl{color:#522D6D;text-decoration:none;font-weight:600;font-size:12px;display:inline-flex;align-items:center;gap:3px}
 .cd .cl:hover{color:#7B3FAF;text-decoration:underline}
 .emp{background:#fff;border-radius:12px;padding:40px;text-align:center;color:#999;grid-column:1/-1}
@@ -288,9 +339,9 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;
     </a>
     <nav>
       <a href="#Localization-Industry">Industry</a>
-      <a href="#AI--Technology">AI &amp; Tech</a>
-      <a href="#Tools--Platforms">Tools</a>
-      <a href="#Global--Policy">Global</a>
+      <a href="#AI-Technology">AI &amp; Tech</a>
+      <a href="#Tools-Platforms">Tools</a>
+      <a href="#Global-Policy">Global</a>
       <a href="https://www.translastars.com" target="_blank" style="color:#FF6B00">TranslaStars →</a>
     </nav>
   </div>
@@ -326,16 +377,19 @@ ${secs.map(s => {
   const a = secd[s] || [];
   if (!a.length) return '';
   const d = a.slice(0, 6);
+  const id = s.replace(/[&\s]+/g, '-').replace(/-+/g, '-');
   return `
-<section id="${s.replace(/[&\s]+/g, '-').replace(/-+/g, '-')}">
+<section id="${id}">
   <div class="sh">
     <h3>${s}</h3>
     <span class="sc">(${a.length} articles)</span>
   </div>
   <div class="gr">
-    ${d.map(art => `
+    ${d.map(art => {
+      const imgUrl = art.image || genImg(art.title, art.section);
+      return `
     <article class="cd">
-      <div class="ci" style="background-image:url('${art.image || genImg(art.title, art.section)}')">
+      <div class="ci" style="background-image:url('${imgUrl}')">
         <span class="ct">${art.source}</span>
       </div>
       <div class="cb">
@@ -347,28 +401,29 @@ ${secs.map(s => {
         <p class="ctxt">${trunc(art.excerpt, 110)}</p>
         <a href="${art.link}" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
-    </article>`).join('\n    ')}
+    </article>`;
+    }).join('\n    ')}
   </div>
 </section>`}).join('\n\n')}
 
 </div>
 <footer class="ft">
   <div class="in">
-    <p><strong style="color:#fff">TranslaStars Industry News</strong> — Daily curated for localization professionals</p>
+    <p><strong style="color:#fff">TranslaStars Industry News</strong> — Daily curated for language, localization & AI professionals</p>
     <p style="margin-top:4px"><a href="https://www.translastars.com" target="_blank">TranslaStars</a> · <a href="https://github.com/translastars/industry-news" target="_blank">GitHub</a> · <a href="${SITE}">Home</a></p>
-    <p style="margin-top:4px;font-size:11px">News curated automatically from public sources. All links open in new windows.</p>
+    <p style="margin-top:4px;font-size:11px">News curated automatically from public RSS feeds. Only industry-relevant articles shown.</p>
     <div class="pw">Generated ${today.toISOString().substring(0,19).replace('T',' ')} · Powered by TranslaStars AI ✦</div>
   </div>
 </footer>
 </body>
 </html>`;
 
-  // Write outputs
+  // Write
   if (!fs.existsSync(OUT)) fs.mkdirSync(OUT, { recursive: true });
   fs.writeFileSync(path.join(OUT, 'index.html'), h, 'utf8');
   console.log(`\n✅ docs/index.html (${Buffer.byteLength(h, 'utf8').toLocaleString()} bytes)`);
-  
-  if (fs.existsSync('C:\\Users\\barto\\Dropbox')) {
+
+  if (fs.existsSync(DROPBOX)) {
     if (!fs.existsSync(DROPBOX)) fs.mkdirSync(DROPBOX, { recursive: true });
     fs.writeFileSync(path.join(DROPBOX, 'index.html'), h, 'utf8');
     console.log('✅ Dropbox copy');

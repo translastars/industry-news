@@ -35,7 +35,6 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;
 .sbar .pill{display:flex;align-items:center;gap:4px;font-size:10px;font-weight:500;color:#555;padding:2px 8px;border-radius:4px;background:#f5f5f5}
 .sbar .pill .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
 .sbar .cnt{font-size:10px;color:#999;margin-left:auto}
-/* Featured */
 .feat{display:grid;grid-template-columns:1.2fr 1fr;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 2px 20px rgba(0,0,0,.05);margin-bottom:28px;min-height:380px}
 .feat .fi{background-size:cover;background-position:center;min-height:380px;position:relative}
 .feat .fi .o{position:absolute;inset:0;background:linear-gradient(135deg,rgba(82,45,109,.35),transparent 60%)}
@@ -68,7 +67,7 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;
 .cd .cs{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#522D6D}
 .cd .cda{font-size:11px;color:#999}
 .cd h4{font-family:'Playfair Display',serif;font-size:15px;font-weight:700;line-height:1.35;margin-bottom:6px}
-.cd .ctxt{font-size:13px;color:#666;line-height:1.6;flex:1;margin-bottom:8px}
+.cd .ctxt{font-size:13px;color:#666;line-height:1.6;flex:1;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .cd .cl{color:#522D6D;text-decoration:none;font-weight:600;font-size:12px;display:inline-flex;align-items:center;gap:3px}
 .cd .cl:hover{color:#7B3FAF;text-decoration:underline}
 .emp{background:#fff;border-radius:12px;padding:40px;text-align:center;color:#999;grid-column:1/-1}
@@ -89,9 +88,9 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;
     </a>
     <nav>
       <a href="#Localization-Industry">Industry</a>
-      <a href="#AI--Technology">AI &amp; Tech</a>
-      <a href="#Tools--Platforms">Tools</a>
-      <a href="#Global--Policy">Global</a>
+      <a href="#AI-Technology">AI &amp; Tech</a>
+      <a href="#Tools-Platforms">Tools</a>
+      <a href="#Global-Policy">Global</a>
       <a href="https://www.translastars.com" target="_blank" style="color:#FF6B00">TranslaStars →</a>
     </nav>
   </div>
@@ -101,26 +100,30 @@ body{font-family:'Inter',-apple-system,sans-serif;background:#f7f5f2;color:#111;
   <p class="tag">Curated daily for language, localization &amp; AI professionals</p>
   <div class="meta">
     <span>Tuesday, July 7, 2026</span>
-    <span>239 articles</span>
+    <span>116 articles</span>
     <span>17 sources</span>
   </div>
 </section>
 <div class="container">
 <div class="sbar">
   <span class="lb">Sources</span>
-  <span class="pill"><span class="dot" style="background:#1a73e8"></span>Slator</span><span class="pill"><span class="dot" style="background:#e63946"></span>Nimdzi</span><span class="pill"><span class="dot" style="background:#2a9d8f"></span>ELIA</span><span class="pill"><span class="dot" style="background:#8b5cf6"></span>IAPTI</span><span class="pill"><span class="dot" style="background:#6b7280"></span>EST</span><span class="pill"><span class="dot" style="background:#0a9e01"></span>TechCrunch</span><span class="pill"><span class="dot" style="background:#005da3"></span>CNBC Tech</span><span class="pill"><span class="dot" style="background:#000"></span>Wired</span><span class="pill"><span class="dot" style="background:#052962"></span>The Guardian</span><span class="pill"><span class="dot" style="background:#bb1919"></span>BBC Technology</span><span class="pill"><span class="dot" style="background:#00a3ff"></span>Unbabel</span><span class="pill"><span class="dot" style="background:#ff6b35"></span>OneSky</span><span class="pill"><span class="dot" style="background:#512da8"></span>POEditor</span><span class="pill"><span class="dot" style="background:#0077b6"></span>Welocalize</span><span class="pill"><span class="dot" style="background:#003399"></span>EU Commission</span><span class="pill"><span class="dot" style="background:#e76f51"></span>Translators w/o Borders</span><span class="pill"><span class="dot" style="background:#264653"></span>Translation Commons</span>
+  <span class="pill"><span class="dot" style="background:#1a73e8"></span>Slator</span><span class="pill"><span class="dot" style="background:#e63946"></span>Nimdzi</span><span class="pill"><span class="dot" style="background:#2a9d8f"></span>ELIA</span><span class="pill"><span class="dot" style="background:#8b5cf6"></span>IAPTI</span><span class="pill"><span class="dot" style="background:#6b7280"></span>EST</span><span class="pill"><span class="dot" style="background:#0a9e01"></span>TechCrunch</span><span class="pill"><span class="dot" style="background:#005da3"></span>CNBC Tech</span><span class="pill"><span class="dot" style="background:#000"></span>Wired</span><span class="pill"><span class="dot" style="background:#052962"></span>The Guardian</span><span class="pill"><span class="dot" style="background:#bb1919"></span>BBC Technology</span><span class="pill"><span class="dot" style="background:#00a3ff"></span>Unbabel</span><span class="pill"><span class="dot" style="background:#ff6b35"></span>OneSky</span><span class="pill"><span class="dot" style="background:#512da8"></span>POEditor</span><span class="pill"><span class="dot" style="background:#0077b6"></span>Welocalize</span><span class="pill"><span class="dot" style="background:#003399"></span>EU Commission</span><span class="pill"><span class="dot" style="background:#e76f51"></span>TWB</span><span class="pill"><span class="dot" style="background:#264653"></span>Translation Commons</span>
   <span class="cnt">Daily</span>
 </div>
 
 <article class="feat">
-  <div class="fi" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ExAI%20Releases%20No-Code%20Voice%20Agent%20Builder%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')"><div class="o"></div></div>
+  <div class="fi" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2I4ODYwYiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZGFhNTIwIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPlJlbWFya3MgYnkgQ29tbWlzc2lvbmVyIMWgZWbEjW92acSNIGF0IHRoZSBFdXJvcGVhbiBQLi4uPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')"><div class="o"></div></div>
   <div class="fb">
-    <span class="fs" style="color:#1a73e8">Slator</span>
-    <h2>xAI Releases No-Code Voice Agent Builder</h2>
-    <p class="fe">xAI releases Grok Voice Agent Builder, a no-code platform for designing, deploying, and managing production AI voice agents.
-The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
+    <span class="fs" style="color:#003399">EU Commission</span>
+    <h2>Remarks by Commissioner Šefčovič at the European Parliament plenary debate on the presentation of the programme of activities of the Irish Presidency</h2>
+    <p class="fe">European Commission Speech Strasbourg, 07 Jul 2026 Dear President,
+Dear Taoiseach,
+Dear Minister,
+Honourable Members,
+My dear colleague Commissioner McGrath.
+I want to start by welcoming the inco…</p>
     <div class="fm">Today</div>
-    <a href="https://slator.com/xai-releases-no-code-voice-agent-builder/" target="_blank" rel="noopener" class="fcta">Read full article →</a>
+    <a href="https://ec.europa.eu/commission/presscorner/detail/en/speech_26_1547" target="_blank" rel="noopener" class="fcta">Read full article →</a>
   </div>
 </article>
 
@@ -133,7 +136,7 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
   <div class="gr">
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ExAI%20Releases%20No-Code%20Voice%20Agent%20Builder%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzUyMkQ2RCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0IzRkFGIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPnhBSSBSZWxlYXNlcyBOby1Db2RlIFZvaWNlIEFnZW50IEJ1aWxkZXI8L3RleHQ+CiAgPHJlY3QgeD0iNDAiIHk9IjI0MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIyNCIgcng9IjEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMikiLz4KICA8dGV4dCB4PSI5MCIgeT0iMjU2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNykiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iYm9sZCIgbGV0dGVyLXNwYWNpbmc9IjIiPk5FV1M8L3RleHQ+CiAgPHRleHQgeD0iMzAwIiB5PSIyOTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zNSkiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIj5UcmFuc2xhU3RhcnMgSW5kdXN0cnkgTmV3czwvdGV4dD4KPC9zdmc+')">
         <span class="ct">Slator</span>
       </div>
       <div class="cb">
@@ -148,7 +151,7 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ENetgem%20CEO%20Discusses%20Acquisition%20of%20AI%20Subtitling%20...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzUyMkQ2RCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0IzRkFGIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPk5ldGdlbSBDRU8gRGlzY3Vzc2VzIEFjcXVpc2l0aW9uIG9mIEFJIFN1YnRpdGxpbmcgLi4uPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')">
         <span class="ct">Slator</span>
       </div>
       <div class="cb">
@@ -163,7 +166,7 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ERevpanda%20Co-Founder%20on%20All-in%20Global%20Acquisition%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzUyMkQ2RCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0IzRkFGIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPlJldnBhbmRhIENvLUZvdW5kZXIgb24gQWxsLWluIEdsb2JhbCBBY3F1aXNpdGlvbjwvdGV4dD4KICA8cmVjdCB4PSI0MCIgeT0iMjQwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjI0IiByeD0iMTIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIvPgogIDx0ZXh0IHg9IjkwIiB5PSIyNTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC43KSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiIGZvbnQtd2VpZ2h0PSJib2xkIiBsZXR0ZXItc3BhY2luZz0iMiI+TkVXUzwvdGV4dD4KICA8dGV4dCB4PSIzMDAiIHk9IjI5NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjM1KSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiPlRyYW5zbGFTdGFycyBJbmR1c3RyeSBOZXdzPC90ZXh0Pgo8L3N2Zz4=')">
         <span class="ct">Slator</span>
       </div>
       <div class="cb">
@@ -178,7 +181,7 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ELessons%20in%20Localization%3A%20WEEX%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzUyMkQ2RCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0IzRkFGIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPkxlc3NvbnMgaW4gTG9jYWxpemF0aW9uOiBXRUVYPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')">
         <span class="ct">Nimdzi</span>
       </div>
       <div class="cb">
@@ -193,7 +196,7 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EAI%20Language%20Learning%20Startup%20Lucida%20Raises%20GBP%205.3...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzUyMkQ2RCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0IzRkFGIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPkFJIExhbmd1YWdlIExlYXJuaW5nIFN0YXJ0dXAgTHVjaWRhIFJhaXNlcyBHQlAgNS4zLi4uPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')">
         <span class="ct">Slator</span>
       </div>
       <div class="cb">
@@ -208,7 +211,7 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23522D6D%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%237B3FAF%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ECALL%20FOR%20CONTRIBUTIONS%20TO%20THE%20EST%20NEWSLETTER%E2%80%99S%20EME...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzUyMkQ2RCIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojN0IzRkFGIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPkNBTEwgRk9SIENPTlRSSUJVVElPTlMgVE8gVEhFIEVTVCBORVdTTEVUVEVS4oCZUyBFTUUuLi48L3RleHQ+CiAgPHJlY3QgeD0iNDAiIHk9IjI0MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIyNCIgcng9IjEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMikiLz4KICA8dGV4dCB4PSI5MCIgeT0iMjU2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNykiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iYm9sZCIgbGV0dGVyLXNwYWNpbmc9IjIiPk5FV1M8L3RleHQ+CiAgPHRleHQgeD0iMzAwIiB5PSIyOTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zNSkiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIj5UcmFuc2xhU3RhcnMgSW5kdXN0cnkgTmV3czwvdGV4dD4KPC9zdmc+')">
         <span class="ct">EST</span>
       </div>
       <div class="cb">
@@ -228,69 +231,9 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
 <section id="AI-Technology">
   <div class="sh">
     <h3>AI & Technology</h3>
-    <span class="sc">(143 articles)</span>
+    <span class="sc">(21 articles)</span>
   </div>
   <div class="gr">
-    
-    <article class="cd">
-      <div class="ci" style="background-image:url('https://media.wired.com/photos/6a4c392002bd100f6dc9d608/master/pass/pete_holmes_final_social.jpg')">
-        <span class="ct">Wired</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">Wired</span>
-          <span class="cda">Today</span>
-        </div>
-        <h4>Pete Holmes Is Not Reading Your Email</h4>
-        <p class="ctxt">“You can make a living, you can have a life, and leave 55,000 emails unread with a big fuck off.”</p>
-        <a href="https://www.wired.com/story/pete-holmes-user-behavior/" target="_blank" rel="noopener" class="cl">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="cd">
-      <div class="ci" style="background-image:url('https://media.wired.com/photos/6a4c65ccbde112482e13fc49/master/pass/Erling-Haaland_Culture_World-Cup.jpg')">
-        <span class="ct">Wired</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">Wired</span>
-          <span class="cda">Today</span>
-        </div>
-        <h4>Erling Haaland Is Everywhere at the World Cup. Most of It Is AI</h4>
-        <p class="ctxt">Norwegian striker Erling Haaland isn’t just a footballer anymore. He’s become an internet character perpetuate…</p>
-        <a href="https://www.wired.com/story/erling-haaland-is-everywhere-at-the-world-cup-most-of-it-is-ai/" target="_blank" rel="noopener" class="cl">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="cd">
-      <div class="ci" style="background-image:url('https://media.wired.com/photos/6a441cbc08adce464121affa/master/pass/BookExceprt_People%20Used%20to%20Control%20Machines%20They%20Don%E2%80%99t%20Anymore_v2.jpg')">
-        <span class="ct">Wired</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">Wired</span>
-          <span class="cda">Today</span>
-        </div>
-        <h4>People Used to Control Machines. They Don’t Anymore</h4>
-        <p class="ctxt">In a world regulated by devices, humanity has become disconnected from the physical world—from stick-shift car…</p>
-        <a href="https://www.wired.com/story/loss-of-physical-world-book-excerpt-the-small-stuff-ian-bogost/" target="_blank" rel="noopener" class="cl">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="cd">
-      <div class="ci" style="background-image:url('https://media.wired.com/photos/6a4bec4884127a1d3953c8af/master/pass/Precision_assembly%20(credit_%20Tumbleweed%20Microgravity).png')">
-        <span class="ct">Wired</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">Wired</span>
-          <span class="cda">Today</span>
-        </div>
-        <h4>British Space Startup Launches Longevity Lab Into Orbit</h4>
-        <p class="ctxt">The lab will beam back data to train AI models to predict how proteins behind age-related diseases like Alzhei…</p>
-        <a href="https://www.wired.com/story/british-space-startup-launches-longevity-lab-into-orbit/" target="_blank" rel="noopener" class="cl">Read more →</a>
-      </div>
-    </article>
     
     <article class="cd">
       <div class="ci" style="background-image:url('https://i.guim.co.uk/img/media/a873423527e0a1a4bde5e05f0361df22ab3d934c/440_0_3261_2609/master/3261.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=0de9eb2b0d66dd96919a6acabeaa5bca')">
@@ -308,7 +251,7 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('https://i.guim.co.uk/img/media/241e4a11362afbfc953fd4377e3bfe72127bd272/540_0_8486_6789/master/8486.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=f40ceeec18b2fceb05a6021d0a940a45')">
+      <div class="ci" style="background-image:url('https://i.guim.co.uk/img/media/6454f44555fa48a5f38d1d066c370cb6e7376a80/1365_0_6827_5464/master/6827.jpg?width=140&amp;quality=85&amp;auto=format&amp;fit=max&amp;s=4574be2a396d4146200225ec610951f7')">
         <span class="ct">The Guardian</span>
       </div>
       <div class="cb">
@@ -316,9 +259,69 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
           <span class="cs">The Guardian</span>
           <span class="cda">Today</span>
         </div>
-        <h4>‘You never truly quit’: how RuneScape survived to 25 – and beyond</h4>
-        <p class="ctxt">&lt;p&gt;The massively multiplayer online role-playing game has grown into a virtual social space and part of …</p>
-        <a href="https://www.theguardian.com/games/2026/jul/07/how-runescape-survived-to-25" target="_blank" rel="noopener" class="cl">Read more →</a>
+        <h4>Stymied datacentre projects threaten global AI revolution</h4>
+        <p class="ctxt">&lt;p&gt;Large-scale datacentre projects around the world are being challenged or cancelled, as infrastructure…</p>
+        <a href="https://www.theguardian.com/technology/2026/jul/07/stymied-datacentre-projects-threaten-global-ai-revolution" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzFhM2E1YyIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMmQ2YTlmIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPklmIHlvdSB1c2UgR29vZ2xlLCB5b3UgcmUgdHJhaW5pbmcgaXRzIEFJLiBIZXJlIHMgLi4uPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')">
+        <span class="ct">TechCrunch</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">TechCrunch</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>If you use Google, you re training its AI. Here s how to opt out.</h4>
+        <p class="ctxt">Consider this a belated PSA: A recent change to Google’s privacy settings is allowing the company to store mor…</p>
+        <a href="https://techcrunch.com/2026/07/06/if-you-use-google-youre-training-its-ai-heres-how-to-opt-out/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzFhM2E1YyIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMmQ2YTlmIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPlJlZGRpdCBpcyB1c2luZyBMTE1zIHRvIHNvbHZlIGEgcHJvYmxlbSBMTE1zIGxhcmdlLi4uPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')">
+        <span class="ct">TechCrunch</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">TechCrunch</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>Reddit is using LLMs to solve a problem LLMs largely created</h4>
+        <p class="ctxt">In the AI era, platforms have no choice but to fight fire with fire to cull spam.</p>
+        <a href="https://techcrunch.com/2026/07/06/reddit-is-using-llms-to-solve-a-problem-llms-largely-created/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzFhM2E1YyIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojMmQ2YTlmIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPlN0YXRpb24gRiByYW1wcyB1cCBhcyBhIGxhdW5jaHBhZCBmb3IgRXVyb3Bl4oCZcyBob3QuLi48L3RleHQ+CiAgPHJlY3QgeD0iNDAiIHk9IjI0MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIyNCIgcng9IjEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMikiLz4KICA8dGV4dCB4PSI5MCIgeT0iMjU2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNykiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iYm9sZCIgbGV0dGVyLXNwYWNpbmc9IjIiPk5FV1M8L3RleHQ+CiAgPHRleHQgeD0iMzAwIiB5PSIyOTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zNSkiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIj5UcmFuc2xhU3RhcnMgSW5kdXN0cnkgTmV3czwvdGV4dD4KPC9zdmc+')">
+        <span class="ct">TechCrunch</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">TechCrunch</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>Station F ramps up as a launchpad for Europe’s hottest AI startups</h4>
+        <p class="ctxt">Station F, a Paris-based startup hub founded by French billionaire Xavier Niel, is gearing up for a new editio…</p>
+        <a href="https://techcrunch.com/2026/07/06/station-f-ramps-up-as-a-launchpad-for-europes-hottest-ai-startups/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('https://media.wired.com/photos/6a456905f3e5961ebd730c4b/master/pass/DESI-Y3P-Datapoints-Flat-Still-blue_small.png')">
+        <span class="ct">Wired</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Wired</span>
+          <span class="cda">Yesterday</span>
+        </div>
+        <h4>What if the Universe Isn’t as Uniform as Scientists Think?</h4>
+        <p class="ctxt">A study based on 47 million galaxies found that the cosmic web retains patterns on enormous scales, which coul…</p>
+        <a href="https://www.wired.com/story/what-if-the-universe-wasnt-as-uniform-as-scientists-think/" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
   </div>
@@ -333,7 +336,23 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
   <div class="gr">
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EAbout%20the%20language%20quality%20manager%20role%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzJkNmE0ZiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNDA5MTZjIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPlBvZGNhc3Q6IFNlY3VyaW5nIHRoZSBIdW1hbiBEYXRhIExheWVyIGluIEFJPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')">
+        <span class="ct">Welocalize</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Welocalize</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>Podcast: Securing the Human Data Layer in AI</h4>
+        <p class="ctxt">MAY 18, 2026 Read more
+The post Podcast: Securing the Human Data Layer in AI appeared first on Welocalize.</p>
+        <a href="https://www.welocalize.com/insights/podcast-securing-the-human-data-layer-in-ai/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzJkNmE0ZiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNDA5MTZjIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPkFib3V0IHRoZSBsYW5ndWFnZSBxdWFsaXR5IG1hbmFnZXIgcm9sZTwvdGV4dD4KICA8cmVjdCB4PSI0MCIgeT0iMjQwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjI0IiByeD0iMTIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIvPgogIDx0ZXh0IHg9IjkwIiB5PSIyNTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC43KSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiIGZvbnQtd2VpZ2h0PSJib2xkIiBsZXR0ZXItc3BhY2luZz0iMiI+TkVXUzwvdGV4dD4KICA8dGV4dCB4PSIzMDAiIHk9IjI5NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjM1KSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiPlRyYW5zbGFTdGFycyBJbmR1c3RyeSBOZXdzPC90ZXh0Pgo8L3N2Zz4=')">
         <span class="ct">POEditor</span>
       </div>
       <div class="cb">
@@ -348,7 +367,7 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ELocalization%20governance%20models%20explained%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzJkNmE0ZiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNDA5MTZjIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPkxvY2FsaXphdGlvbiBnb3Zlcm5hbmNlIG1vZGVscyBleHBsYWluZWQ8L3RleHQ+CiAgPHJlY3QgeD0iNDAiIHk9IjI0MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIyNCIgcng9IjEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMikiLz4KICA8dGV4dCB4PSI5MCIgeT0iMjU2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNykiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iYm9sZCIgbGV0dGVyLXNwYWNpbmc9IjIiPk5FV1M8L3RleHQ+CiAgPHRleHQgeD0iMzAwIiB5PSIyOTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zNSkiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIj5UcmFuc2xhU3RhcnMgSW5kdXN0cnkgTmV3czwvdGV4dD4KPC9zdmc+')">
         <span class="ct">POEditor</span>
       </div>
       <div class="cb">
@@ -363,7 +382,7 @@ The post xAI Releases No-Code Voice Agent Builder appeared first on Slator.</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EThree%20Assumptions%20About%20AI%20in%20Localization%20That%20Pr...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzJkNmE0ZiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNDA5MTZjIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPlRocmVlIEFzc3VtcHRpb25zIEFib3V0IEFJIGluIExvY2FsaXphdGlvbiBUaGF0IFByLi4uPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')">
         <span class="ct">Welocalize</span>
       </div>
       <div class="cb">
@@ -379,13 +398,13 @@ The post Three Assumptions About AI in Localization That Prod…</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EBrand%20localization%20software%20vs%20manual%20approach%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzJkNmE0ZiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNDA5MTZjIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPkJyYW5kIGxvY2FsaXphdGlvbiBzb2Z0d2FyZSB2cyBtYW51YWwgYXBwcm9hY2g8L3RleHQ+CiAgPHJlY3QgeD0iNDAiIHk9IjI0MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIyNCIgcng9IjEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMikiLz4KICA8dGV4dCB4PSI5MCIgeT0iMjU2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNykiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iYm9sZCIgbGV0dGVyLXNwYWNpbmc9IjIiPk5FV1M8L3RleHQ+CiAgPHRleHQgeD0iMzAwIiB5PSIyOTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zNSkiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIj5UcmFuc2xhU3RhcnMgSW5kdXN0cnkgTmV3czwvdGV4dD4KPC9zdmc+')">
         <span class="ct">POEditor</span>
       </div>
       <div class="cb">
         <div class="ctop">
           <span class="cs">POEditor</span>
-          <span class="cda">1w ago</span>
+          <span class="cda">Jun 29</span>
         </div>
         <h4>Brand localization software vs manual approach</h4>
         <p class="ctxt">When you re doing brand localization, you have to pay attention to your messaging, tone, visuals, and all othe…</p>
@@ -394,32 +413,17 @@ The post Three Assumptions About AI in Localization That Prod…</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EWhat%20is%20multilingual%20asset%20management%3F%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6IzJkNmE0ZiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNDA5MTZjIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPldoYXQgaXMgbXVsdGlsaW5ndWFsIGFzc2V0IG1hbmFnZW1lbnQ/PC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')">
         <span class="ct">POEditor</span>
       </div>
       <div class="cb">
         <div class="ctop">
           <span class="cs">POEditor</span>
-          <span class="cda">1w ago</span>
+          <span class="cda">Jun 25</span>
         </div>
         <h4>What is multilingual asset management?</h4>
         <p class="ctxt">Content management gets a lot more complicated when you re going beyond your boarders. You’re managing words, …</p>
         <a href="https://poeditor.com/blog/what-is-multilingual-asset-management/" target="_blank" rel="noopener" class="cl">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%232d6a4f%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%2340916c%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EUnderstanding%20machine%20translation%20pre-editing%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
-        <span class="ct">POEditor</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">POEditor</span>
-          <span class="cda">2w ago</span>
-        </div>
-        <h4>Understanding machine translation pre-editing</h4>
-        <p class="ctxt">Everyone s talking about machine translation post-editing, but just as important is machine translation pre-ed…</p>
-        <a href="https://poeditor.com/blog/machine-translation-pre-editing/" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
   </div>
@@ -429,12 +433,30 @@ The post Three Assumptions About AI in Localization That Prod…</p>
 <section id="Global-Policy">
   <div class="sh">
     <h3>Global & Policy</h3>
-    <span class="sc">(22 articles)</span>
+    <span class="sc">(21 articles)</span>
   </div>
   <div class="gr">
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EOpening%20statement%20by%20Commissioner%20Dombrovskis%20at%20t...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2I4ODYwYiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZGFhNTIwIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPlJlbWFya3MgYnkgQ29tbWlzc2lvbmVyIMWgZWbEjW92acSNIGF0IHRoZSBFdXJvcGVhbiBQLi4uPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')">
+        <span class="ct">EU Commission</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">EU Commission</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>Remarks by Commissioner Šefčovič at the European Parliament plenary debate on the presentation of the programme of activities of the Irish Presidency</h4>
+        <p class="ctxt">European Commission Speech Strasbourg, 07 Jul 2026 Dear President,
+Dear Taoiseach,
+Dear Minister,
+Honourabl…</p>
+        <a href="https://ec.europa.eu/commission/presscorner/detail/en/speech_26_1547" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2I4ODYwYiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZGFhNTIwIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPk9wZW5pbmcgc3RhdGVtZW50IGJ5IENvbW1pc3Npb25lciBEb21icm92c2tpcyBhdCB0Li4uPC90ZXh0PgogIDxyZWN0IHg9IjQwIiB5PSIyNDAiIHdpZHRoPSIxMDAiIGhlaWdodD0iMjQiIHJ4PSIxMiIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjIpIi8+CiAgPHRleHQgeD0iOTAiIHk9IjI1NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjcpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCIgZm9udC13ZWlnaHQ9ImJvbGQiIGxldHRlci1zcGFjaW5nPSIyIj5ORVdTPC90ZXh0PgogIDx0ZXh0IHg9IjMwMCIgeT0iMjk2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMzUpIiBmb250LWZhbWlseT0iQXJpYWwsc2Fucy1zZXJpZiIgZm9udC1zaXplPSIxMCI+VHJhbnNsYVN0YXJzIEluZHVzdHJ5IE5ld3M8L3RleHQ+Cjwvc3ZnPg==')">
         <span class="ct">EU Commission</span>
       </div>
       <div class="cb">
@@ -449,7 +471,7 @@ The post Three Assumptions About AI in Localization That Prod…</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ESpeech%20by%20Commissioner%20%C5%A0uica%20at%20the%20Dubrovnik%20Foru...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2I4ODYwYiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZGFhNTIwIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPlNwZWVjaCBieSBDb21taXNzaW9uZXIgxaB1aWNhIGF0IHRoZSBEdWJyb3ZuaWsgRm9ydS4uLjwvdGV4dD4KICA8cmVjdCB4PSI0MCIgeT0iMjQwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjI0IiByeD0iMTIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIvPgogIDx0ZXh0IHg9IjkwIiB5PSIyNTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC43KSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiIGZvbnQtd2VpZ2h0PSJib2xkIiBsZXR0ZXItc3BhY2luZz0iMiI+TkVXUzwvdGV4dD4KICA8dGV4dCB4PSIzMDAiIHk9IjI5NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjM1KSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiPlRyYW5zbGFTdGFycyBJbmR1c3RyeSBOZXdzPC90ZXh0Pgo8L3N2Zz4=')">
         <span class="ct">EU Commission</span>
       </div>
       <div class="cb">
@@ -464,7 +486,7 @@ The post Three Assumptions About AI in Localization That Prod…</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EDaily%20News%2006%20%2F%2007%20%2F%202026%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2I4ODYwYiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZGFhNTIwIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPkRhaWx5IE5ld3MgMDYgLyAwNyAvIDIwMjY8L3RleHQ+CiAgPHJlY3QgeD0iNDAiIHk9IjI0MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSIyNCIgcng9IjEyIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMikiLz4KICA8dGV4dCB4PSI5MCIgeT0iMjU2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuNykiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIiBmb250LXdlaWdodD0iYm9sZCIgbGV0dGVyLXNwYWNpbmc9IjIiPk5FV1M8L3RleHQ+CiAgPHRleHQgeD0iMzAwIiB5PSIyOTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4zNSkiIGZvbnQtZmFtaWx5PSJBcmlhbCxzYW5zLXNlcmlmIiBmb250LXNpemU9IjEwIj5UcmFuc2xhU3RhcnMgSW5kdXN0cnkgTmV3czwvdGV4dD4KPC9zdmc+')">
         <span class="ct">EU Commission</span>
       </div>
       <div class="cb">
@@ -479,7 +501,7 @@ The post Three Assumptions About AI in Localization That Prod…</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ESpeech%20by%20Commissioner%20%C5%A0uica%20at%20the%20Anna%20Lindh%20Fou...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2I4ODYwYiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZGFhNTIwIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPlNwZWVjaCBieSBDb21taXNzaW9uZXIgxaB1aWNhIGF0IHRoZSBBbm5hIExpbmRoIEZvdS4uLjwvdGV4dD4KICA8cmVjdCB4PSI0MCIgeT0iMjQwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjI0IiByeD0iMTIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIvPgogIDx0ZXh0IHg9IjkwIiB5PSIyNTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC43KSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiIGZvbnQtd2VpZ2h0PSJib2xkIiBsZXR0ZXItc3BhY2luZz0iMiI+TkVXUzwvdGV4dD4KICA8dGV4dCB4PSIzMDAiIHk9IjI5NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjM1KSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiPlRyYW5zbGFTdGFycyBJbmR1c3RyeSBOZXdzPC90ZXh0Pgo8L3N2Zz4=')">
         <span class="ct">EU Commission</span>
       </div>
       <div class="cb">
@@ -494,7 +516,7 @@ The post Three Assumptions About AI in Localization That Prod…</p>
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3ESpeech%20by%20Commissioner%20%C5%A0uica%20at%20the%20Parliamentary%20...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
+      <div class="ci" style="background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2MDAiIGhlaWdodD0iMzIwIj4KICA8ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3R5bGU9InN0b3AtY29sb3I6I2I4ODYwYiIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdHlsZT0ic3RvcC1jb2xvcjojZGFhNTIwIi8+CiAgPC9saW5lYXJHcmFkaWVudD48L2RlZnM+CiAgPHJlY3Qgd2lkdGg9IjYwMCIgaGVpZ2h0PSIzMjAiIGZpbGw9InVybCgjZykiIHJ4PSIxMiIvPgogIDxyZWN0IHg9IjQwIiB5PSI0MCIgd2lkdGg9IjUyMCIgaGVpZ2h0PSIyNDAiIGZpbGw9InJnYmEoMCwwLDAsMC4xNSkiIHJ4PSI4Ii8+CiAgPHRleHQgeD0iMzAwIiB5PSIxNDAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC45KSIgZm9udC1mYW1pbHk9Ikdlb3JnaWEsc2VyaWYiIGZvbnQtc2l6ZT0iMjAiIGZvbnQtd2VpZ2h0PSI2MDAiPlNwZWVjaCBieSBDb21taXNzaW9uZXIgxaB1aWNhIGF0IHRoZSBQYXJsaWFtZW50YXJ5IC4uLjwvdGV4dD4KICA8cmVjdCB4PSI0MCIgeT0iMjQwIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjI0IiByeD0iMTIiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4yKSIvPgogIDx0ZXh0IHg9IjkwIiB5PSIyNTYiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC43KSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiIGZvbnQtd2VpZ2h0PSJib2xkIiBsZXR0ZXItc3BhY2luZz0iMiI+TkVXUzwvdGV4dD4KICA8dGV4dCB4PSIzMDAiIHk9IjI5NiIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjM1KSIgZm9udC1mYW1pbHk9IkFyaWFsLHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTAiPlRyYW5zbGFTdGFycyBJbmR1c3RyeSBOZXdzPC90ZXh0Pgo8L3N2Zz4=')">
         <span class="ct">EU Commission</span>
       </div>
       <div class="cb">
@@ -509,31 +531,16 @@ Let me start by than…</p>
         <a href="https://ec.europa.eu/commission/presscorner/detail/en/speech_26_1539" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
-    
-    <article class="cd">
-      <div class="ci" style="background-image:url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22600%22%20height%3D%22320%22%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%22g%22%20x1%3D%220%25%22%20y1%3D%220%25%22%20x2%3D%22100%25%22%20y2%3D%22100%25%22%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%220%25%22%20style%3D%22stop-color%3A%23b8860b%22%2F%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%22100%25%22%20style%3D%22stop-color%3A%23daa520%22%2F%3E%0A%20%20%20%20%3C%2FlinearGradient%3E%0A%20%20%3C%2Fdefs%3E%0A%20%20%3Crect%20width%3D%22600%22%20height%3D%22320%22%20fill%3D%22url(%23g)%22%20rx%3D%2212%22%2F%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%2240%22%20width%3D%22520%22%20height%3D%22240%22%20fill%3D%22rgba(0%2C0%2C0%2C0.15)%22%20rx%3D%228%22%2F%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22150%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.9)%22%20font-family%3D%22Georgia%2Cserif%22%20font-size%3D%2220%22%20font-weight%3D%22600%22%20line-spacing%3D%221.4%22%3E%0A%20%20%20%20%3Ctspan%20x%3D%22300%22%20dy%3D%220%22%3EStatement%20by%20President%20von%20der%20Leyen%20with%20Taoiseac...%3C%2Ftspan%3E%0A%20%20%3C%2Ftext%3E%0A%20%20%3Crect%20x%3D%2240%22%20y%3D%22240%22%20width%3D%22100%22%20height%3D%2224%22%20rx%3D%2212%22%20fill%3D%22rgba(255%2C255%2C255%2C0.2)%22%2F%3E%0A%20%20%3Ctext%20x%3D%2290%22%20y%3D%22256%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.7)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%20font-weight%3D%22bold%22%20letter-spacing%3D%222%22%3ENEWS%3C%2Ftext%3E%0A%20%20%3Ctext%20x%3D%22300%22%20y%3D%22296%22%20text-anchor%3D%22middle%22%20fill%3D%22rgba(255%2C255%2C255%2C0.35)%22%20font-family%3D%22Arial%2Csans-serif%22%20font-size%3D%2210%22%3ETranslaStars%20Industry%20News%3C%2Ftext%3E%0A%3C%2Fsvg%3E')">
-        <span class="ct">EU Commission</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">EU Commission</span>
-          <span class="cda">3d ago</span>
-        </div>
-        <h4>Statement by President von der Leyen with Taoiseach Martin on the occasion of the College visit to the Irish Presidency</h4>
-        <p class="ctxt">European Commission Statement Cork, 07 Jul 2026 Thank you, dear Micheál, for welcoming us to your native Cork.…</p>
-        <a href="https://ec.europa.eu/commission/presscorner/detail/en/statement_26_1519" target="_blank" rel="noopener" class="cl">Read more →</a>
-      </div>
-    </article>
   </div>
 </section>
 
 </div>
 <footer class="ft">
   <div class="in">
-    <p><strong style="color:#fff">TranslaStars Industry News</strong> — Daily curated for localization professionals</p>
+    <p><strong style="color:#fff">TranslaStars Industry News</strong> — Daily curated for language, localization & AI professionals</p>
     <p style="margin-top:4px"><a href="https://www.translastars.com" target="_blank">TranslaStars</a> · <a href="https://github.com/translastars/industry-news" target="_blank">GitHub</a> · <a href="https://translastars.github.io/industry-news/">Home</a></p>
-    <p style="margin-top:4px;font-size:11px">News curated automatically from public sources. All links open in new windows.</p>
-    <div class="pw">Generated 2026-07-07 10:04:58 · Powered by TranslaStars AI ✦</div>
+    <p style="margin-top:4px;font-size:11px">News curated automatically from public RSS feeds. Only industry-relevant articles shown.</p>
+    <div class="pw">Generated 2026-07-07 11:36:24 · Powered by TranslaStars AI ✦</div>
   </div>
 </footer>
 </body>
