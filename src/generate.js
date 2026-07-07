@@ -1,6 +1,10 @@
 /**
- * TranslaStars Industry News — Daily Generator v2.3
- * Changes from v2.2:
+ * TranslaStars Industry News — Daily Generator v2.4
+ * Changes from v2.3:
+ *  - Real OG images! Fetches og:image meta tags from each article URL
+ *  - Caches image mappings in data/article_images.json to avoid refetches
+ *  - Falls back to content-aware SVGs only when no real image is found
+ * v2.3:
  *  - Content-aware images: icons/shapes based on article topics, not random circles
  *  - Source branding: color palettes + logo wordmarks in card images
  *  - Much tighter EU filtering (keep only explicit language/AI/digital mentions)
@@ -12,8 +16,71 @@ const fs = require('fs');
 const path = require('path');
 
 const OUT = path.join(__dirname, '..', 'docs');
+const DATA = path.join(__dirname, '..', 'data');
 const DROPBOX = path.join('C:\\Users\\barto\\Dropbox', 'OpenClaw Proyectos', 'Industry News');
 const SITE = 'https://translastars.github.io/industry-news/';
+
+// ── Image cache ──
+const IMAGE_CACHE_PATH = path.join(DATA, 'article_images.json');
+
+function loadImageCache() {
+  try {
+    if (fs.existsSync(IMAGE_CACHE_PATH)) {
+      return JSON.parse(fs.readFileSync(IMAGE_CACHE_PATH, 'utf8'));
+    }
+  } catch (e) {
+    console.log('  ~ Could not load image cache, starting fresh');
+  }
+  return {};
+}
+
+function saveImageCache(cache) {
+  try {
+    if (!fs.existsSync(DATA)) fs.mkdirSync(DATA, { recursive: true });
+    fs.writeFileSync(IMAGE_CACHE_PATH, JSON.stringify(cache, null, 2));
+    console.log(`  ✓ Cached ${Object.keys(cache).length} image mappings`);
+  } catch (e) {
+    console.log(`  ~ Could not save image cache: ${e.message.substring(0, 50)}`);
+  }
+}
+
+function fetchHTML(url, timeoutMs = 8000) {
+  return new Promise((resolve, reject) => {
+    const client = url.startsWith('https') ? https : http;
+    const req = client.get(url, {
+      timeout: timeoutMs,
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; TranslaStarsNews/1.0)' }
+    }, (res) => {
+      const chunks = [];
+      let size = 0;
+      res.on('data', c => { size += c.length; if (size < 200000) chunks.push(c); });
+      res.on('end', () => resolve({ status: res.statusCode, body: Buffer.concat(chunks).toString('utf8') }));
+    });
+    req.on('error', reject);
+    req.on('timeout', () => { req.destroy(); reject(new Error('timeout')); });
+  });
+}
+
+function extractOGImage(html) {
+  // Try og:image first, fall back to twitter:image, then schema.org thumbnailUrl
+  const patterns = [
+    /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["'][^>]*>/i,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:image["'][^>]*>/i,
+    /<meta[^>]+name=["']twitter:image["'][^>]+content=["']([^"']+)["'][^>]*>/i,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']twitter:image["'][^>]*>/i,
+    /"thumbnailUrl":"([^"]+)"/i,
+  ];
+  for (const p of patterns) {
+    const m = html.match(p);
+    if (m && m[1] && !m[1].includes('placeholder') && m[1].length > 10) {
+      // Decode HTML entities
+      return m[1].replace(/&amp;/g, '&').replace(/&#x3a;/g, ':').replace(/&#x2f;/g, '/');
+    }
+  }
+  return '';
+}
+
+global._imageCache = {}; // populated at start of gen()
 
 // ── Industry relevance keywords ──
 const KEYWORDS = [
@@ -494,6 +561,37 @@ async function gen() {
     const key = a.title.toLowerCase().replace(/[^a-z0-9]/g, '').substring(0, 35);
     if (!seen.has(key)) { seen.add(key); unique.push(a); }
   }
+
+  // ── Fetch OG images for articles without one ──
+  global._imageCache = loadImageCache();
+  const needsOG = unique.filter(a => !a.image);
+  console.log(`\n📸 Fetching OG images for ${needsOG.length} articles without images...`);
+  let fetched = 0;
+  for (let i = 0; i < needsOG.length; i++) {
+    const art = needsOG[i];
+    // Check cache first
+    if (global._imageCache[art.link]) {
+      art.image = global._imageCache[art.link];
+      continue;
+    }
+    try {
+      const { body } = await fetchHTML(art.link);
+      const og = extractOGImage(body);
+      if (og) {
+        art.image = og;
+        global._imageCache[art.link] = og;
+        fetched++;
+      }
+      // Rate limit: don't hammer servers
+      await new Promise(r => setTimeout(r, 150 + Math.random() * 200));
+    } catch (e) {
+      // Silently skip — will use SVG fallback
+      global._imageCache[art.link] = ''; // mark as failed
+    }
+    if ((i + 1) % 30 === 0) console.log(`  ~ ${i + 1}/${needsOG.length} processed (${fetched} new images)`);
+  }
+  console.log(`  ✓ ${fetched} new OG images fetched, ${Object.values(global._imageCache).filter(Boolean).length} total cached`);
+  saveImageCache(global._imageCache);
 
   const today = new Date();
   const top = unique[0] || null;
