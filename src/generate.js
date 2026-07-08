@@ -1,6 +1,10 @@
 /**
- * TranslaStars Industry News — Daily Generator v2.5
- * Changes from v2.4:
+ * TranslaStars Industry News — Daily Generator v2.6
+ * Changes from v2.5:
+ *  - Branded SVG backgrounds: 10 designs with TS star logo centered
+ *  - Replaces old abstract variant SVGs with full branded backgrounds
+ *  - SVGs stored in assets/ts-bg/, referenced by path for smaller JS
+ * v2.5:
  *  - Better image fetching: retry with improved headers, redirect following
  *  - Secondary img fallback when OG image unavailable
  *  - Resolves relative image URLs against article URL
@@ -535,60 +539,18 @@ const ICONS = {
   </g>`,
 };
 
-// ── Content-aware abstract image generator (v2.3) ──
-function genImg(title, excerpt, source, section) {
-  const topics = detectTopics(title, excerpt);
-  const primaryTopic = topics[0];
-  const iconSvg = ICONS[primaryTopic?.icon] || ICONS.bubble;
-  
-  // Topic label at bottom
-  const topicLabel = topics.slice(0, 2).map(t => t.label).join(' · ');
+// ── Branded fallback image: uses one of 10 TS star-background SVGs ──
+const BG_VARIANTS = [];
+const BG_DIR = 'assets/ts-bg/';
+const BG_NAMES = [
+  '01-waves.svg', '02-concentric.svg', '03-diagonal.svg', '04-dots.svg',
+  '05-floating.svg', '06-clean-block.svg', '07-grid.svg', '08-bubbles.svg',
+  '09-panel.svg', '10-curve.svg'
+];
 
-  // Clean TranslaStars brand variants — minimalist, white bg, purple/orange accents
-  const variants = [
-    // 1: Orange horizontal bar (like ref square) + TS mark
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="0" y="158" width="600" height="4" fill="#522D6D" opacity="0.12"/></svg>',
-    // 2: Purple left stripe  
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="0" y="0" width="8" height="320" fill="#522D6D"/></svg>',
-    // 3: Orange accent line (single horizontal)
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="40" y="158" width="200" height="3" rx="1.5" fill="#FF6B00" opacity="0.3"/><rect x="360" y="158" width="200" height="3" rx="1.5" fill="#FF6B00" opacity="0.3"/></svg>',
-    // 4: Purple corner accent
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="0" y="0" width="100" height="100" fill="#522D6D" opacity="0.04"/></svg>',
-    // 5: Thin top stripe + bottom line
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="0" y="0" width="600" height="2" fill="#522D6D" opacity="0.08"/><rect x="0" y="318" width="600" height="2" fill="#522D6D" opacity="0.08"/></svg>',
-    // 6: Orange dot + purple line
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><circle cx="300" cy="160" r="80" fill="#522D6D" opacity="0.02"/><line x1="220" y1="160" x2="380" y2="160" stroke="#FF6B00" stroke-width="2" opacity="0.15"/></svg>',
-    // 7: Diagonal fade
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><polygon points="0,0 300,320 0,320" fill="#522D6D" opacity="0.03"/></svg>',
-    // 8: Minimal dots
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><circle cx="40" cy="40" r="3" fill="#522D6D" opacity="0.08"/><circle cx="560" cy="280" r="3" fill="#522D6D" opacity="0.08"/><circle cx="560" cy="40" r="3" fill="#FF6B00" opacity="0.08"/><circle cx="40" cy="280" r="3" fill="#FF6B00" opacity="0.08"/></svg>',
-    // 9: Thin vertical bar left
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="16" y="60" width="2" height="200" fill="#FF6B00" opacity="0.2"/></svg>',
-    // 10: Double line
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="40" y="48" width="30" height="2" rx="1" fill="#522D6D" opacity="0.1"/><rect x="40" y="270" width="30" height="2" rx="1" fill="#522D6D" opacity="0.1"/></svg>'
-  ];
-  // Pick variant based on title hash
-  const variantIdx = Math.abs(title.length * 7 + excerpt.length * 3) % variants.length;
-  const bgSvg = variants[variantIdx];
-  
-  // Build final SVG: clean base + icon + TS branding + topic
-  const svgParts = [bgSvg.replace('</svg>', '')];
-  svgParts.push('  <!-- TS Wordmark (top-left) -->');
-  svgParts.push('  <text x="14" y="26" fill="#522D6D" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-weight="900" font-size="18" letter-spacing="2">T</text>');
-  svgParts.push('  <text x="31" y="26" fill="#FF6B00" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-weight="900" font-size="18" letter-spacing="2">S</text>');
-  svgParts.push('  <!-- Topic icon (center) -->');
-  svgParts.push('  <g opacity="0.15">');
-  svgParts.push('    ' + iconSvg.replace(/<svg[^>]*>/, '<g transform="translate(200,60) scale(1.1)">').replace('</svg>', '</g>'));
-  svgParts.push('  </g>');
-  svgParts.push('  <!-- Topic label -->');
-  svgParts.push('  <text x="300" y="295" text-anchor="middle" fill="#522D6D" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-size="10" font-weight="600" letter-spacing="2" opacity="0.2">' + topicLabel + '</text>');
-  svgParts.push('  <!-- TranslaStars footer -->');
-  svgParts.push('  <text x="588" y="312" text-anchor="end" fill="#522D6D" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="1" opacity="0.12">TranslaStars</text>');
-  svgParts.push('</svg>');
-  
-  const svg = svgParts.join('\n');
-  const b64 = Buffer.from(svg, 'utf8').toString('base64');
-  return `data:image/svg+xml;base64,${b64}`;
+function genImg(title, excerpt, source, section) {
+  const variantIdx = Math.abs(title.length * 7 + excerpt.length * 3) % BG_NAMES.length;
+  return BG_DIR + BG_NAMES[variantIdx];
 }
 // ── Sources ──
 const SRC = [
