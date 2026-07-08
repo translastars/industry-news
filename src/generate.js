@@ -1,6 +1,11 @@
 /**
- * TranslaStars Industry News — Daily Generator v2.4
- * Changes from v2.3:
+ * TranslaStars Industry News — Daily Generator v2.5
+ * Changes from v2.4:
+ *  - Better image fetching: retry with improved headers, redirect following
+ *  - Secondary img fallback when OG image unavailable
+ *  - Resolves relative image URLs against article URL
+ *  - Expanded negative keywords to block generalist articles
+ * v2.4:
  *  - Real OG images! Fetches og:image meta tags from each article URL
  *  - Caches image mappings in data/article_images.json to avoid refetches
  *  - Falls back to content-aware SVGs only when no real image is found
@@ -44,19 +49,39 @@ function saveImageCache(cache) {
   }
 }
 
-function fetchHTML(url, timeoutMs = 8000) {
+function fetchHTML(url, timeoutMs = 10000, retries = 2) {
+  const headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Referer': 'https://news.google.com/',
+  };
+  return _fetchHTMLRetry(url, headers, timeoutMs, retries);
+}
+
+function _fetchHTMLRetry(url, headers, timeoutMs, retries) {
   return new Promise((resolve, reject) => {
-    const client = url.startsWith('https') ? https : http;
-    const req = client.get(url, {
-      timeout: timeoutMs,
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; TranslaStarsNews/1.0)' }
-    }, (res) => {
+    const mod = url.startsWith('https') ? https : http;
+    const req = mod.get(url, { timeout: timeoutMs, headers }, (res) => {
+      // Follow redirects
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        res.resume();
+        const redirectUrl = new URL(res.headers.location, url).href;
+        return _fetchHTMLRetry(redirectUrl, headers, timeoutMs, retries).then(resolve).catch(reject);
+      }
       const chunks = [];
       let size = 0;
       res.on('data', c => { size += c.length; if (size < 200000) chunks.push(c); });
       res.on('end', () => resolve({ status: res.statusCode, body: Buffer.concat(chunks).toString('utf8') }));
     });
-    req.on('error', reject);
+    req.on('error', (e) => {
+      if (retries > 0) {
+        const delay = Math.min(1000 * Math.pow(2, 3 - retries), 4000);
+        setTimeout(() => _fetchHTMLRetry(url, headers, timeoutMs, retries - 1).then(resolve).catch(reject), delay);
+      } else {
+        reject(e);
+      }
+    });
     req.on('timeout', () => { req.destroy(); reject(new Error('timeout')); });
   });
 }
@@ -159,6 +184,38 @@ const NEGATIVE = [
   'mortgage', 'loan', 'banking',
   'phone ', 'smartphone', 'android', 'ios',
   'chrome ', 'firefox', 'browser',
+  // v2.5: expanded generalist blockers
+  'startup', 'venture capital', 'venture', 'fundraising', 'series ',
+  'photography', 'artificial', 'visual',
+  'brain ', 'neuroscience', 'neural link',
+  'robot', 'drone', 'autonomous', 'humanoid',
+  'protein', 'research paper', 'study finds', 'scientists ',
+  'podcast',
+  'deadline', 'call for papers', 'call for submission',
+  'book ', 'reading', 'literature', 'author', 'writer',
+  'productivity', 'efficiency', 'workplace',
+  'entertainment', 'pop culture',
+  'luxury', 'design ', 'decor',
+  'racing', 'tour', 'championship',
+  'privacy', 'surveillance', 'security breach', 'cyberattack',
+  'philosophy', 'consciousness',
+  'biology', 'dna ', 'genetic', 'medic',
+  'battery', 'charge', 'processor', 'chip ', 'semiconductor',
+  'pc ', 'laptop', 'monitor', 'display',
+  'display', 'resolution', 'pixel', 'camera ', 'lens',
+  'recording', 'studio', 'audio equipment',
+  'electric vehicle', 'ev ', 'solar panel',
+  'parenting', 'family ', 'school ', 'university', 'college',
+  'democrat', 'republican', 'trump', 'biden',
+  'anime', 'comic', 'pinball',
+  'therapist', 'therapy', 'mental health',
+  'dating', 'romance',
+  'founder', 'ceo ', 'executive', 'leadership',
+  'remote work', 'hybrid', 'wfh', 'office',
+  'restaurant', 'bar ', 'pub ',
+  'addiction', 'social media', 'screen time',
+  'hiring', 'recruiting', 'layoff', 'job ', 'salary',
+  'funding round', 'valuation', 'ipo ',
 ];
 
 function matches(str, patterns) {
@@ -522,9 +579,17 @@ async function getSource(name, url, color, sec) {
       const before = filtered.length;
       filtered = filtered.filter(a => {
         const text = `${a.title} ${a.excerpt}`;
-        const pos = matches(text, KEYWORDS);
         const neg = matches(text, NEGATIVE);
-        return pos && !neg;
+        if (neg) return false;
+        // Count positive keyword matches — require at least 2 for general sources
+        let posCount = 0;
+        for (const kw of KEYWORDS) {
+          if (new RegExp(kw.toLowerCase().replace(/\?/g, '.'), 'i').test(text.toLowerCase())) {
+            posCount++;
+            if (posCount >= 2) break;
+          }
+        }
+        return posCount >= 2;
       });
       console.log(`  ✓ ${name}: ${filtered.length}/${before} relevant`);
     } else {
@@ -576,17 +641,59 @@ async function gen() {
     }
     try {
       const { body } = await fetchHTML(art.link);
-      const og = extractOGImage(body);
-      if (og) {
-        art.image = og;
-        global._imageCache[art.link] = og;
+      let imgUrl = extractOGImage(body);
+      // Resolve relative URLs against article link
+      if (imgUrl && !imgUrl.startsWith('http://') && !imgUrl.startsWith('https://') && !imgUrl.startsWith('data:')) {
+        try { imgUrl = new URL(imgUrl, art.link).href; } catch(e) { imgUrl = ''; }
+      }
+      // Fallback: extract any img tag if OG image fails
+      if (!imgUrl && body) {
+        const anyImg = body.match(/<img[^>]+src=["']([^"']+)["']/i);
+        if (anyImg && anyImg[1] && !anyImg[1].includes('logo') && !anyImg[1].includes('icon') && !anyImg[1].includes('avatar')) {
+          const candidate = anyImg[1];
+          if (candidate.startsWith('http') || candidate.startsWith('//')) {
+            imgUrl = candidate.startsWith('//') ? 'https:' + candidate : candidate;
+          }
+        }
+      }
+      if (imgUrl) {
+        art.image = imgUrl;
+        global._imageCache[art.link] = imgUrl;
         fetched++;
+      } else {
+        global._imageCache[art.link] = '';
       }
       // Rate limit: don't hammer servers
       await new Promise(r => setTimeout(r, 150 + Math.random() * 200));
     } catch (e) {
-      // Silently skip — will use SVG fallback
-      global._imageCache[art.link] = ''; // mark as failed
+      // First failure: retry once with longer timeout
+      try {
+        const delay = 1000 + Math.random() * 1000;
+        await new Promise(r => setTimeout(r, delay));
+        const { body } = await fetchHTML(art.link, 15000, 1);
+        let imgUrl = extractOGImage(body);
+        if (imgUrl && !imgUrl.startsWith('http://') && !imgUrl.startsWith('https://') && !imgUrl.startsWith('data:')) {
+          try { imgUrl = new URL(imgUrl, art.link).href; } catch(e) { imgUrl = ''; }
+        }
+        if (!imgUrl && body) {
+          const anyImg = body.match(/<img[^>]+src=["']([^"']+)["']/i);
+          if (anyImg && anyImg[1] && !anyImg[1].includes('logo') && !anyImg[1].includes('icon') && !anyImg[1].includes('avatar')) {
+            const candidate = anyImg[1];
+            if (candidate.startsWith('http') || candidate.startsWith('//')) {
+              imgUrl = candidate.startsWith('//') ? 'https:' + candidate : candidate;
+            }
+          }
+        }
+        if (imgUrl) {
+          art.image = imgUrl;
+          global._imageCache[art.link] = imgUrl;
+          fetched++;
+        } else {
+          global._imageCache[art.link] = ''; // mark as failed
+        }
+      } catch (e2) {
+        global._imageCache[art.link] = ''; // mark as failed after retry
+      }
     }
     if ((i + 1) % 30 === 0) console.log(`  ~ ${i + 1}/${needsOG.length} processed (${fetched} new images)`);
   }
