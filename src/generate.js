@@ -544,50 +544,52 @@ function genImg(title, excerpt, source, section) {
   // Topic label at bottom
   const topicLabel = topics.slice(0, 2).map(t => t.label).join(' · ');
 
-  // Choose an artistic TS logo variant based on title hash (10 variants)
+  // Clean TranslaStars brand variants — minimalist, white bg, purple/orange accents
   const variants = [
-    // 1: Bold TS monogram
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#522D6D"/><stop offset="50%" stop-color="#6B3FA0"/><stop offset="100%" stop-color="#3B1F52"/></linearGradient><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF6B00"/><stop offset="100%" stop-color="#FF9F45"/></linearGradient></defs><rect width="600" height="320" fill="url(#g1)"/><circle cx="480" cy="80" r="200" fill="rgba(255,107,0,0.04)"/><circle cx="120" cy="260" r="160" fill="rgba(255,255,255,0.03)"/></svg>',
-    // 2: Star orbit
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><radialGradient id="r1" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#7B3FAF"/><stop offset="100%" stop-color="#522D6D"/></radialGradient></defs><rect width="600" height="320" fill="url(#r1)"/><circle cx="300" cy="160" r="120" fill="none" stroke="rgba(255,107,0,0.1)" stroke-width="1"/><circle cx="300" cy="160" r="80" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><circle cx="300" cy="160" r="40" fill="rgba(255,107,0,0.08)"/><polygon points="300,148 304,156 314,156 307,162 309,172 300,166 291,172 293,162 286,156 296,156" fill="#FF6B00" opacity="0.8"/></svg>',
-    // 3: Split letterforms
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#2D1540"/><rect x="0" y="0" width="50%" height="320" fill="#522D6D"/></svg>',
-    // 4: Grid pattern
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3B1F52"/><stop offset="100%" stop-color="#522D6D"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="600" height="320" fill="url(#g4)"/><rect width="600" height="320" fill="url(#grid)"/><rect x="160" y="60" width="280" height="200" rx="12" fill="rgba(255,107,0,0.06)"/></svg>',
-    // 5: Minimal line-art
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#1A0D28"/></svg>',
-    // 6: Geometric polygon
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF6B00"/><stop offset="100%" stop-color="#522D6D"/></linearGradient></defs><rect width="600" height="320" fill="#522D6D"/><polygon points="0,320 120,0 240,320" fill="rgba(255,107,0,0.04)"/><polygon points="360,320 480,0 600,320" fill="rgba(255,255,255,0.02)"/></svg>',
-    // 7: Gradient drenched
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><linearGradient id="g7a" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#2D1540"/><stop offset="50%" stop-color="#522D6D"/><stop offset="100%" stop-color="#7B3FAF"/></linearGradient><linearGradient id="g7b" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FF6B00" stop-opacity="0"/><stop offset="100%" stop-color="#FF6B00" stop-opacity="0.15"/></linearGradient></defs><rect width="600" height="320" fill="url(#g7a)"/><rect width="600" height="320" fill="url(#g7b)"/></svg>',
-    // 8: Neon glow
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><filter id="glow"><feGaussianBlur stdDeviation="6" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="600" height="320" fill="#0D0615"/></svg>',
-    // 9: Watercolor blend
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><radialGradient id="r9a" cx="30%" cy="40%" r="60%"><stop offset="0%" stop-color="#7B3FAF" stop-opacity="0.6"/><stop offset="100%" stop-color="#522D6D" stop-opacity="0"/></radialGradient><radialGradient id="r9b" cx="70%" cy="60%" r="50%"><stop offset="0%" stop-color="#FF6B00" stop-opacity="0.3"/><stop offset="100%" stop-color="transparent" stop-opacity="0"/></radialGradient></defs><rect width="600" height="320" fill="#522D6D"/><rect width="600" height="320" fill="url(#r9a)"/><rect width="600" height="320" fill="url(#r9b)"/></svg>',
-    // 10: Bold framed
-    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#522D6D"/><rect x="15" y="15" width="570" height="290" rx="4" fill="none" stroke="rgba(255,107,0,0.12)" stroke-width="1"/></svg>'
+    // 1: Orange horizontal bar (like ref square) + TS mark
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="0" y="158" width="600" height="4" fill="#522D6D" opacity="0.12"/></svg>',
+    // 2: Purple left stripe  
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="0" y="0" width="8" height="320" fill="#522D6D"/></svg>',
+    // 3: Orange accent line (single horizontal)
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="40" y="158" width="200" height="3" rx="1.5" fill="#FF6B00" opacity="0.3"/><rect x="360" y="158" width="200" height="3" rx="1.5" fill="#FF6B00" opacity="0.3"/></svg>',
+    // 4: Purple corner accent
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="0" y="0" width="100" height="100" fill="#522D6D" opacity="0.04"/></svg>',
+    // 5: Thin top stripe + bottom line
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="0" y="0" width="600" height="2" fill="#522D6D" opacity="0.08"/><rect x="0" y="318" width="600" height="2" fill="#522D6D" opacity="0.08"/></svg>',
+    // 6: Orange dot + purple line
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><circle cx="300" cy="160" r="80" fill="#522D6D" opacity="0.02"/><line x1="220" y1="160" x2="380" y2="160" stroke="#FF6B00" stroke-width="2" opacity="0.15"/></svg>',
+    // 7: Diagonal fade
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><polygon points="0,0 300,320 0,320" fill="#522D6D" opacity="0.03"/></svg>',
+    // 8: Minimal dots
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><circle cx="40" cy="40" r="3" fill="#522D6D" opacity="0.08"/><circle cx="560" cy="280" r="3" fill="#522D6D" opacity="0.08"/><circle cx="560" cy="40" r="3" fill="#FF6B00" opacity="0.08"/><circle cx="40" cy="280" r="3" fill="#FF6B00" opacity="0.08"/></svg>',
+    // 9: Thin vertical bar left
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="16" y="60" width="2" height="200" fill="#FF6B00" opacity="0.2"/></svg>',
+    // 10: Double line
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#FAFAFA"/><rect x="40" y="48" width="30" height="2" rx="1" fill="#522D6D" opacity="0.1"/><rect x="40" y="270" width="30" height="2" rx="1" fill="#522D6D" opacity="0.1"/></svg>'
   ];
-  // Pick variant based on title length to get variety
+  // Pick variant based on title hash
   const variantIdx = Math.abs(title.length * 7 + excerpt.length * 3) % variants.length;
   const bgSvg = variants[variantIdx];
   
-  // Build final SVG: background base + icon + topic
+  // Build final SVG: clean base + icon + TS branding + topic
   const svgParts = [bgSvg.replace('</svg>', '')];
-  svgParts.push('  <!-- Topic icon -->');
-  svgParts.push('  ' + iconSvg);
-  svgParts.push('  <!-- TS monogram overlay -->');
-  svgParts.push('  <text x="40" y="55" fill="#FF6B00" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-weight="900" font-size="22" letter-spacing="3" opacity="0.3">TS</text>');
+  svgParts.push('  <!-- TS Wordmark (top-left) -->');
+  svgParts.push('  <text x="14" y="26" fill="#522D6D" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-weight="900" font-size="18" letter-spacing="2">T</text>');
+  svgParts.push('  <text x="31" y="26" fill="#FF6B00" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-weight="900" font-size="18" letter-spacing="2">S</text>');
+  svgParts.push('  <!-- Topic icon (center) -->');
+  svgParts.push('  <g opacity="0.15">');
+  svgParts.push('    ' + iconSvg.replace(/<svg[^>]*>/, '<g transform="translate(200,60) scale(1.1)">').replace('</svg>', '</g>'));
+  svgParts.push('  </g>');
   svgParts.push('  <!-- Topic label -->');
-  svgParts.push('  <text x="300" y="295" text-anchor="middle" fill="rgba(255,255,255,0.15)" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="2">' + topicLabel + '</text>');
-  svgParts.push('  <!-- TranslaStars branding -->');
-  svgParts.push('  <text x="590" y="310" text-anchor="end" fill="rgba(255,255,255,0.08)" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-size="7" font-weight="700" letter-spacing="1">TranslaStars</text>');
+  svgParts.push('  <text x="300" y="295" text-anchor="middle" fill="#522D6D" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-size="10" font-weight="600" letter-spacing="2" opacity="0.2">' + topicLabel + '</text>');
+  svgParts.push('  <!-- TranslaStars footer -->');
+  svgParts.push('  <text x="588" y="312" text-anchor="end" fill="#522D6D" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="1" opacity="0.12">TranslaStars</text>');
   svgParts.push('</svg>');
   
   const svg = svgParts.join('\n');
   const b64 = Buffer.from(svg, 'utf8').toString('base64');
   return `data:image/svg+xml;base64,${b64}`;
 }
-
 // ── Sources ──
 const SRC = [
   { name: 'Slator',        url: 'https://slator.com/feed/',                    color: '#1a73e8', sec: 'Localization Industry' },
