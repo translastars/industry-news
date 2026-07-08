@@ -105,6 +105,37 @@ function extractOGImage(html) {
   return '';
 }
 
+// ── Check if an image URL points to a usable (not too small/pixelated) image ──
+function checkImageSize(url) {
+  return new Promise((resolve) => {
+    // Skip obvious small/badge images by URL pattern
+    if (/logo|icon|avatar|favicon|banner|thumbnail|\d+x\d+[_-]thumb/.test(url) &&
+        !/1200|640|800|1024/.test(url)) {
+      return resolve(false);
+    }
+    const mod = url.startsWith('https') ? https : http;
+    const req = mod.get(url, {
+      timeout: 5000,
+      method: 'HEAD',
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'image/webp,image/*,*/*;q=0.8',
+      }
+    }, (res) => {
+      const cl = parseInt(res.headers['content-length'] || '0', 10);
+      res.resume();
+      // Images under 25KB are likely too small to display well (logos, icons, low-res)
+      // Images over 5MB are pointlessly large
+      if (cl > 0 && cl < 25000) return resolve(false);
+      if (cl > 5000000) return resolve(false);
+      // No content-length header — accept and try anyway
+      resolve(true);
+    });
+    req.on('error', () => resolve(true)); // accept on error rather than drop
+    req.on('timeout', () => { req.destroy(); resolve(true); });
+  });
+}
+
 global._imageCache = {}; // populated at start of gen()
 
 // ── Industry relevance keywords ──
@@ -657,9 +688,14 @@ async function gen() {
         }
       }
       if (imgUrl) {
-        art.image = imgUrl;
-        global._imageCache[art.link] = imgUrl;
-        fetched++;
+        const usable = await checkImageSize(imgUrl);
+        if (usable) {
+          art.image = imgUrl;
+          global._imageCache[art.link] = imgUrl;
+          fetched++;
+        } else {
+          global._imageCache[art.link] = '';
+        }
       } else {
         global._imageCache[art.link] = '';
       }
@@ -685,11 +721,16 @@ async function gen() {
           }
         }
         if (imgUrl) {
-          art.image = imgUrl;
-          global._imageCache[art.link] = imgUrl;
-          fetched++;
+          const usable = await checkImageSize(imgUrl);
+          if (usable) {
+            art.image = imgUrl;
+            global._imageCache[art.link] = imgUrl;
+            fetched++;
+          } else {
+            global._imageCache[art.link] = '';
+          }
         } else {
-          global._imageCache[art.link] = ''; // mark as failed
+          global._imageCache[art.link] = '';
         }
       } catch (e2) {
         global._imageCache[art.link] = ''; // mark as failed after retry
@@ -771,7 +812,7 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
 @media(max-width:640px){.gr{grid-template-columns:1fr}}
 .cd{background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 1px 6px rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column}
 .cd:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.08)}
-.cd .ci{height:160px;background-size:cover;background-position:center;background-color:#f0ecf5;position:relative}
+.cd .ci{height:170px;background-size:cover;background-position:center;background-color:#f0ecf5;position:relative;image-rendering:auto}
 .cd .ci .ct{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.55);color:#fff;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:4px}
 .cd .cb{padding:16px;flex:1;display:flex;flex-direction:column}
 .cd .ctop{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
