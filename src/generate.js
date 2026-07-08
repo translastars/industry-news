@@ -537,44 +537,53 @@ const ICONS = {
 
 // ── Content-aware abstract image generator (v2.3) ──
 function genImg(title, excerpt, source, section) {
-  // Use TranslaStars branding for all fallback images
-  const brand = { bg1: '#522D6D', bg2: '#7B3FAF', logo: '✦ TS', logoColor: '#FF6B00', shape: 'bubble' };
   const topics = detectTopics(title, excerpt);
   const primaryTopic = topics[0];
   const iconSvg = ICONS[primaryTopic?.icon] || ICONS.bubble;
   
-  // Decorative shapes based on source brand
-  let decorative = '';
-  if (brand.shape === 'net' || brand.shape === 'circuit') {
-    decorative = `<line x1="${50+Math.abs(title.length*7%100)}" y1="${20+Math.abs(title.length*13%60)}" x2="${150+Math.abs(title.length*3%200)}" y2="${80+Math.abs(title.length*11%100)}" stroke="rgba(255,255,255,0.04)" stroke-width="1"/>
-    <circle cx="${80+Math.abs(title.length*17%250)}" cy="${100+Math.abs(title.length*5%150)}" r="${5+Math.abs(title.length%15)}" fill="rgba(255,255,255,0.04)"/>`;
-  } else {
-    decorative = `<circle cx="${100+Math.abs(title.length*7%300)}" cy="${60+Math.abs(title.length*13%200)}" r="${30+Math.abs(title.length%40)}" fill="rgba(255,255,255,0.04)"/>
-    <circle cx="${300+Math.abs(title.length*11%200)}" cy="${180+Math.abs(title.length*5%100)}" r="${20+Math.abs(title.length*3%30)}" fill="rgba(255,255,255,0.03)"/>`;
-  }
-
   // Topic label at bottom
   const topicLabel = topics.slice(0, 2).map(t => t.label).join(' · ');
 
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="600" height="320">
-  <defs>
-    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:${brand.bg1}"/>
-      <stop offset="100%" style="stop-color:${brand.bg2}"/>
-    </linearGradient>
-  </defs>
-  <rect width="600" height="320" fill="url(#g)"/>
-  ${decorative}
-  <!-- TranslaStars branding -->
-  <rect x="14" y="10" width="60" height="30" rx="6" fill="rgba(255,255,255,0.08)"/>
-  <text x="18" y="30" fill="${brand.logoColor}" font-family="'Montserrat','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="16" letter-spacing="2">TS</text>
-  <!-- Content-aware icon -->
-  ${iconSvg}
-  <!-- Topic label -->
-  <text x="300" y="290" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="'Montserrat','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="600" letter-spacing="2">${topicLabel}</text>
-  <!-- TranslaStars footer -->
-  <text x="588" y="316" text-anchor="end" fill="rgba(255,255,255,0.12)" font-family="'Montserrat','Helvetica Neue',Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="1">TranslaStars</text>
-</svg>`;
+  // Choose an artistic TS logo variant based on title hash (10 variants)
+  const variants = [
+    // 1: Bold TS monogram
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#522D6D"/><stop offset="50%" stop-color="#6B3FA0"/><stop offset="100%" stop-color="#3B1F52"/></linearGradient><linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF6B00"/><stop offset="100%" stop-color="#FF9F45"/></linearGradient></defs><rect width="600" height="320" fill="url(#g1)"/><circle cx="480" cy="80" r="200" fill="rgba(255,107,0,0.04)"/><circle cx="120" cy="260" r="160" fill="rgba(255,255,255,0.03)"/></svg>',
+    // 2: Star orbit
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><radialGradient id="r1" cx="50%" cy="50%" r="70%"><stop offset="0%" stop-color="#7B3FAF"/><stop offset="100%" stop-color="#522D6D"/></radialGradient></defs><rect width="600" height="320" fill="url(#r1)"/><circle cx="300" cy="160" r="120" fill="none" stroke="rgba(255,107,0,0.1)" stroke-width="1"/><circle cx="300" cy="160" r="80" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/><circle cx="300" cy="160" r="40" fill="rgba(255,107,0,0.08)"/><polygon points="300,148 304,156 314,156 307,162 309,172 300,166 291,172 293,162 286,156 296,156" fill="#FF6B00" opacity="0.8"/></svg>',
+    // 3: Split letterforms
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#2D1540"/><rect x="0" y="0" width="50%" height="320" fill="#522D6D"/></svg>',
+    // 4: Grid pattern
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#3B1F52"/><stop offset="100%" stop-color="#522D6D"/></linearGradient><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="40" height="40" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="600" height="320" fill="url(#g4)"/><rect width="600" height="320" fill="url(#grid)"/><rect x="160" y="60" width="280" height="200" rx="12" fill="rgba(255,107,0,0.06)"/></svg>',
+    // 5: Minimal line-art
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#1A0D28"/></svg>',
+    // 6: Geometric polygon
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><linearGradient id="g6" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#FF6B00"/><stop offset="100%" stop-color="#522D6D"/></linearGradient></defs><rect width="600" height="320" fill="#522D6D"/><polygon points="0,320 120,0 240,320" fill="rgba(255,107,0,0.04)"/><polygon points="360,320 480,0 600,320" fill="rgba(255,255,255,0.02)"/></svg>',
+    // 7: Gradient drenched
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><linearGradient id="g7a" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" stop-color="#2D1540"/><stop offset="50%" stop-color="#522D6D"/><stop offset="100%" stop-color="#7B3FAF"/></linearGradient><linearGradient id="g7b" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" stop-color="#FF6B00" stop-opacity="0"/><stop offset="100%" stop-color="#FF6B00" stop-opacity="0.15"/></linearGradient></defs><rect width="600" height="320" fill="url(#g7a)"/><rect width="600" height="320" fill="url(#g7b)"/></svg>',
+    // 8: Neon glow
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><filter id="glow"><feGaussianBlur stdDeviation="6" result="coloredBlur"/><feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><rect width="600" height="320" fill="#0D0615"/></svg>',
+    // 9: Watercolor blend
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><defs><radialGradient id="r9a" cx="30%" cy="40%" r="60%"><stop offset="0%" stop-color="#7B3FAF" stop-opacity="0.6"/><stop offset="100%" stop-color="#522D6D" stop-opacity="0"/></radialGradient><radialGradient id="r9b" cx="70%" cy="60%" r="50%"><stop offset="0%" stop-color="#FF6B00" stop-opacity="0.3"/><stop offset="100%" stop-color="transparent" stop-opacity="0"/></radialGradient></defs><rect width="600" height="320" fill="#522D6D"/><rect width="600" height="320" fill="url(#r9a)"/><rect width="600" height="320" fill="url(#r9b)"/></svg>',
+    // 10: Bold framed
+    '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320"><rect width="600" height="320" fill="#522D6D"/><rect x="15" y="15" width="570" height="290" rx="4" fill="none" stroke="rgba(255,107,0,0.12)" stroke-width="1"/></svg>'
+  ];
+  // Pick variant based on title length to get variety
+  const variantIdx = Math.abs(title.length * 7 + excerpt.length * 3) % variants.length;
+  const bgSvg = variants[variantIdx];
+  
+  // Build final SVG: background base + icon + topic
+  const svgParts = [bgSvg.replace('</svg>', '')];
+  svgParts.push('  <!-- Topic icon -->');
+  svgParts.push('  ' + iconSvg);
+  svgParts.push('  <!-- TS monogram overlay -->');
+  svgParts.push('  <text x="40" y="55" fill="#FF6B00" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-weight="900" font-size="22" letter-spacing="3" opacity="0.3">TS</text>');
+  svgParts.push('  <!-- Topic label -->');
+  svgParts.push('  <text x="300" y="295" text-anchor="middle" fill="rgba(255,255,255,0.15)" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-size="10" font-weight="700" letter-spacing="2">' + topicLabel + '</text>');
+  svgParts.push('  <!-- TranslaStars branding -->');
+  svgParts.push('  <text x="590" y="310" text-anchor="end" fill="rgba(255,255,255,0.08)" font-family="Montserrat,Helvetica Neue,Arial,sans-serif" font-size="7" font-weight="700" letter-spacing="1">TranslaStars</text>');
+  svgParts.push('</svg>');
+  
+  const svg = svgParts.join('\n');
   const b64 = Buffer.from(svg, 'utf8').toString('base64');
   return `data:image/svg+xml;base64,${b64}`;
 }
