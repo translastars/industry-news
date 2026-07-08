@@ -537,7 +537,8 @@ const ICONS = {
 
 // ── Content-aware abstract image generator (v2.3) ──
 function genImg(title, excerpt, source, section) {
-  const brand = BRANDS[source] || { bg1: '#522D6D', bg2: '#7B3FAF', logo: 'TS', logoColor: '#fff', shape: 'bubble' };
+  // Use TranslaStars branding for all fallback images
+  const brand = { bg1: '#522D6D', bg2: '#7B3FAF', logo: '✦ TS', logoColor: '#FF6B00', shape: 'bubble' };
   const topics = detectTopics(title, excerpt);
   const primaryTopic = topics[0];
   const iconSvg = ICONS[primaryTopic?.icon] || ICONS.bubble;
@@ -564,12 +565,15 @@ function genImg(title, excerpt, source, section) {
   </defs>
   <rect width="600" height="320" fill="url(#g)"/>
   ${decorative}
-  <!-- Source logo wordmark -->
-  <text x="24" y="34" fill="${brand.logoColor}" font-family="'Montserrat','Helvetica Neue',Arial,sans-serif" font-weight="800" font-size="22" letter-spacing="2" opacity="0.5">${brand.logo}</text>
+  <!-- TranslaStars branding -->
+  <rect x="14" y="10" width="60" height="30" rx="6" fill="rgba(255,255,255,0.08)"/>
+  <text x="18" y="30" fill="${brand.logoColor}" font-family="'Montserrat','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="16" letter-spacing="2">TS</text>
   <!-- Content-aware icon -->
   ${iconSvg}
   <!-- Topic label -->
-  <text x="300" y="300" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="'Montserrat','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="600" letter-spacing="2">${topicLabel}</text>
+  <text x="300" y="290" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-family="'Montserrat','Helvetica Neue',Arial,sans-serif" font-size="10" font-weight="600" letter-spacing="2">${topicLabel}</text>
+  <!-- TranslaStars footer -->
+  <text x="588" y="316" text-anchor="end" fill="rgba(255,255,255,0.12)" font-family="'Montserrat','Helvetica Neue',Arial,sans-serif" font-size="8" font-weight="700" letter-spacing="1">TranslaStars</text>
 </svg>`;
   const b64 = Buffer.from(svg, 'utf8').toString('base64');
   return `data:image/svg+xml;base64,${b64}`;
