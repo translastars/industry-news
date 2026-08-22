@@ -900,17 +900,11 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
 .ts .tct{font-family:'Montserrat',sans-serif;font-size:13.5px;font-weight:700;line-height:1.4;color:#2d2535}
 .ts .tce{font-size:12px;color:#666;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .ts .tcr{font-size:11px;font-weight:700;color:#522D6D}
-.bl{background:#fff;border-radius:14px;padding:20px 24px;margin-bottom:28px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.bl{margin-bottom:28px}
 .bl .blh{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
 .bl .blh h2{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:#522D6D}
 .bl .blh .bltag{font-size:10px;font-weight:700;color:#FF6B00;background:#fff1e6;padding:3px 10px;border-radius:12px}
-.bl ul{list-style:none}
-.bl li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0ece6}
-.bl li:last-child{border-bottom:none}
-.bl a{color:#2d2535;text-decoration:none;font-size:13.5px;font-weight:600;line-height:1.4}
-.bl a:hover{color:#522D6D;text-decoration:underline}
-.bl .bld{font-size:11px;color:#999;white-space:nowrap}
-.ft{background:#1a1a2e;color:#999;padding:32px 24px;text-align:center;margin-top:16px}
+.bl .ft{background:#1a1a2e;color:#999;padding:32px 24px;text-align:center;margin-top:16px}
 .ft .in{max-width:600px;margin:0 auto}
 .ft a{color:#7B3FAF;text-decoration:none}
 .ft a:hover{text-decoration:underline}
@@ -976,13 +970,23 @@ ${tsBlog && tsBlog.length ? `<section class="bl" id="ts-blog">
     <h2>📝 From the TranslaStars Blog</h2>
     <span class="bltag">This week</span>
   </div>
-  <ul>
+  <div class="gr">
     ${tsBlog.map(b => `
-    <li>
-      <a href="${b.link}" target="_blank" rel="noopener">${b.title}</a>
-      <span class="bld">${shortDate(b.date)}</span>
-    </li>`).join('')}
-  </ul>
+    <article class="cd">
+      <div class="ci" style="background-image:url('${genImg(b.title, b.title, 'TranslaStars Blog', 'Blog')}')">
+        <span class="ct">TranslaStars Blog</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">TranslaStars Blog</span>
+          <span class="cda">${shortDate(b.date)}</span>
+        </div>
+        <h4>${b.title}</h4>
+        <p class="ctxt">Latest article from the TranslaStars blog</p>
+        <a href="${b.link}" target="_blank" rel="noopener" class="cl">Read article →</a>
+      </div>
+    </article>`).join('\n    ')}
+  </div>
 </section>` : ''}
 
 ${top ? `<article class="feat">
