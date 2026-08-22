@@ -1,5 +1,13 @@
 /**
- * TranslaStars Industry News — Daily Generator v2.6
+ * TranslaStars Industry News — Daily Generator v2.7
+ * Changes from v2.6:
+ *  - NEW: "Today's Top Stories" section fed by News Engine digest (digest-latest.json)
+ *  - NEW: "From the TranslaStars Blog" section with blog posts published/updated this week
+ *  - Both sections are optional: build works if digest is missing or stale
+ * v2.6:
+ *  - Branded SVG backgrounds: 10 designs with TS star logo centered
+ *  - Replaces old abstract variant SVGs with full branded backgrounds
+ *  - SVGs stored in assets/ts-bg/, referenced by path for smaller JS
  * Changes from v2.5:
  *  - Branded SVG backgrounds: 10 designs with TS star logo centered
  *  - Replaces old abstract variant SVGs with full branded backgrounds
@@ -28,6 +36,7 @@ const OUT = path.join(__dirname, '..', 'docs');
 const DATA = path.join(__dirname, '..', 'data');
 const DROPBOX = path.join('C:\\Users\\barto\\Dropbox', 'OpenClaw Proyectos', 'Industry News');
 const SITE = 'https://translastars.github.io/industry-news/';
+const DIGEST_JSON = path.join('C:\\Users\\barto\\Dropbox', 'OpenClaw Proyectos', 'News Engine', 'data', 'digest-latest.json');
 
 // ── Image cache ──
 const IMAGE_CACHE_PATH = path.join(DATA, 'article_images.json');
@@ -613,8 +622,77 @@ async function getSource(name, url, color, sec) {
 }
 
 // ── Main ──
+// ── Digest "Top Stories" helpers ──
+function digestExcerpt(body) {
+  if (!body) return '';
+  let t = body.replace(/^#+\s+.*$/gm, '');            // strip headings
+  t = t.replace(/\*\*Our take:\*\*/g, '');            // remove "Our take" marker
+  t = t.replace(/\[([^\]]*)\]\([^)]*\)/g, '$1');     // links -> text
+  t = t.replace(/[*_#>`~]/g, '').replace(/\s+/g, ' ').trim();
+  const paras = t.split(/(?<=\.)\s+(?=[A-Z0-9])/).map(p => p.trim()).filter(p => p.length > 40);
+  return trunc(paras[0] || t, 170);
+}
+
+async function getDigest() {
+  try {
+    if (!fs.existsSync(DIGEST_JSON)) { console.log('ℹ️ digest-latest.json not found - skipping Top Stories'); return null; }
+    const j = JSON.parse(fs.readFileSync(DIGEST_JSON, 'utf8'));
+    const genAt = new Date(j.generatedAt || j.date || 0).getTime();
+    if (!genAt || Date.now() - genAt > 48 * 3600 * 1000) { console.log('ℹ️ digest is stale - skipping Top Stories'); return null; }
+    const arts = (j.articles || []).slice(0, 6);
+    if (!arts.length) return null;
+    console.log(`⭐ Top Stories: ${arts.length} digest articles (generated ${new Date(genAt).toISOString().slice(0,10)})`);
+    return arts.map(a => ({
+      title: a.aiTitle || a.originalTitle || '',
+      excerpt: digestExcerpt(a.aiBody || ''),
+      source: a.source || '',
+      link: a.link || '#',
+      date: a.relativeDate || '',
+      isReport: !!a.isReport
+    }));
+  } catch (e) { console.log('⚠️ digest error:', e.message); return null; }
+}
+
+// ── TranslaStars blog "this week" helpers ──
+const TS_ACRONYMS = { ai:'AI', tms:'TMS', seo:'SEO', nlp:'NLP', ux:'UX', ui:'UI', api:'API', mt:'MT', memoq:'memoQ', memoqu:'memoQ', lsp:'LSP', gpt:'GPT', mql:'MQL', crm:'CRM', openclaw:'OpenClaw', deepl:'DeepL', llms:'LLMs', vs:'vs' };
+function slugTitle(slug) {
+  return slug.split('-').map(w => TS_ACRONYMS[w.toLowerCase()] || (w.charAt(0).toUpperCase() + w.slice(1))).join(' ');
+}
+function shortDate(d) { return d.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }); }
+
+async function getTranslaStarsBlog(days = 7, max = 6) {
+  try {
+    const xml = await fetch('https://www.translastars.com/post-sitemap.xml');
+    const re = /<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g;
+    let m, posts = [];
+    while ((m = re.exec(xml)) !== null) {
+      const loc = m[1], lm = new Date(m[2]);
+      if (!/\/blog\//.test(loc)) continue;
+      if (isNaN(lm.getTime())) continue;
+      if (Date.now() - lm.getTime() > days * 86400000) continue;
+      posts.push({ link: loc, lastmod: lm, slug: loc.split('/blog/')[1] || '' });
+    }
+    posts.sort((a, b) => b.lastmod - a.lastmod);
+    posts = posts.slice(0, max);
+    if (!posts.length) { console.log('ℹ️ no TranslaStars blog posts this week'); return []; }
+    console.log(`📝 TranslaStars blog: ${posts.length} post(s) this week`);
+    const out = [];
+    for (const p of posts) {
+      let title = slugTitle(p.slug);
+      try {
+        const { body } = await fetchHTML(p.link, 10000, 1);
+        const og = body && (body.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i) || body.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i));
+        if (og && og[1]) title = og[1].replace(/\s*\|\s*TranslaStars Blog\s*$/i, '').trim();
+      } catch (e) {}
+      out.push({ title, link: p.link, date: p.lastmod });
+      await new Promise(r => setTimeout(r, 120));
+    }
+    return out;
+  } catch (e) { console.log('⚠️ blog sitemap error:', e.message); return []; }
+}
+
 async function gen() {
-  console.log('📰 TranslaStars Industry News — Daily Edition v2.3\n');
+  console.log('📰 TranslaStars Industry News — Daily Edition v2.7\n');
 
   const all = [];
   for (const s of SRC) {
@@ -726,6 +804,10 @@ async function gen() {
   const secd = {};
   secs.forEach(s => secd[s] = unique.filter(a => a.section === s));
 
+  // ── Digest Top Stories + TranslaStars blog this week ──
+  const digest = await getDigest();
+  const tsBlog = await getTranslaStarsBlog();
+
   // ── HTML (v2.3) ──
   const h = `<!DOCTYPE html>
 <html lang="en">
@@ -805,6 +887,29 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
 .view-all-wrap{text-align:center;margin-top:-16px;margin-bottom:24px}
 .view-all-btn{display:inline-flex;align-items:center;gap:6px;background:#f0ecf5;color:#522D6D;font-family:'Montserrat',sans-serif;font-size:12px;font-weight:600;padding:8px 20px;border:none;border-radius:8px;cursor:pointer;transition:all .2s}
 .view-all-btn:hover{background:#e0d6f0;transform:translateY(-1px)}
+.ts{background:linear-gradient(135deg,#522D6D 0%,#7B3FAF 100%);border-radius:14px;padding:22px 24px;margin-bottom:28px;color:#fff}
+.ts .tsh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:8px}
+.ts .tsh h2{font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;letter-spacing:-.3px}
+.ts .tsh .tss{font-size:11px;opacity:.75}
+.ts .tsgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px}
+.ts .tcd{background:#fff;color:#111;border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:8px;box-shadow:0 2px 10px rgba(0,0,0,.18);text-decoration:none;transition:transform .15s,box-shadow .15s}
+.ts .tcd:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.ts .tctop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.ts .tcs{font-size:9px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase;color:#FF6B00}
+.ts .tcdd{font-size:10px;color:#999}
+.ts .tct{font-family:'Montserrat',sans-serif;font-size:13.5px;font-weight:700;line-height:1.4;color:#2d2535}
+.ts .tce{font-size:12px;color:#666;line-height:1.55;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ts .tcr{font-size:11px;font-weight:700;color:#522D6D}
+.bl{background:#fff;border-radius:14px;padding:20px 24px;margin-bottom:28px;box-shadow:0 1px 6px rgba(0,0,0,.05)}
+.bl .blh{display:flex;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap}
+.bl .blh h2{font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800;color:#522D6D}
+.bl .blh .bltag{font-size:10px;font-weight:700;color:#FF6B00;background:#fff1e6;padding:3px 10px;border-radius:12px}
+.bl ul{list-style:none}
+.bl li{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid #f0ece6}
+.bl li:last-child{border-bottom:none}
+.bl a{color:#2d2535;text-decoration:none;font-size:13.5px;font-weight:600;line-height:1.4}
+.bl a:hover{color:#522D6D;text-decoration:underline}
+.bl .bld{font-size:11px;color:#999;white-space:nowrap}
 .ft{background:#1a1a2e;color:#999;padding:32px 24px;text-align:center;margin-top:16px}
 .ft .in{max-width:600px;margin:0 auto}
 .ft a{color:#7B3FAF;text-decoration:none}
@@ -821,6 +926,8 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
       <span class="logo-text">TranslaStars <span>News</span></span>
     </a>
     <nav>
+      <a href="#top-stories">Top Stories</a>
+      <a href="#ts-blog">Our Blog</a>
       <a href="#Localization-Industry">Industry</a>
       <a href="#AI-Technology">AI &amp; Tech</a>
       <a href="#Tools-Platforms">Tools</a>
@@ -844,6 +951,39 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
   ${SRC.map(s => `<span class="pill"><span class="dot" style="background:${s.color}"></span>${s.name}</span>`).join('')}
   <span class="cnt">Daily</span>
 </div>
+
+${digest && digest.length ? `<section class="ts" id="top-stories">
+  <div class="tsh">
+    <h2>⭐ Today's Top Stories</h2>
+    <span class="tss">AI-curated by TranslaStars</span>
+  </div>
+  <div class="tsgrid">
+    ${digest.map(d => `
+    <a class="tcd" href="${d.link}" target="_blank" rel="noopener">
+      <div class="tctop">
+        <span class="tcs">${d.source}${d.isReport ? ' · 📊 Report' : ''}</span>
+        <span class="tcdd">${d.date}</span>
+      </div>
+      <div class="tct">${d.title}</div>
+      <div class="tce">${d.excerpt}</div>
+      <span class="tcr">Read article →</span>
+    </a>`).join('')}
+  </div>
+</section>` : ''}
+
+${tsBlog && tsBlog.length ? `<section class="bl" id="ts-blog">
+  <div class="blh">
+    <h2>📝 From the TranslaStars Blog</h2>
+    <span class="bltag">This week</span>
+  </div>
+  <ul>
+    ${tsBlog.map(b => `
+    <li>
+      <a href="${b.link}" target="_blank" rel="noopener">${b.title}</a>
+      <span class="bld">${shortDate(b.date)}</span>
+    </li>`).join('')}
+  </ul>
+</section>` : ''}
 
 ${top ? `<article class="feat">
   <div class="fi" style="background-image:url('${top.image || genImg(top.title, top.excerpt, top.source, top.section)}')"><div class="o"></div></div>
