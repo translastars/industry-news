@@ -1,6 +1,12 @@
 /**
- * TranslaStars Industry News — Daily Generator v2.7
- * Changes from v2.6:
+ * TranslaStars Industry News — Daily Generator v2.8
+ * Changes from v2.7:
+ *  - FIX (Alfonso): blog posts de TranslaStars ya NO aparecen lo primero; se integran
+ *    en su seccion tematica relevante (Localization Industry / AI & Tech / Tools / Global)
+ *    y los que no encajan van a la seccion "From the TranslaStars Blog" al final.
+ *  - FIX (Alfonso): las tarjetas del blog ahora usan la imagen real del post
+ *    (og:image -> twitter:image -> primer <img>) en vez del placeholder SVG.
+ * v2.7:
  *  - NEW: "Today's Top Stories" section fed by News Engine digest (digest-latest.json)
  *  - NEW: "From the TranslaStars Blog" section with blog posts published/updated this week
  *  - Both sections are optional: build works if digest is missing or stale
@@ -679,16 +685,47 @@ async function getTranslaStarsBlog(days = 7, max = 6) {
     const out = [];
     for (const p of posts) {
       let title = slugTitle(p.slug);
+      let image = '';
       try {
         const { body } = await fetchHTML(p.link, 10000, 1);
         const og = body && (body.match(/<meta[^>]+property=["']og:title["'][^>]+content=["']([^"']+)["']/i) || body.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:title["']/i));
         if (og && og[1]) title = og[1].replace(/\s*\|\s*TranslaStars Blog\s*$/i, '').trim();
+        // Imagen real del post: og:image -> twitter:image -> primer <img>
+        let imgUrl = body ? extractOGImage(body) : '';
+        if (imgUrl && !/^https?:/i.test(imgUrl) && !imgUrl.startsWith('data:')) {
+          try { imgUrl = new URL(imgUrl, p.link).href; } catch (e) { imgUrl = ''; }
+        }
+        if (!imgUrl && body) {
+          const anyImg = body.match(/<img[^>]+src=["']([^"']+)["']/i);
+          if (anyImg && anyImg[1] && !anyImg[1].includes('logo') && !anyImg[1].includes('icon') && !anyImg[1].includes('avatar')) {
+            const c = anyImg[1];
+            if (/^https?:/i.test(c)) imgUrl = c;
+            else if (c.startsWith('//')) imgUrl = 'https:' + c;
+          }
+        }
+        image = imgUrl || '';
       } catch (e) {}
-      out.push({ title, link: p.link, date: p.lastmod });
+      out.push({ title, link: p.link, date: p.lastmod, image });
       await new Promise(r => setTimeout(r, 120));
     }
     return out;
   } catch (e) { console.log('⚠️ blog sitemap error:', e.message); return []; }
+}
+
+// Clasifica un blog post de TranslaStars en una seccion tematica segun su titulo.
+// Devuelve '' si no encaja en ninguna (se muestra al final en su propia seccion).
+function classifyBlogSection(title) {
+  const t = (title || '').toLowerCase();
+  const rules = [
+    { sec: 'Localization Industry', kws: ['translation', 'localization', 'localisation', 'l10n', 'interpreting', 'interpreter', 'subtitl', 'transcreation', 'linguistic', 'language', 'languages', 'term', 'terminology', 'glossary', 'cat tool', 'memoq', 'trados', 'phrasal', 'memsource', 'smartcat', 'lsp', 'language service', 'localiz'] },
+    { sec: 'AI & Technology', kws: ['ai ', ' ai', 'artificial intelligence', 'gpt', 'llm', 'large language model', 'machine learning', 'deep learning', 'nlp', 'neural', 'automation', 'chatgpt', 'openai', 'anthropic', 'claude', 'gemini', 'chatbot', 'voice', 'speech', 'tts', 'stt', 'transcri', 'mt ', 'machine translation', 'technology', 'tech ', 'openclaw', 'agent', 'copilot', 'model'] },
+    { sec: 'Tools & Platforms', kws: ['tool', 'tools', 'platform', 'software', 'app', 'apps', 'api', 'plugin', 'integration', 'workflow', 'review', 'comparison', 'best ', 'top ', 'guide', 'tutorial', 'how to', 'wordpress', 'website', 'web', 'saas'] },
+    { sec: 'Global & Policy', kws: ['policy', 'regulation', 'regulatory', 'eu', 'european', 'law', 'legal', 'compliance', 'standard', 'standards', 'iso', 'global', 'international', 'market', 'industry', 'survey', 'report', 'data', 'statistics', 'career', 'job', 'salary', 'remote', 'freelance', 'business'] },
+  ];
+  for (const r of rules) {
+    if (r.kws.some(k => t.includes(k))) return r.sec;
+  }
+  return '';
 }
 
 async function gen() {
@@ -808,6 +845,33 @@ async function gen() {
   const digest = await getDigest();
   const tsBlog = await getTranslaStarsBlog();
 
+  // Los blog posts de TranslaStars se integran en su seccion tematica relevante
+  // (nunca como lo primero que se ve). Los que no encajan en ninguna seccion
+  // se muestran al final de la pagina en su propia seccion.
+  const tsBlogRest = [];
+  if (tsBlog && tsBlog.length) {
+    for (const b of tsBlog) {
+      const sec = classifyBlogSection(b.title);
+      if (sec && secd[sec]) {
+        secd[sec].push({
+          title: b.title,
+          link: b.link,
+          date: b.date,
+          relativeDate: shortDate(b.date),
+          section: sec,
+          source: 'TranslaStars Blog',
+          sourceColor: '#522D6D',
+          image: b.image || '',
+          excerpt: 'Latest article from the TranslaStars blog',
+          isBlog: true
+        });
+      } else {
+        tsBlogRest.push(b);
+      }
+    }
+  }
+  const hasTsBlog = tsBlogRest.length > 0;
+
   // ── HTML (v2.3) ──
   const h = `<!DOCTYPE html>
 <html lang="en">
@@ -921,7 +985,7 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
     </a>
     <nav>
       <a href="#top-stories">Top Stories</a>
-      <a href="#ts-blog">Our Blog</a>
+      ${hasTsBlog ? '<a href="#ts-blog">Our Blog</a>' : ''}
       <a href="#Localization-Industry">Industry</a>
       <a href="#AI-Technology">AI &amp; Tech</a>
       <a href="#Tools-Platforms">Tools</a>
@@ -962,30 +1026,6 @@ ${digest && digest.length ? `<section class="ts" id="top-stories">
       <div class="tce">${d.excerpt}</div>
       <span class="tcr">Read article →</span>
     </a>`).join('')}
-  </div>
-</section>` : ''}
-
-${tsBlog && tsBlog.length ? `<section class="bl" id="ts-blog">
-  <div class="blh">
-    <h2>📝 From the TranslaStars Blog</h2>
-    <span class="bltag">This week</span>
-  </div>
-  <div class="gr">
-    ${tsBlog.map(b => `
-    <article class="cd">
-      <div class="ci" style="background-image:url('${genImg(b.title, b.title, 'TranslaStars Blog', 'Blog')}')">
-        <span class="ct">TranslaStars Blog</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">TranslaStars Blog</span>
-          <span class="cda">${shortDate(b.date)}</span>
-        </div>
-        <h4>${b.title}</h4>
-        <p class="ctxt">Latest article from the TranslaStars blog</p>
-        <a href="${b.link}" target="_blank" rel="noopener" class="cl">Read article →</a>
-      </div>
-    </article>`).join('\n    ')}
   </div>
 </section>` : ''}
 
@@ -1053,6 +1093,30 @@ ${secs.map((s, si) => {
   </div>
   ${hidden.length > 0 ? `<div class="view-all-wrap"><button class="view-all-btn" onclick="(function(){var g=document.getElementById('grid-${si}'),cards=g.querySelectorAll('.cd'),hidden=[];for(var i=0;i<cards.length;i++){if(cards[i].style.display==='none')hidden.push(cards[i]);}var show=hidden.splice(0,${LIMIT});show.forEach(function(c){c.style.display='flex'});if(hidden.length===0){this.textContent='Show all ${a.length} articles';this.disabled=true;this.style.opacity='0.4';}})()">Show all ${a.length} articles (${hidden.length} more) ↓</button></div>` : ''}
 </section>`}).join('\n\n')}
+
+${hasTsBlog ? `<section class="bl" id="ts-blog">
+  <div class="blh">
+    <h2>📝 From the TranslaStars Blog</h2>
+    <span class="bltag">This week</span>
+  </div>
+  <div class="gr">
+    ${tsBlogRest.map(b => `
+    <article class="cd">
+      <div class="ci" style="background-image:url('${b.image || genImg(b.title, b.title, 'TranslaStars Blog', 'Blog')}')">
+        <span class="ct">TranslaStars Blog</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">TranslaStars Blog</span>
+          <span class="cda">${shortDate(b.date)}</span>
+        </div>
+        <h4>${b.title}</h4>
+        <p class="ctxt">Latest article from the TranslaStars blog</p>
+        <a href="${b.link}" target="_blank" rel="noopener" class="cl">Read article →</a>
+      </div>
+    </article>`).join('\n    ')}
+  </div>
+</section>` : ''}
 
 </div>
 <footer class="ft">

@@ -1,5 +1,10 @@
 # Changelog - Industry News (translastars/industry-news)
 
+## v2.9 - 2026-08-22
+- **FIX (Alfonso): blog posts no aparecen lo primero en la pagina**. Los posts del blog de TranslaStars se integran ahora en su seccion tematica relevante (Localization Industry / AI & Technology / Tools & Platforms / Global & Policy) segun el titulo (`classifyBlogSection`). Los que no encajan en ninguna seccion se muestran al final en la seccion "From the TranslaStars Blog" (id `ts-blog`).
+- **FIX (Alfonso): imagenes reales de los blog posts**. `getTranslaStarsBlog()` ahora extrae la imagen del post (og:image -> twitter:image via `extractOGImage` -> primer `<img>` como fallback) y las tarjetas usan `b.image` en vez del placeholder SVG `genImg`.
+- Nav: el enlace "Our Blog" solo aparece si hay posts sin clasificar al final.
+
 ## v2.8 - 2026-08-22
 - **Blog section redesigned**: "📝 From the TranslaStars Blog" now renders as the same news cards (`.cd` grid) as the rest of the page (generated image header, "TranslaStars Blog" source pill, DD/MM/YYYY date, title, "Read article →") instead of a plain `<ul>` table-like list. Removed white box container + unused list CSS.
 
