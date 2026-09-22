@@ -1127,6 +1127,40 @@ ${hasTsBlog ? `<section class="bl" id="ts-blog">
     <div class="pw">Generated ${today.toISOString().substring(0,19).replace('T',' ')} · Powered by TranslaStars AI ✦</div>
   </div>
 </footer>
+<script>
+/* Industry News - agregado de clics por noticia (sin cookies, sin IP, sin datos personales) */
+(function(){
+  var API='https://translastars-sliders.vercel.app/api/news-clicks';
+  function hash(s){var h=2166136261,i;for(i=0;i<s.length;i++){h^=s.charCodeAt(i);h=(h*16777619)>>>0;}return 'n'+h.toString(36);}
+  function txt(el){return el?String(el.textContent||'').replace(/\\s+/g,' ').trim():'';}
+  function track(a){
+    try{
+      var card=a.closest?a.closest('.cd,.feat,.tcd'):null;
+      if(!card)return;
+      var href=a.href||'';
+      if(!/^https?:/i.test(href))return;
+      if(/translastars\\.(com|github\\.io)/i.test(href))return;
+      var t=txt(card.querySelector('h4')||card.querySelector('h2')||card.querySelector('.tct'));
+      var s=txt(card.querySelector('.ct')||card.querySelector('.cs')||card.querySelector('.fs')||card.querySelector('.tcs'));
+      var json=JSON.stringify({id:hash(href),url:href,title:t.slice(0,180),source:s.slice(0,40)});
+      var url=API+'?d='+encodeURIComponent(json);
+      if(navigator.sendBeacon){try{if(navigator.sendBeacon(url))return;}catch(e0){}}
+      try{fetch(url,{method:'POST',keepalive:true,mode:'no-cors'});}catch(e1){}
+    }catch(e2){}
+  }
+  function onClick(e){
+    try{
+      if(e.defaultPrevented)return;
+      var t=e.target;
+      if(!t||!t.closest)return;
+      var a=t.closest('a');
+      if(a)track(a);
+    }catch(e3){}
+  }
+  document.addEventListener('click',onClick,true);
+  document.addEventListener('auxclick',function(e){if(e.button===1)onClick(e);},true);
+})();
+</script>
 </body>
 </html>`;
 

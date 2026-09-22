@@ -200,13 +200,14 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
 </section>
 
 <article class="feat">
-  <div class="fi" style="background-image:url('https://media.wired.com/photos/6aad9b0ab031c4554cdc7e0b/master/pass/Company-Wants-to-USe-AI-Translate-Ancient-Greek-Business.jpg')"><div class="o"></div></div>
+  <div class="fi" style="background-image:url('assets/ts-bg/08-bubbles.svg')"><div class="o"></div></div>
   <div class="fb">
-    <span class="fs" style="color:#000">Wired</span>
-    <h2>A New Chatbot Wants to Unlock the Secrets in Tattered Ancient Greek Records</h2>
-    <p class="fe">In the hope of uncovering new details about ancient life, researchers have developed a large language model that fills in the gaps in papyrus fragments.</p>
+    <span class="fs" style="color:#1a73e8">Slator</span>
+    <h2>TOPPAN Digital Language Launches TDL Healthcare</h2>
+    <p class="fe">TDL Healthcare brings together specialist expertise, secure workflows and AI-enabled content operations to support multilingual healthcare communications
+The post TOPPAN Digital Language Launches TDL …</p>
     <div class="fm">Today</div>
-    <a href="https://www.wired.com/story/apollo-ai-model-ancient-greek-secrets-papyrus/" target="_blank" rel="noopener" class="fcta">Read full article →</a>
+    <a href="https://slator.com/toppan-digital-language-launches-tdl-healthcare/" target="_blank" rel="noopener" class="fcta">Read full article →</a>
   </div>
 </article>
 
@@ -217,6 +218,21 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
     <span class="sc">(46 articles)</span>
   </div>
   <div class="gr" id="grid-0">
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('assets/ts-bg/08-bubbles.svg')">
+        <span class="ct">Slator</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Slator</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>TOPPAN Digital Language Launches TDL Healthcare</h4>
+        <p class="ctxt">TDL Healthcare brings together specialist expertise, secure workflows and AI-enabled content operations to sup…</p>
+        <a href="https://slator.com/toppan-digital-language-launches-tdl-healthcare/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
     
     <article class="cd">
       <div class="ci" style="background-image:url('assets/ts-bg/01-waves.svg')">
@@ -260,21 +276,6 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
         <h4>The Straker Fraud; Astra Translation Performance</h4>
         <p class="ctxt">SlatorCon San Francisco 2026 takeaways, Smartling’s new majority investment, OpenAI translation benchmarks, St…</p>
         <a href="https://slator.com/straker-fraud-astra-translation-performance/" target="_blank" rel="noopener" class="cl">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="cd">
-      <div class="ci" style="background-image:url('assets/ts-bg/02-concentric.svg')">
-        <span class="ct">Slator</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">Slator</span>
-          <span class="cda">4d ago</span>
-        </div>
-        <h4>Trusting AI to Act: How Much Human Oversight Is Enough?</h4>
-        <p class="ctxt">At SlatorCon San Francisco, Scale AI’s Emily Xue showed why evaluating AI agents in isolation can miss what ma…</p>
-        <a href="https://slator.com/ai-agents-human-oversight-reliability-cost/" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
@@ -1834,8 +1835,42 @@ This is a …</p>
     <p><strong style="color:#fff">TranslaStars Industry News</strong> — Daily curated for language, localization & AI professionals</p>
     <p style="margin-top:4px"><a href="https://www.translastars.com" target="_blank">TranslaStars</a> · <a href="https://translastars.github.io/industry-news/">Home</a></p>
     <p style="margin-top:4px;font-size:11px">News curated automatically from public RSS feeds. Only industry-relevant articles shown.</p>
-    <div class="pw">Generated 2026-09-22 10:31:50 · Powered by TranslaStars AI ✦</div>
+    <div class="pw">Generated 2026-09-22 12:58:41 · Powered by TranslaStars AI ✦</div>
   </div>
 </footer>
+<script>
+/* Industry News - agregado de clics por noticia (sin cookies, sin IP, sin datos personales) */
+(function(){
+  var API='https://translastars-sliders.vercel.app/api/news-clicks';
+  function hash(s){var h=2166136261,i;for(i=0;i<s.length;i++){h^=s.charCodeAt(i);h=(h*16777619)>>>0;}return 'n'+h.toString(36);}
+  function txt(el){return el?String(el.textContent||'').replace(/\s+/g,' ').trim():'';}
+  function track(a){
+    try{
+      var card=a.closest?a.closest('.cd,.feat,.tcd'):null;
+      if(!card)return;
+      var href=a.href||'';
+      if(!/^https?:/i.test(href))return;
+      if(/translastars\.(com|github\.io)/i.test(href))return;
+      var t=txt(card.querySelector('h4')||card.querySelector('h2')||card.querySelector('.tct'));
+      var s=txt(card.querySelector('.ct')||card.querySelector('.cs')||card.querySelector('.fs')||card.querySelector('.tcs'));
+      var json=JSON.stringify({id:hash(href),url:href,title:t.slice(0,180),source:s.slice(0,40)});
+      var url=API+'?d='+encodeURIComponent(json);
+      if(navigator.sendBeacon){try{if(navigator.sendBeacon(url))return;}catch(e0){}}
+      try{fetch(url,{method:'POST',keepalive:true,mode:'no-cors'});}catch(e1){}
+    }catch(e2){}
+  }
+  function onClick(e){
+    try{
+      if(e.defaultPrevented)return;
+      var t=e.target;
+      if(!t||!t.closest)return;
+      var a=t.closest('a');
+      if(a)track(a);
+    }catch(e3){}
+  }
+  document.addEventListener('click',onClick,true);
+  document.addEventListener('auxclick',function(e){if(e.button===1)onClick(e);},true);
+})();
+</script>
 </body>
 </html>
