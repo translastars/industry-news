@@ -123,8 +123,8 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
   <h1>Industry News</h1>
   <p class="tag">Curated daily for language, localization &amp; AI professionals</p>
   <div class="meta">
-    <span>Wednesday, September 23, 2026</span>
-    <span>102 articles</span>
+    <span>Tuesday, September 22, 2026</span>
+    <span>103 articles</span>
     <span>19 sources</span>
   </div>
 </section>
@@ -200,14 +200,13 @@ body{font-family:'Montserrat',-apple-system,sans-serif;background:#f7f5f2;color:
 </section>
 
 <article class="feat">
-  <div class="fi" style="background-image:url('https://www.welocalize.com/wp-content/uploads/2026/09/blog_header_amta_olesia_benchmark_study-scaled.webp')"><div class="o"></div></div>
+  <div class="fi" style="background-image:url('https://media.wired.com/photos/6aad9b0ab031c4554cdc7e0b/master/pass/Company-Wants-to-USe-AI-Translate-Ancient-Greek-Business.jpg')"><div class="o"></div></div>
   <div class="fb">
-    <span class="fs" style="color:#0077b6">Welocalize</span>
-    <h2>Large-Scale Benchmark Shows Why Enterprise AI Translation Requires More Than Choosing an LLM</h2>
-    <p class="fe">Artificial intelligence has fundamentally changed how enterprises approach multilingual content.
-The post Large-Scale Benchmark Shows Why Enterprise AI Translation Requires More Than Choosing an LLM  …</p>
+    <span class="fs" style="color:#000">Wired</span>
+    <h2>A New Chatbot Wants to Unlock the Secrets in Tattered Ancient Greek Records</h2>
+    <p class="fe">In the hope of uncovering new details about ancient life, researchers have developed a large language model that fills in the gaps in papyrus fragments.</p>
     <div class="fm">Today</div>
-    <a href="https://www.welocalize.com/insights/large-scale-benchmark-shows-why-enterprise-ai-translation-requires-more-than-choosing-an-llm/" target="_blank" rel="noopener" class="fcta">Read full article →</a>
+    <a href="https://www.wired.com/story/apollo-ai-model-ancient-greek-secrets-papyrus/" target="_blank" rel="noopener" class="fcta">Read full article →</a>
   </div>
 </article>
 
@@ -220,37 +219,7 @@ The post Large-Scale Benchmark Shows Why Enterprise AI Translation Requires More
   <div class="gr" id="grid-0">
     
     <article class="cd">
-      <div class="ci" style="background-image:url('https://slator.com/assets/2026/09/SCSF26-David-Lee.png')">
-        <span class="ct">Slator</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">Slator</span>
-          <span class="cda">Today</span>
-        </div>
-        <h4>Iyuno Bets on Contextual Memory for AI Dubbing</h4>
-        <p class="ctxt">At SlatorCon San Francisco, Iyuno CEO and Founder David Lee said contextual memory will shape AI localization …</p>
-        <a href="https://slator.com/iyuno-contextual-memory-ai-dubbing/" target="_blank" rel="noopener" class="cl">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="cd">
-      <div class="ci" style="background-image:url('https://slator.com/assets/2026/09/TDL-Healthcare-Launch.png')">
-        <span class="ct">Slator</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">Slator</span>
-          <span class="cda">Today</span>
-        </div>
-        <h4>TOPPAN Digital Language Launches TDL Healthcare</h4>
-        <p class="ctxt">TDL Healthcare brings together specialist expertise, secure workflows and AI-enabled content operations to sup…</p>
-        <a href="https://slator.com/toppan-digital-language-launches-tdl-healthcare/" target="_blank" rel="noopener" class="cl">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="cd">
-      <div class="ci" style="background-image:url('https://slator.com/assets/2026/09/velora-974e909a9f43b67b.png')">
+      <div class="ci" style="background-image:url('assets/ts-bg/01-waves.svg')">
         <span class="ct">Slator</span>
       </div>
       <div class="cb">
@@ -265,7 +234,7 @@ The post Large-Scale Benchmark Shows Why Enterprise AI Translation Requires More
     </article>
     
     <article class="cd">
-      <div class="ci" style="background-image:url('https://slator.com/assets/2026/09/velora-5b7446858f1f2423.png')">
+      <div class="ci" style="background-image:url('assets/ts-bg/02-concentric.svg')">
         <span class="ct">Slator</span>
       </div>
       <div class="cb">
@@ -280,13 +249,43 @@ The post Large-Scale Benchmark Shows Why Enterprise AI Translation Requires More
     </article>
     
     <article class="cd">
+      <div class="ci" style="background-image:url('assets/ts-bg/01-waves.svg')">
+        <span class="ct">Slator</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Slator</span>
+          <span class="cda">4d ago</span>
+        </div>
+        <h4>The Straker Fraud; Astra Translation Performance</h4>
+        <p class="ctxt">SlatorCon San Francisco 2026 takeaways, Smartling’s new majority investment, OpenAI translation benchmarks, St…</p>
+        <a href="https://slator.com/straker-fraud-astra-translation-performance/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('assets/ts-bg/02-concentric.svg')">
+        <span class="ct">Slator</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Slator</span>
+          <span class="cda">4d ago</span>
+        </div>
+        <h4>Trusting AI to Act: How Much Human Oversight Is Enough?</h4>
+        <p class="ctxt">At SlatorCon San Francisco, Scale AI’s Emily Xue showed why evaluating AI agents in isolation can miss what ma…</p>
+        <a href="https://slator.com/ai-agents-human-oversight-reliability-cost/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
       <div class="ci" style="background-image:url('assets/ts-bg/07-grid.svg')">
         <span class="ct">Globalization Partners</span>
       </div>
       <div class="cb">
         <div class="ctop">
           <span class="cs">Globalization Partners</span>
-          <span class="cda">5d ago</span>
+          <span class="cda">4d ago</span>
         </div>
         <h4>Translation Quality Assurance at Scale: A Practical Framework for Reducing Multilingual Risk</h4>
         <p class="ctxt">Translation quality assurance shouldn’t depend on who reviews the content that week. Give three reviewers the …</p>
@@ -301,7 +300,7 @@ The post Large-Scale Benchmark Shows Why Enterprise AI Translation Requires More
       <div class="cb">
         <div class="ctop">
           <span class="cs">Globalization Partners</span>
-          <span class="cda">6d ago</span>
+          <span class="cda">5d ago</span>
         </div>
         <h4>How Enterprise Teams Can Scale Localization QA Without Slowing Releases</h4>
         <p class="ctxt">Every two weeks, the same conversation. Engineering is ready. Localization is not. Not because the translators…</p>
@@ -916,7 +915,7 @@ The post Large-Scale Benchmark Shows Why Enterprise AI Translation Requires More
 <section id="AI-Technology">
   <div class="sh">
     <h3>AI & Technology</h3>
-    <span class="sc">(2 articles)</span>
+    <span class="sc">(3 articles)</span>
   </div>
   <div class="gr" id="grid-1">
     
@@ -932,6 +931,21 @@ The post Large-Scale Benchmark Shows Why Enterprise AI Translation Requires More
         <h4>A New Chatbot Wants to Unlock the Secrets in Tattered Ancient Greek Records</h4>
         <p class="ctxt">In the hope of uncovering new details about ancient life, researchers have developed a large language model th…</p>
         <a href="https://www.wired.com/story/apollo-ai-model-ancient-greek-secrets-papyrus/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd">
+      <div class="ci" style="background-image:url('https://techcrunch.com/wp-content/uploads/2026/09/meta-muse-finger-on-app-GettyImages-2293791808.jpg?w=1024')">
+        <span class="ct">TechCrunch</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">TechCrunch</span>
+          <span class="cda">Today</span>
+        </div>
+        <h4>Meta s Muse is outpacing ChatGPT’s early mobile launch</h4>
+        <p class="ctxt">Meta’s new AI agent Muse has racked up more downloads and daily active users in the U.S. and Canada than ChatG…</p>
+        <a href="https://techcrunch.com/2026/09/21/metas-muse-is-outpacing-chatgpts-early-mobile-launch/" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
@@ -963,29 +977,13 @@ The post Large-Scale Benchmark Shows Why Enterprise AI Translation Requires More
   <div class="gr" id="grid-2">
     
     <article class="cd">
-      <div class="ci" style="background-image:url('https://www.welocalize.com/wp-content/uploads/2026/09/blog_header_amta_olesia_benchmark_study-scaled.webp')">
-        <span class="ct">Welocalize</span>
-      </div>
-      <div class="cb">
-        <div class="ctop">
-          <span class="cs">Welocalize</span>
-          <span class="cda">Today</span>
-        </div>
-        <h4>Large-Scale Benchmark Shows Why Enterprise AI Translation Requires More Than Choosing an LLM</h4>
-        <p class="ctxt">Artificial intelligence has fundamentally changed how enterprises approach multilingual content.
-The post Larg…</p>
-        <a href="https://www.welocalize.com/insights/large-scale-benchmark-shows-why-enterprise-ai-translation-requires-more-than-choosing-an-llm/" target="_blank" rel="noopener" class="cl">Read more →</a>
-      </div>
-    </article>
-    
-    <article class="cd">
       <div class="ci" style="background-image:url('https://poeditor.com/blog/wp-content/uploads/2026/09/accessibility-and-localization.png')">
         <span class="ct">POEditor</span>
       </div>
       <div class="cb">
         <div class="ctop">
           <span class="cs">POEditor</span>
-          <span class="cda">Yesterday</span>
+          <span class="cda">Today</span>
         </div>
         <h4>Accessibility and localization: How to build more inclusive multilingual products</h4>
         <p class="ctxt">Accessibility and localization are more similar than you d think. They make it easier to understand and use a …</p>
@@ -1015,7 +1013,7 @@ The post Larg…</p>
       <div class="cb">
         <div class="ctop">
           <span class="cs">Welocalize</span>
-          <span class="cda">Sep 15</span>
+          <span class="cda">6d ago</span>
         </div>
         <h4>AI Post-Editing at Scale: What a 71,262-Segment Study Reveals About the Future of Translation</h4>
         <p class="ctxt">What is the most effective way to apply large language models to professional translation?
@@ -1145,7 +1143,7 @@ The post CIO Review: The Future of AI-Powered Localization Services appeared fir
       </div>
     </article>
     
-    <article class="cd" style="display:none" class="hidden-2">
+    <article class="cd">
       <div class="ci" style="background-image:url('https://poeditor.com/blog/wp-content/uploads/2026/08/localization-associate.png')">
         <span class="ct">POEditor</span>
       </div>
@@ -1265,6 +1263,22 @@ The p…</p>
         <p class="ctxt">Why continuous feedback loops create compounding quality gains that static machine translation cannot match. 
 …</p>
         <a href="https://www.welocalize.com/insights/translation-systems-should-learn-over-time/" target="_blank" rel="noopener" class="cl">Read more →</a>
+      </div>
+    </article>
+    
+    <article class="cd" style="display:none" class="hidden-2">
+      <div class="ci" style="background-image:url('assets/ts-bg/04-dots.svg')">
+        <span class="ct">Welocalize</span>
+      </div>
+      <div class="cb">
+        <div class="ctop">
+          <span class="cs">Welocalize</span>
+          <span class="cda">Jul 13</span>
+        </div>
+        <h4>GALA and Welocalize Expand Access to Localization Education Through Subtitling Partnership</h4>
+        <p class="ctxt">Jul 9, 2026 Read more
+The post GALA and Welocalize Expand Access to Localization Education Through Subtitling …</p>
+        <a href="https://www.welocalize.com/insights/gala-and-welocalize-expand-access-to-localization-education-through-subtitling-partnership/" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
     
@@ -1566,7 +1580,7 @@ The post Seamless Translations: How to Get the Most Out of Unbabel   Webinar app
   <div class="gr" id="grid-3">
     
     <article class="cd">
-      <div class="ci" style="background-image:url('assets/ts-bg/01-waves.svg')">
+      <div class="ci" style="background-image:url('assets/ts-bg/04-dots.svg')">
         <span class="ct">EU Commission</span>
       </div>
       <div class="cb">
@@ -1574,9 +1588,9 @@ The post Seamless Translations: How to Get the Most Out of Unbabel   Webinar app
           <span class="cs">EU Commission</span>
           <span class="cda">Today</span>
         </div>
-        <h4>Remarks by Commissioner Serafin at the General Affairs Council in Brussels</h4>
-        <p class="ctxt">European Commission Speech Brussels, 22 Sep 2026 Opening remarks
-Thank you Thomas, dear Presidency, dear Mini…</p>
+        <h4>Opening remarks by Commissioner Serafin at the General Affairs Council in Brussels</h4>
+        <p class="ctxt">European Commission Speech Brussels, 22 Sep 2026 Thank you Thomas, dear Presidency, dear Ministers,
+This is m…</p>
         <a href="https://ec.europa.eu/commission/presscorner/detail/en/speech_26_1936" target="_blank" rel="noopener" class="cl">Read more →</a>
       </div>
     </article>
@@ -1605,7 +1619,7 @@ W…</p>
       <div class="cb">
         <div class="ctop">
           <span class="cs">EU Commission</span>
-          <span class="cda">Yesterday</span>
+          <span class="cda">Today</span>
         </div>
         <h4>Ceremonial Signature event of the Global Green Bond Initiative launch (GGBI)</h4>
         <p class="ctxt">European Commission Speech New York, 22 Sep 2026 Excellencies, Ladies and gentlemen. Good evening.
@@ -1820,42 +1834,8 @@ This is a …</p>
     <p><strong style="color:#fff">TranslaStars Industry News</strong> — Daily curated for language, localization & AI professionals</p>
     <p style="margin-top:4px"><a href="https://www.translastars.com" target="_blank">TranslaStars</a> · <a href="https://translastars.github.io/industry-news/">Home</a></p>
     <p style="margin-top:4px;font-size:11px">News curated automatically from public RSS feeds. Only industry-relevant articles shown.</p>
-    <div class="pw">Generated 2026-09-23 04:01:00 · Powered by TranslaStars AI ✦</div>
+    <div class="pw">Generated 2026-09-22 10:31:50 · Powered by TranslaStars AI ✦</div>
   </div>
 </footer>
-<script>
-/* Industry News - agregado de clics por noticia (sin cookies, sin IP, sin datos personales) */
-(function(){
-  var API='https://translastars-sliders.vercel.app/api/news-clicks';
-  function hash(s){var h=2166136261,i;for(i=0;i<s.length;i++){h^=s.charCodeAt(i);h=(h*16777619)>>>0;}return 'n'+h.toString(36);}
-  function txt(el){return el?String(el.textContent||'').replace(/\s+/g,' ').trim():'';}
-  function track(a){
-    try{
-      var card=a.closest?a.closest('.cd,.feat,.tcd'):null;
-      if(!card)return;
-      var href=a.href||'';
-      if(!/^https?:/i.test(href))return;
-      if(/translastars\.(com|github\.io)/i.test(href))return;
-      var t=txt(card.querySelector('h4')||card.querySelector('h2')||card.querySelector('.tct'));
-      var s=txt(card.querySelector('.ct')||card.querySelector('.cs')||card.querySelector('.fs')||card.querySelector('.tcs'));
-      var json=JSON.stringify({id:hash(href),url:href,title:t.slice(0,180),source:s.slice(0,40)});
-      var url=API+'?d='+encodeURIComponent(json);
-      if(navigator.sendBeacon){try{if(navigator.sendBeacon(url))return;}catch(e0){}}
-      try{fetch(url,{method:'POST',keepalive:true,mode:'no-cors'});}catch(e1){}
-    }catch(e2){}
-  }
-  function onClick(e){
-    try{
-      if(e.defaultPrevented)return;
-      var t=e.target;
-      if(!t||!t.closest)return;
-      var a=t.closest('a');
-      if(a)track(a);
-    }catch(e3){}
-  }
-  document.addEventListener('click',onClick,true);
-  document.addEventListener('auxclick',function(e){if(e.button===1)onClick(e);},true);
-})();
-</script>
 </body>
 </html>
