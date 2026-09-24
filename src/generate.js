@@ -666,22 +666,37 @@ function slugTitle(slug) {
 }
 function shortDate(d) { return d.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' }); }
 
-async function getTranslaStarsBlog(days = 7, max = 6) {
+async function getTranslaStarsBlog(days = 14, max = 6) {
   try {
-    const xml = await fetch('https://www.translastars.com/post-sitemap.xml');
-    const re = /<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g;
-    let m, posts = [];
-    while ((m = re.exec(xml)) !== null) {
-      const loc = m[1], lm = new Date(m[2]);
-      if (!/\/blog\//.test(loc)) continue;
-      if (isNaN(lm.getTime())) continue;
-      if (Date.now() - lm.getTime() > days * 86400000) continue;
-      posts.push({ link: loc, lastmod: lm, slug: loc.split('/blog/')[1] || '' });
+    // Fuente principal: el blog NUEVO (blog.translastars.com). Respaldo: el blog antiguo (LearnWorlds).
+    const fuentes = ['https://blog.translastars.com/sitemap.xml', 'https://www.translastars.com/post-sitemap.xml'];
+    let posts = [];
+    const vistos = new Set();
+    for (const fuente of fuentes) {
+      let xml = '';
+      try { xml = await fetch(fuente); } catch (e) { console.log('⚠️ sitemap inaccesible:', fuente, e.message); continue; }
+      if (!xml || !xml.includes('<loc>')) continue;
+      const re = /<loc>([^<]+)<\/loc>\s*<lastmod>([^<]+)<\/lastmod>/g;
+      let m;
+      while ((m = re.exec(xml)) !== null) {
+        const loc = m[1], lm = new Date(m[2]);
+        if (isNaN(lm.getTime())) continue;
+        if (Date.now() - lm.getTime() > days * 86400000) continue;
+        if (/\/(category|tag|author|page)\//i.test(loc)) continue;
+        const esNuevo = /^https?:\/\/blog\.translastars\.com\//i.test(loc);
+        const esAntiguo = /^https?:\/\/www\.translastars\.com\/blog\//i.test(loc);
+        if (!esNuevo && !esAntiguo) continue;
+        const slug = esAntiguo ? (loc.split('/blog/')[1] || '') : (loc.split('/').filter(Boolean).pop() || '');
+        if (!slug || vistos.has(slug)) continue;
+        vistos.add(slug);
+        posts.push({ link: loc, lastmod: lm, slug });
+      }
+      if (posts.length >= max) break;
     }
     posts.sort((a, b) => b.lastmod - a.lastmod);
     posts = posts.slice(0, max);
-    if (!posts.length) { console.log('ℹ️ no TranslaStars blog posts this week'); return []; }
-    console.log(`📝 TranslaStars blog: ${posts.length} post(s) this week`);
+    if (!posts.length) { console.log('ℹ️ no TranslaStars blog posts in the last ' + days + ' days'); return []; }
+    console.log(`📝 TranslaStars blog: ${posts.length} post(s) within ${days} days`);
     const out = [];
     for (const p of posts) {
       let title = slugTitle(p.slug);
